@@ -23,3 +23,11 @@ CREATE TABLE dbo.UserClient (
     CONSTRAINT FK_UserClient_Subscription FOREIGN KEY (SubscriptionId) REFERENCES dbo.Subscription (Id),
     CONSTRAINT FK_UserClient_Country FOREIGN KEY (CountryId) REFERENCES dbo.Country (Id)
 );
+
+CREATE TABLE CharacterActor (
+    CharacterId INT NOT NULL,
+    ActorId INT NOT NULL,
+    FOREIGN KEY (CharacterId) REFERENCES Character (Id),
+    FOREIGN KEY (ActorId) REFERENCES Actor (Id),
+    PRIMARY KEY (CharacterId, ActorId)
+);

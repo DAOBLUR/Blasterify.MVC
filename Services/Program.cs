@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Services.Data;
 using Services.Models;
 //using ProductosCRUD.Server.Models;
 
@@ -12,7 +13,7 @@ namespace ProductosCRUD.Server
 
             // Add services to the container.
             builder.Services.AddControllers();
-            builder.Services.AddDbContext<CountryContext>(opt =>
+            builder.Services.AddDbContext<DataContext>(opt =>
             {
                 opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });

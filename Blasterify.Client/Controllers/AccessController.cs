@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Blasterify.Client.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,7 +10,7 @@ namespace Blasterify.Client.Controllers
     public class AccessController : Controller
     {
         // GET: Access
-        public ActionResult Index()
+        public ActionResult LogIn()
         {
             return View();
         }
@@ -26,16 +27,20 @@ namespace Blasterify.Client.Controllers
 
 
         [HttpPost]
-        public ActionResult SignUp(object client)
+        public ActionResult SignUp(ClientUser clientUser)
         {
-            //return View();
+            if(clientUser != null) {
+
+            }
 
             return RedirectToAction("Index", "Access");
         }
 
         [HttpPost]
-        public ActionResult Index(string email, string password)
+        public ActionResult LogIn(string email, string password)
         {
+            Session["Email"] = email;
+            Session["Username"] = "";
             return View();
         }
     }

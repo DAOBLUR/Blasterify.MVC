@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "MyAccount";
+}
+<main aria-labelledby="title">
+    <form action="@Url.Action("LogOut","Home")" method="post">
+        <h2>@Session["Username"]</h2>
+        <h2>@Session["Email"]</h2>
+        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+            <button class="btn btn-primary" type="submit">Log Out</button>
+        </div>
+    </form>
+    
+</main>

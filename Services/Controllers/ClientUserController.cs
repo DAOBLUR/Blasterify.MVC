@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Services.Data;
 using Services.Models;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Services.Controllers
 {
@@ -29,7 +31,7 @@ namespace Services.Controllers
         [Route("GetAll")]
         public async Task<ActionResult<IEnumerable<ClientUser>>> GetAll()
         {
-            var clientUsers = await _context.ClientUsers.ToListAsync();//.ToListAsync();
+            var clientUsers = await _context.ClientUsers.ToListAsync();
             return Ok(clientUsers);
         }
 
@@ -47,19 +49,60 @@ namespace Services.Controllers
             return Ok(clientUser);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("LogIn")]
-        public async Task<ActionResult<ClientUser>> LogIn(string email, byte[] passwordHash)
+        public async Task<ActionResult<ClientUser>> LogIn(LogIn logIn)
         {
-            var clientUser = await _context.ClientUsers.FindAsync(email);
+            try
+            {
+                var clientUser = await _context.ClientUsers.FirstOrDefaultAsync(cu =>  cu.Email == logIn.Email);
 
+                if (clientUser == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    using (SHA256 sha256Hash = SHA256.Create())
+                    {
+                        byte[] bytes = logIn.PasswordHash;
+                        for (int i = 0; i < bytes.Length; i++)
+                        {
+                            if (bytes[i] != clientUser.PasswordHash[i])
+                                return Unauthorized();
+                        }
+                    }
+
+                    //if (clientUser.PasswordHash == logIn.PasswordHash)
+                  //  {
+                        return Ok(new ClientUser
+                        {
+                            Id = clientUser.Id,
+                            Username = clientUser.Username,
+                            CardNumber = clientUser.CardNumber,
+                            Email = clientUser.Email,
+                            SuscriptionDate = clientUser.SuscriptionDate,
+                            SubscriptionId = clientUser.SubscriptionId,
+                            //CountryId = clientUser.CountryId,
+                        });
+                  //  }
+                  
+                   // return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return NotFound();
+            }
+            /*
             if (clientUser == null)
             {
                 return NotFound();
             }
             else
             {
-                if(clientUser.PasswordHash == passwordHash)
+                if(clientUser.PasswordHash == logIn.PasswordHash)
                 {
                     return Ok(new ClientUser
                     {
@@ -74,7 +117,7 @@ namespace Services.Controllers
                 }
 
                 return NotFound();
-            }
+            }*/
         }
 
         [HttpPut]

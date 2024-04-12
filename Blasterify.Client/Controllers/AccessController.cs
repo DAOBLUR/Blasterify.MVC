@@ -92,6 +92,12 @@ namespace Blasterify.Client.Controllers
         #region Views
         public ActionResult LogIn()
         {
+            if(Session["Email"] == null && Session["Username"] == null)
+            {
+                Session["Email"] = string.Empty;
+                Session["Username"] = string.Empty;
+            }
+            
             return View();
         }
 

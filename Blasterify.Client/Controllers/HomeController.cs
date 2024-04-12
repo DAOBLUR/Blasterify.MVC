@@ -1,4 +1,5 @@
 ﻿using Blasterify.Client.Models;
+using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,11 @@ namespace Blasterify.Client.Controllers
         #region Views
         public async Task<ActionResult> Index()
         {
+            if (string.IsNullOrEmpty((string)Session["Email"]) && string.IsNullOrEmpty((string)Session["Username"]))
+            {
+                return RedirectToAction("LogIn", "Access");
+            }
+
             MyMovies = await GetAllMoviesAsync();
             Session["MyMovies"] = MyMovies;
             return View(MyMovies);

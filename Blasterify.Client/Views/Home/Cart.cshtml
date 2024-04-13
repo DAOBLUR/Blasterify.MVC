@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Blasterify.Client.Models.Movie>
+
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="bg-light">
+    <div class="container px-4 px-lg-5 mt-5">
+        <h1>Cart</h1>
+
+        <table class="d-flex flex-column min-vh-100">
+            @foreach (var item in Model)
+            {
+                <tr style="border: 1px solid black; border-collapse: collapse;">
+                    <td class="px-5 py-3">
+                        <h3>@Html.DisplayFor(modelItem => item.Title)</h3>
+                        <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                    </td>
+                    <td class="px-5 py-3">
+                        <div style="display: flex; flex-direction: row;">
+                            <p style="font-size: 20px; font-weight: bold;">Rate:</p>
+                            <p style="font-size: 20px; margin-left: 5px;">@item.Rate</p>
+                        </div>
+
+                        <div style="display: flex; flex-direction: row;">
+                            <p style="font-size: 20px; font-weight: bold;">Duration:</p>
+                            <p style="font-size: 20px; margin-left: 5px;">@item.Duration min</p>
+                        </div>
+
+                        <div style="display: flex; flex-direction: row;">
+                            <p style="font-size: 15px; font-weight: bold;">Premiere Date:</p>
+                            <p style="font-size: 15px; margin-left: 5px;">@item.PremiereDate.Date</p>
+                        </div>
+
+                        <div style="display: flex; flex-direction: row;">
+                            <p style="font-size: 25px; font-weight: bold;">Price:</p>
+                            <p style="font-size: 25px; margin-left: 5px;">$@Html.DisplayFor(modelItem => item.Price)</p>
+                        </div>
+                    </td>
+                    <td style="max-height: 50px;" class="px-5 py-3">
+                        <img style="max-height: 250px;" src="@item.FirebasePosterId" alt="@item.Title" />
+
+                        <div class="mt-4 mb-0">
+                            <div class="d-grid">
+                                <button class="btn btn-danger btn-block" type="submit">Remove</button>
+                            </div>
+                        </div>
+
+                        <!-- @Html.ActionLink("Remove", "Remove", new { id = item.Id })-->
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</section>

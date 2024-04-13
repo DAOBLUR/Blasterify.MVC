@@ -64,8 +64,12 @@ namespace Blasterify.Client.Controllers
                 var jsonString = await response.Content.ReadAsStringAsync();
                 var data = JsonConvert.DeserializeObject<ClientUser>(jsonString);
 
-                Session["Email"] = data.Email;
-                Session["Username"] = data.Username;
+                Session["ClientUser"] = new ClientUser()
+                {
+                    Email = data.Email,
+                    Username = data.Username,
+                };
+
                 return true;
             }
             else
@@ -92,23 +96,38 @@ namespace Blasterify.Client.Controllers
         #region Views
         public ActionResult LogIn()
         {
-            if(Session["Email"] == null && Session["Username"] == null)
+            if(Session["ClientUser"] != null)
             {
-                Session["Email"] = string.Empty;
-                Session["Username"] = string.Empty;
+                return RedirectToAction("Index", "Home");
             }
-            
-            return View();
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult SignUp()
         {
-            return View();
+            if (Session["ClientUser"] != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult ResetPassword()
         {
-            return View();
+            if (Session["ClientUser"] != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
 
 

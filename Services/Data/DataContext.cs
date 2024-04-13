@@ -9,11 +9,13 @@ namespace Services.Data
         {
         }
 
-        public DbSet<Country> Countries { get; set; }
-        public DbSet<Subscription> Subscriptions { get; set; }
-        public DbSet<ClientUser> ClientUsers { get; set; }
-        public DbSet<Movie> Movies { get; set; }
-        public DbSet<Rent> Rents { get; set; }
+        public DbSet<Country>? Countries { get; set; }
+        public DbSet<Subscription>? Subscriptions { get; set; }
+        public DbSet<ClientUser>? ClientUsers { get; set; }
+        public DbSet<Movie>? Movies { get; set; }
+        public DbSet<Rent>? Rents { get; set; }
+        public DbSet<RentItem>? RentItems { get; set; }
+        public DbSet<Genre>? Genres { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +24,7 @@ namespace Services.Data
             modelBuilder.Entity<Subscription>().HasIndex(s => s.Name).IsUnique();
             modelBuilder.Entity<ClientUser>().HasIndex(cu => cu.Email).IsUnique();
             modelBuilder.Entity<Movie>().HasIndex(m => m.FirebasePosterId).IsUnique();
+            modelBuilder.Entity<Genre>().HasIndex(g => g.Name).IsUnique();
         }
     }
 }

@@ -11,14 +11,14 @@ namespace Services.Models
 
         [Required]
         [MaxLength(60)]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(10, 2)")]
         public double Duration { get; set; }
 
         [Required]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [Required]
         public DateTime PremiereDate { get; set; }
@@ -28,7 +28,7 @@ namespace Services.Models
         public double Rate { get; set; }
 
         [Required]
-        public string FirebasePosterId { get; set; }
+        public string? FirebasePosterId { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(4, 2)")]

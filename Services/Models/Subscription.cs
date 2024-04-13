@@ -11,13 +11,13 @@ namespace Services.Models
 
         [Required]
         [MaxLength(20)]
-        public string Name { get; set; } = string.Empty;
+        public string? Name { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(5, 2)")]
         public double Price { get; set; }
 
         [Required]
-        public string Features { get; set; } = string.Empty;
+        public string? Features { get; set; }
     }
 }

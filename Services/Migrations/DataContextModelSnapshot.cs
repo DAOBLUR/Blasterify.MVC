@@ -17,7 +17,7 @@ namespace Services.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.28")
+                .HasAnnotation("ProductVersion", "6.0.29")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -152,7 +152,24 @@ namespace Services.Migrations
                     b.ToTable("Movies");
                 });
 
-            modelBuilder.Entity("Services.Models.Rent", b =>
+            modelBuilder.Entity("Services.Models.PreRent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ClientUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PreRents");
+                });
+
+            modelBuilder.Entity("Services.Models.PreRentItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -160,11 +177,31 @@ namespace Services.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("BuyDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RentDuration")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("RentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PreRentItems");
+                });
+
+            modelBuilder.Entity("Services.Models.Rent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ClientUserId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("RentDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -185,8 +222,8 @@ namespace Services.Migrations
                     b.Property<int>("RentDuration")
                         .HasColumnType("int");
 
-                    b.Property<int>("RentId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("RentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 

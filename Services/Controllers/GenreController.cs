@@ -11,7 +11,7 @@ namespace Services.Controllers
     {
         private readonly DataContext _context;
 
-        public GenreController(DataContext context)
+        public GenreController(DataContext context, ILogger<GenreController> logger)
         {
             _context = context;
         }
@@ -20,7 +20,7 @@ namespace Services.Controllers
         [Route("Create")]
         public async Task<IActionResult> Create(Genre genre)
         {
-            await _context.Genres.AddAsync(genre);
+            await _context!.Genres!.AddAsync(genre);
             await _context.SaveChangesAsync();
             return Ok();
         }
@@ -29,7 +29,7 @@ namespace Services.Controllers
         [Route("GetAll")]
         public async Task<ActionResult<IEnumerable<Genre>>> GetAll()
         {
-            var genres = await _context.Genres.ToListAsync();
+            var genres = await _context!.Genres!.ToListAsync();
             return Ok(genres);
         }
 
@@ -37,12 +37,12 @@ namespace Services.Controllers
         [Route("Get")]
         public async Task<IActionResult> Get(int id)
         {
-            var genre = await _context.Genres.FindAsync(id);
-
+            var genre = await _context!.Genres!.FindAsync(id);
+            /*
             if (genre == null)
             {
                 return NotFound();
-            }
+            }*/
 
             return Ok(genre);
         }
@@ -51,7 +51,7 @@ namespace Services.Controllers
         [Route("Update")]
         public async Task<IActionResult> Update(int id, Genre genre)
         {
-            var getGenre = await _context.Genres.FindAsync(id);
+            var getGenre = await _context!.Genres!.FindAsync(id);
             getGenre!.Name = genre.Name;
             await _context.SaveChangesAsync();
 
@@ -62,7 +62,7 @@ namespace Services.Controllers
         [Route("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
-            var genre = await _context.Genres.FindAsync(id);
+            var genre = await _context!.Genres!.FindAsync(id);
             _context.Genres.Remove(genre!);
 
             await _context.SaveChangesAsync();

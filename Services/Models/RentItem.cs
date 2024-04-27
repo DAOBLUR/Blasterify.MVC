@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Services.Models
 {
@@ -15,7 +15,7 @@ namespace Services.Models
 
         [Required]
         [ForeignKey("Rent")]
-        public int RentId { get; set; }
+        public Guid RentId { get; set; }
 
         [Required]
         public int RentDuration { get; set; }

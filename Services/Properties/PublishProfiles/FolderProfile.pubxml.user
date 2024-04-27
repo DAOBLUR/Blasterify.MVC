@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>E:\programing\csharp\uni\Blasterify.MVC\Services\bin\Release\net6.0\publish\</_PublishTargetUrl>
+    <History>True|2024-04-20T13:38:26.6392721Z;False|2024-04-20T08:37:59.7926859-05:00;True|2024-04-20T08:33:16.9957932-05:00;True|2024-04-20T08:31:58.5378843-05:00;True|2024-04-20T08:29:52.2177720-05:00;True|2024-04-20T08:29:15.8781594-05:00;True|2024-04-20T07:00:19.8920416-05:00;</History>
+    <LastFailureDetails />
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <EFMigrations Include="Services.Data.DataContext">
+      <Value>Server=DESK-0UR080R05\SQLEXPRESS%3bDatabase=Blasterify.MVC%3bTrusted_Connection=True%3bMultipleActiveResultSets=true%3bEncrypt=false%3b</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

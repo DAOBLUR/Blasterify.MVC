@@ -52,9 +52,9 @@ namespace Services.Controllers
         public async Task<IActionResult> Update(int id, Subscription subscription)
         {
             var getSubscription = await _context.Subscriptions.FindAsync(id);
-            if (getSubscription == null) 
-            { 
-                return NotFound(); 
+            if (getSubscription == null)
+            {
+                return NotFound();
             }
 
             getSubscription!.Name = subscription.Name;

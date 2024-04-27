@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Services.Data;
-using Services.Models;
-//using ProductosCRUD.Server.Models;
 
 namespace ProductosCRUD.Server
 {
@@ -17,7 +15,7 @@ namespace ProductosCRUD.Server
             {
                 opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-            
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -31,10 +29,13 @@ namespace ProductosCRUD.Server
                 app.UseSwaggerUI();
             }
 
+            //FOR PUBLISH
+            app.UseSwagger();
+            app.UseSwaggerUI();
+
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

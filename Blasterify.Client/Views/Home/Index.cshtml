@@ -71,6 +71,10 @@
 
 @section scripts{
     <script>
+        $(document).ready(function () {
+            ShowCartCount(0);
+        });
+
         function ShowGenres() {
             jQuery.ajax({
                 url: "@Url.Action("ShowGenres", "Home")",

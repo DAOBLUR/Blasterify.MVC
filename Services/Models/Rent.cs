@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Services.Models
 {
@@ -7,10 +7,10 @@ namespace Services.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
-        public DateTime BuyDate { get; set; }
+        public DateTime RentDate { get; set; }
 
         [Required]
         [ForeignKey("ClientUser")]

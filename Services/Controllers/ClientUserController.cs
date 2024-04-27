@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Services.Data;
 using Services.Models;
+using System.Data;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace Services.Controllers
 {
@@ -49,13 +51,37 @@ namespace Services.Controllers
             return Ok(clientUser);
         }
 
+        
+        [HttpGet]
+        [Route("GetEmail")]
+        public async Task<ActionResult> GetEmail(int id)
+        {
+            var idParam = new SqlParameter("@ClientUserId", SqlDbType.Int);
+            var emailParam = new SqlParameter("@ClientUserEmail", SqlDbType.NVarChar);
+            await _context.Database.ExecuteSqlInterpolatedAsync(
+                $"EXEC GetEmail @ClientUserId={id}, @ClientUserEmail={""} OUTPUT");
+            
+            return Ok(emailParam.Value);
+        }
+
+        [HttpGet]
+        [Route("GetEmail2")]
+        public async Task<ActionResult> GetEmail2(int id)
+        {
+            var idParam = new SqlParameter("@ClientUserId", SqlDbType.Int);
+            var emailParam = new SqlParameter("@ClientUserEmail", SqlDbType.NVarChar);
+            var result = await _context.Database.ExecuteSqlRawAsync($"GetEmail {id}, {"123"}");
+
+            return Ok(emailParam.Value);
+        }
+
         [HttpPost]
         [Route("LogIn")]
         public async Task<ActionResult<ClientUser>> LogIn(LogIn logIn)
         {
             try
             {
-                var clientUser = await _context!.ClientUsers!.FirstOrDefaultAsync(cu =>  cu.Email == logIn.Email);
+                var clientUser = await _context!.ClientUsers!.FirstOrDefaultAsync(cu => cu.Email == logIn.Email);
 
                 if (clientUser == null)
                 {
@@ -69,9 +95,15 @@ namespace Services.Controllers
                         for (int i = 0; i < bytes.Length; i++)
                         {
                             if (bytes[i] != clientUser.PasswordHash[i])
+                            {
                                 return Unauthorized();
+                            }
                         }
+
+                        //Thread EmailThread = new Thread(() => Services.Email.SentEmail(clientUser.Email, clientUser.Username));
+                        //EmailThread.Start();
                     }
+
                     return Ok(new ClientUser
                     {
                         Id = clientUser.Id,

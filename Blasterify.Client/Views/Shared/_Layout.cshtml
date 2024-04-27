@@ -65,12 +65,22 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-    <script>
+<script>
         function ShowCartCount(count) {
-            $("#cartCount").text(count)
-
+            jQuery.ajax({
+                url: '@Url.Action("GetCartCount", "Shop")',
+                type: 'GET',
+                datatype: 'json',
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    console.log(response);
+                    if (response.Success) {
+                        $("#cartCount").text(response.Data.Count)
+                    }
+                },
+            });
         }
-    </script>
+</script>
 </body>
 </html>
 

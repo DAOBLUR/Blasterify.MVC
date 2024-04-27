@@ -1,12 +1,11 @@
 ﻿using Blasterify.Client.Models;
-using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Caching;
 using System.Web.Mvc;
 
@@ -20,7 +19,7 @@ namespace Blasterify.Client.Controllers
 
         public async Task GetAllMoviesAsync()
         {
-            HttpResponseMessage response = await client.GetAsync("https://localhost:7276/api/Movie/GetAll");
+            HttpResponseMessage response = await client.GetAsync($"{MvcApplication.ServicesPath}/Movie/GetAll");
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
@@ -34,9 +33,52 @@ namespace Blasterify.Client.Controllers
             }
         }
 
+        public async Task<bool> CreatePreRent(PreRent preRent)
+        {
+            var json = JsonConvert.SerializeObject(preRent);
+
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PostAsync($"{MvcApplication.ServicesPath}/PreRent/Create", content);
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<object>(jsonString);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> CreatePreRentItems(List<PreRentItem> preRentItems)
+        {
+            var json = JsonConvert.SerializeObject(preRentItems);
+
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PostAsync($"{MvcApplication.ServicesPath}/PreRent/CreatePreRentItems", content);
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<object>(jsonString);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         #endregion
 
         #region Functions
+
+        public ClientUser GetClientUser()
+        {
+            return (ClientUser)Session["ClientUser"];
+        }
 
         public bool VerifySession()
         {
@@ -52,7 +94,7 @@ namespace Blasterify.Client.Controllers
 
         public int GetCartCount()
         {
-            var cart = (Dictionary<int, Movie>)Session["Cart"];
+            var cart = (Dictionary<int, RentMovie>)Session["Cart"];
 
             if (cart == null)
             {
@@ -66,25 +108,28 @@ namespace Blasterify.Client.Controllers
 
         public void AddMovieToCart(Movie movie)
         {
-            var cart = (Dictionary<int, Movie>)Session["Cart"];
+            var cart = (Dictionary<int, RentMovie>)Session["Cart"];
 
             if (cart != null)
             {
-                cart.Add(movie.Id, movie);
+                var rentMovie = new RentMovie(movie);
+
+                cart.Add(movie.Id, rentMovie);
                 Session["Cart"] = cart;
             }
         }
 
-        public Dictionary<int, Movie> GetCart()
+        public Dictionary<int, RentMovie> GetCart()
         {
-            if(Session["Cart"] == null)
+            if (Session["Cart"] == null)
             {
-                Session["Cart"] = new Dictionary<int, Movie>();
+                Session["Cart"] = new Dictionary<int, RentMovie>();
             }
-            var cart = (Dictionary<int, Movie>)Session["Cart"];
+            var cart = (Dictionary<int, RentMovie>)Session["Cart"];
             return cart;
-            
+
         }
+
         #endregion
 
         #region Views
@@ -121,11 +166,11 @@ namespace Blasterify.Client.Controllers
             {
                 var cart = GetCart();
 
-                if(cart == null) 
+                if (cart == null || cart.Count == 0)
                 {
-                     return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
-                
+
                 return View(cart.Values.ToList());
 
             }
@@ -168,7 +213,7 @@ namespace Blasterify.Client.Controllers
 
             if (GetCart() == null)
             {
-                Session["Cart"] = new Dictionary<int, Movie>();
+                Session["Cart"] = new Dictionary<int, RentMovie>();
                 AddMovieToCart(getMovie);
             }
             else
@@ -176,7 +221,155 @@ namespace Blasterify.Client.Controllers
                 AddMovieToCart(getMovie);
             }
 
-            return Json(new { isSuccess = true, message = "Success", cartCount = GetCartCount() }, JsonRequestBehavior.AllowGet);
+            return Json(
+                new
+                {
+                    isSuccess = true,
+                    message = "Success",
+                    cartCount = GetCartCount()
+                },
+                JsonRequestBehavior.AllowGet
+            );
+        }
+
+
+        //RENT
+        [HttpPost]
+        public JsonResult GetCartRequest()
+        {
+            var cart = GetCart();
+
+            return Json(
+                new
+                {
+                    data = cart.Values.ToList()
+                },
+                JsonRequestBehavior.AllowGet
+            );
+        }
+
+        [HttpPost]
+        public JsonResult UpdateRentDurationRequest(int movieId, bool isAdd)
+        {
+            var cart = GetCart();
+
+            if (isAdd)
+            {
+                if (cart[movieId].RentDuration < 12) cart[movieId].RentDuration++;
+            }
+            else
+            {
+                if (cart[movieId].RentDuration > 1) cart[movieId].RentDuration--;
+            }
+
+            Session["Cart"] = cart;
+
+            return Json(
+                new
+                {
+                    data = new
+                    {
+                        cartCount = GetCartCount(),
+                        rentDuration = cart[movieId].RentDuration
+                    }
+                },
+                JsonRequestBehavior.AllowGet
+            );
+        }
+
+        [HttpPost]
+        public JsonResult DeleteRentMovieRequest(int movieId)
+        {
+            var cart = GetCart();
+            cart.Remove(movieId);
+            Session["Cart"] = cart;
+
+            return Json(
+                new
+                {
+                    data = new
+                    {
+                        cartCount = GetCartCount(),
+                    }
+                },
+                JsonRequestBehavior.AllowGet
+            );
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> ContinueToPaymentRequest(string name, string address, string cardNumber)
+        {
+            if (GetCartCount() > 0)
+            {
+                var cart = GetCart();
+                var preRent = new PreRent()
+                {
+                    Id = Guid.NewGuid(),
+                    Date = DateTime.UtcNow,
+                    ClientUserId = GetClientUser().Id
+                };
+
+                var result = false;
+
+                if(await CreatePreRent(preRent))
+                {
+                    var preRentItems = new List<PreRentItem>();
+
+                    foreach (var item in cart)
+                    {
+                        preRentItems.Add(new PreRentItem()
+                        {
+                            Id = 0,
+                            MovieId = item.Value.MovieId,
+                            RentId = preRent.Id,
+                            RentDuration = item.Value.RentDuration,
+                        });
+                    };
+
+                    result = await CreatePreRentItems(preRentItems);
+
+                    if(result)
+                    {
+                        Session["PreRent"] = preRent;
+                    }
+                }
+
+                return Json(
+                    new Result(
+                        true,
+                        new
+                        {
+                            Url = "/Shop/RentConfirmation"
+                        },
+                        "Success"
+                    ),
+                    JsonRequestBehavior.AllowGet
+                );
+            }
+            else
+            {
+                return Json(
+                    new
+                    {
+                        status = false
+                    },
+                    JsonRequestBehavior.AllowGet
+                );
+            }
+        }
+
+        [HttpPost]
+        public ActionResult GoToRentConfirmationRequest()
+        {
+            if (GetCartCount() > 0)
+            {
+                var cart = GetCart();
+                return RedirectToAction("RentConfirmation", "Shop");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         #endregion

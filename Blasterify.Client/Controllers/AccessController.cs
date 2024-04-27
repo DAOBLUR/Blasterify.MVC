@@ -1,15 +1,11 @@
 ﻿using Blasterify.Client.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Web;
-using System.Web.Mvc;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web.Helpers;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Blasterify.Client.Controllers
 {
@@ -20,7 +16,7 @@ namespace Blasterify.Client.Controllers
         #region Services
         public async Task<ActionResult> GetClientUser()
         {
-            HttpResponseMessage response = await client.GetAsync("https://localhost:7276/api/Subscription/GetAll");
+            HttpResponseMessage response = await client.GetAsync($"{MvcApplication.ServicesPath}/Subscription/GetAll");
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
@@ -39,7 +35,7 @@ namespace Blasterify.Client.Controllers
 
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await client.PostAsync("https://localhost:7276/api/ClientUser/Create", content);
+            HttpResponseMessage response = await client.PostAsync($"{MvcApplication.ServicesPath}/ClientUser/Create", content);
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
@@ -58,7 +54,7 @@ namespace Blasterify.Client.Controllers
 
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await client.PostAsync("https://localhost:7276/api/ClientUser/LogIn", content);
+            HttpResponseMessage response = await client.PostAsync($"{MvcApplication.ServicesPath}/ClientUser/LogIn", content);
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
@@ -66,8 +62,10 @@ namespace Blasterify.Client.Controllers
 
                 Session["ClientUser"] = new ClientUser()
                 {
+                    Id = data.Id,
                     Email = data.Email,
                     Username = data.Username,
+                    CardNumber = data.CardNumber,
                 };
 
                 return true;
@@ -96,7 +94,8 @@ namespace Blasterify.Client.Controllers
         #region Views
         public ActionResult LogIn()
         {
-            if(Session["ClientUser"] != null)
+            Console.WriteLine(MvcApplication.ServicesPath);
+            if (Session["ClientUser"] != null)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -134,7 +133,8 @@ namespace Blasterify.Client.Controllers
         [HttpPost]
         public async Task<ActionResult> SignUp(string username, string email, string password, string passwordConfirm, string cardNumber)
         {
-            if(password == passwordConfirm) {
+            if (password == passwordConfirm)
+            {
                 var clientUser = new ClientUser()
                 {
                     Id = 0,
@@ -146,7 +146,7 @@ namespace Blasterify.Client.Controllers
                     SuscriptionDate = DateTime.UtcNow,
                     SubscriptionId = 1,
                 };
-                
+
                 await SignUpAsync(clientUser);
 
                 return RedirectToAction("LogIn", "Access");
@@ -166,7 +166,7 @@ namespace Blasterify.Client.Controllers
 
             var islogged = await LogInAsync(logIn);
 
-            if(islogged)
+            if (islogged)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -174,7 +174,7 @@ namespace Blasterify.Client.Controllers
             {
                 return View();
             }
-            
+
         }
         #endregion
     }

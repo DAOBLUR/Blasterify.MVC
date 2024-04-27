@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Services.Models
+﻿namespace Services.Models
 {
     public class LogIn
     {

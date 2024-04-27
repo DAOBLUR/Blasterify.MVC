@@ -1,0 +1,35 @@
+﻿@model Blasterify.Client.Models.ClientUser
+@{
+    ViewBag.Title = "My Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>LogIn</title>
+        <link href="~/Content/Site.css" rel="stylesheet" />
+    </head>
+
+    <div aria-labelledby="title">
+        <form action="@Url.Action("LogOut","Home")" method="post">
+            <h2>Username: @Model.Username</h2>
+            <h2>Email: @Model.Email</h2>
+            <h3>Date join: @Model.SuscriptionDate</h3>
+
+            @if (Model.Status == true)
+            {
+                <h3>Status: Active</h3>
+            }
+            else
+            {
+                <h3>Statud: Inactive</h3>
+            }
+            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                <button class="btn btn-primary" type="submit">Log Out</button>
+            </div>
+        </form>
+
+    </div>
+</html>

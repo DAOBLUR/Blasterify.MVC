@@ -19,6 +19,12 @@
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
+        <FileNode Name="Procedures.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESK-0UR080R05\SQLEXPRESS:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESK-0UR080R05\SQLEXPRESS</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>Procedures.sql</FullPath>
+        </FileNode>
         <FileNode Name="Procedures1.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESK-0UR080R05\SQLEXPRESS:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>DESK-0UR080R05\SQLEXPRESS</AssociatedConnSrvName>

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Services.Data;
 using Services.Models;
+using Services.Models.Response;
 
 namespace Services.Controllers
 {
@@ -22,7 +23,30 @@ namespace Services.Controllers
         {
             await _context!.Rents!.AddAsync(rent);
             await _context.SaveChangesAsync();
+
+            //Thread RentThread = new Thread(async () => await DeletePreRent(_context, rent));
+            //RentThread.Start();
+
+            await DeletePreRent(_context, rent);
+
+
+
             return Ok();
+        }
+
+        private async Task DeletePreRent(DataContext context, Rent rent)
+        {
+            var preRent = await context!.PreRents!.FindAsync(rent.Id);
+            context.PreRents.Remove(preRent!);
+
+            var preRentItems = await context!.PreRentItems!.Where(pri => pri.RentId == rent.Id).ToListAsync();
+
+            foreach(var item in preRentItems)
+            {
+                _ = context.PreRentItems!.Remove(item!);
+            }
+
+            await context.SaveChangesAsync();
         }
 
         [HttpPost]
@@ -56,7 +80,7 @@ namespace Services.Controllers
 
         [HttpGet]
         [Route("Get")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> Get(Guid id)
         {
             var rent = await _context!.Rents!.FindAsync(id);
 
@@ -68,12 +92,37 @@ namespace Services.Controllers
             return Ok(rent);
         }
 
+        [HttpGet]
+        [Route("GetRentDetail")]
+        public async Task<IActionResult> GetRentDetail(Guid rentId)
+        {
+            var rent = await _context!.Rents!.FindAsync(rentId);
+
+            var rentItems = await _context!.RentItems!.Where(ri => ri.RentId == rentId).ToListAsync();
+
+            var rentDetail = new RentDetail()
+            { 
+                Id = rentId,
+                RentDate = rent!.RentDate,
+                ClientUserId = rent.ClientUserId,
+                RentMovies = new List<Blasterify.Client.Models.RentMovie>(rentItems.Count)
+            };
+
+            foreach (var item in rentItems)
+            {
+                var movie = await _context!.Movies!.FindAsync(item.MovieId);
+                rentDetail.RentMovies.Add(new Blasterify.Client.Models.RentMovie(movie!, item.RentDuration));
+            }
+
+            return Ok(rentDetail);
+        }
+
         [HttpPut]
         [Route("Update")]
-        public async Task<IActionResult> Update(int id, Rent rent)
+        public async Task<IActionResult> Update(Guid id, Rent rent)
         {
             var getRent = await _context!.Rents!.FindAsync(id);
-            getRent!.BuyDate = rent.BuyDate;
+            getRent!.RentDate = rent.RentDate;
             getRent!.ClientUserId = rent.ClientUserId;
 
             await _context.SaveChangesAsync();
@@ -83,7 +132,7 @@ namespace Services.Controllers
 
         [HttpDelete]
         [Route("Delete")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             var rent = await _context!.Rents!.FindAsync(id);
             _context.Rents.Remove(rent!);

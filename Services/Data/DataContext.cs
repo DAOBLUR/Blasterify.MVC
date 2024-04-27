@@ -15,6 +15,8 @@ namespace Services.Data
         public DbSet<Movie>? Movies { get; set; }
         public DbSet<Rent>? Rents { get; set; }
         public DbSet<RentItem>? RentItems { get; set; }
+        public DbSet<PreRent>? PreRents { get; set; }
+        public DbSet<PreRentItem>? PreRentItems { get; set; }
         public DbSet<Genre>? Genres { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

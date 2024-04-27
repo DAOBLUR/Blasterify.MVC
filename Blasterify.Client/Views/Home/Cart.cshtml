@@ -1,57 +1,345 @@
-﻿@model IEnumerable<Blasterify.Client.Models.Movie>
-
-@{
+﻿@{
     ViewBag.Title = "Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<section class="bg-light">
-    <div class="container px-4 px-lg-5 mt-5">
-        <h1>Cart</h1>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <!--CART-->
+                        <div class="col-sm-9">
+                            <div class="me-2">
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="ms-2 mt-2">Cart Detail</h5>
 
-        <table class="d-flex flex-column min-vh-100">
-            @foreach (var item in Model)
-            {
-                <tr style="border: 1px solid black; border-collapse: collapse;">
-                    <td class="px-5 py-3">
-                        <h3>@Html.DisplayFor(modelItem => item.Title)</h3>
-                        <p>@Html.DisplayFor(modelItem => item.Description)</p>
-                    </td>
-                    <td class="px-5 py-3">
-                        <div style="display: flex; flex-direction: row;">
-                            <p style="font-size: 20px; font-weight: bold;">Rate:</p>
-                            <p style="font-size: 20px; margin-left: 5px;">@item.Rate</p>
-                        </div>
+                                    <a class="btn btn-primary" href="@Url.Action("Index","Home")">
+                                        <i class="fas fa-cart-plus"></i> Keep Shopping
+                                    </a>
+                                </div>
+                                
+                                <hr class="mt-2 mb-2"/>
+                                
+                                <div id="cart">
+                                    <div class="card mb-2 card-rentMovie">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-2 align-self-center d-flex justify-content-center">
+                                                    <img class="rounded"
+                                                         src="https://firebasestorage.googleapis.com/v0/b/blasterify.appspot.com/o/multimedia%2Fwelcome%2FOppenheimer.jpg?alt=media&token=b03b41f9-1ced-4e96-b926-589f6896f206"
+                                                         style="width: 100px; height: 100px;" />
+                                                </div>
 
-                        <div style="display: flex; flex-direction: row;">
-                            <p style="font-size: 20px; font-weight: bold;">Duration:</p>
-                            <p style="font-size: 20px; margin-left: 5px;">@item.Duration min</p>
-                        </div>
+                                                <div class="col-sm-4 align-self-center">
+                                                    <span class="fw-bold d-block">Title</span>
+                                                    <span>Duration: 123 min</span>
+                                                </div>
 
-                        <div style="display: flex; flex-direction: row;">
-                            <p style="font-size: 15px; font-weight: bold;">Premiere Date:</p>
-                            <p style="font-size: 15px; margin-left: 5px;">@item.PremiereDate.Date</p>
-                        </div>
+                                                <div class="col-sm-2 align-self-center">
+                                                    <span>Price: $1.25/mount</span>
+                                                </div>
 
-                        <div style="display: flex; flex-direction: row;">
-                            <p style="font-size: 25px; font-weight: bold;">Price:</p>
-                            <p style="font-size: 25px; margin-left: 5px;">$@Html.DisplayFor(modelItem => item.Price)</p>
-                        </div>
-                    </td>
-                    <td style="max-height: 50px;" class="px-5 py-3">
-                        <img style="max-height: 250px;" src="@item.FirebasePosterId" alt="@item.Title" />
+                                                <div class="col-sm-2 align-self-center">
+                                                    <div class="d-flex">
+                                                        <button class="btn btn-outline-secondary rounded-0 btn-remove">
+                                                            <i class="fa fa-minus"></i>
+                                                        </button>
 
-                        <div class="mt-4 mb-0">
-                            <div class="d-grid">
-                                <button class="btn btn-danger btn-block" type="submit">Remove</button>
+                                                        <input class="form-control p-1 text-center rounded-0 input-rentDuration"
+                                                               style="width: 40px;" disabled />
+
+                                                        <button class="btn btn-outline-secondary rounded-0 btn-add">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-2 align-self-center">
+                                                    <button class="btn btn-outline-danger btn-delete">
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- @Html.ActionLink("Remove", "Remove", new { id = item.Id })-->
-                    </td>
-                </tr>
+                        <!--PAYMENT INFORMATION-->
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <div class="card-body bg-light">
+                                    <h5 class="card-title">Payment Information</h5>
+
+                                    <form>
+                                        <div class="mb-2">
+                                            <label for="inputName" class="form-label">Name</label>
+                                            <input type="text" class="form-control form-control-sm" id="inputName" />
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <label for="inputAddress" class="form-label">Address</label>
+                                            <input type="text" class="form-control form-control-sm" id="inputAddress" />
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <label for="inputCardNumber" class="form-label">Card Number</label>
+                                            <input type="text" class="form-control form-control-sm" id="inputCardNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="16"/>
+                                        </div>
+
+                                        <div class="d-grid">
+                                            <button class="btn btn-success" type="button" onclick="ContinueToPayment()">
+                                                Continue to Payment
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                       
+                            <div class="d-flex justify-content-center mt-4">
+                                <h2 class="align-self-center">
+                                    <b>Total: $<span id="total">322</span></b>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+
+        $(document).ready(function () {
+            ShowCartCount(0);
+
+            jQuery.ajax({
+                url: '@Url.Action("GetCartRequest", "Home")',
+                type: 'POST',
+                datatype: 'json',
+                contentType: "application/json; charset=utf-8",
+                success: function (response)
+                {
+                    $('#cart').html('');
+                    //$('#cart').LoadingOverlay('hide');
+                    $.each(response.data, function (index, item) {
+                        $('<div>').addClass("card mb-2 card-rentMovie").append(
+                            $('<div>').addClass("card-body").append(
+                                $('<div>').addClass("row").append(
+                                    $('<div>').addClass("col-sm-2 align-self-center d-flex justify-content-center").append(
+                                        $('<img>').attr("src", item.FirebasePosterId).attr("style", "width: 150px; height: 200px;")
+                                    ),
+                                    $('<div>').addClass("col-sm-4 align-self-center").append(
+                                        $('<span>').addClass("fw-bold d-block").text(item.Title),
+                                        $('<span>').text(`Duration: ${item.Duration} min`)
+                                    ),
+                                    $('<div>').addClass("col-sm-2 align-self-center").append(
+                                        $('<span>').text(`Price: $${item.Price}/mount`)
+                                    ),
+                                    $('<div>').addClass("col-sm-2 align-self-center").append(
+                                        $('<div>').addClass("d-flex").append(
+                                            $('<button>').addClass("btn btn-outline-secondary rounded-0 btn-remove").append(
+                                                $('<i>').addClass("fa fa-minus")
+                                            ),
+                                            $('<input>').addClass("form-control p-1 text-center rounded-0 input-rentDuration").attr("style", "width: 40px;").attr("disabled", true).data({ "data": item }).val(item.RentDuration),
+                                            $('<button>').addClass("btn btn-outline-secondary rounded-0 btn-add").append(
+                                                $('<i>').addClass("fa fa-plus")
+                                            )
+                                        )
+                                    ),
+                                    $('<div>').addClass("col-sm-2 align-self-center").append(
+                                        $('<button>').addClass("btn btn-outline-danger btn-delete").data({ "data": item.MovieId }).text("Delete")
+                                    )
+                                )
+                            )
+                        ).appendTo('#cart');
+
+                    });
+
+                    GetTotalCost();
+                }
+            });
+        });
+
+        //getAllCountries P39
+
+        //GET TOTAL COST
+        function GetTotalCost()
+        {
+            var total = parseFloat(0);
+            $('input.input-rentDuration').each(function (index) {
+                var price = $(this).data("data").Price;
+                var rentDuration = parseFloat($(this).val());
+
+                total += price * rentDuration;
+            });
+
+            $('#total').text(total.toFixed(2));
+            $('#total').data({ "totalCost": total });
+        }
+
+
+        //ADD RENT DURATION
+        $(document).on('click', '.btn-add', function ()
+        {
+            var div_container = $(this).parent('div.d-flex');
+            var input_rentDuration = $(div_container).find('input.input-rentDuration');
+
+            var btn = $(this);
+            console.log($(input_rentDuration).data("data"))
+            var movieId = $(input_rentDuration).data('data').MovieId;
+
+            jQuery.ajax({
+                url: '@Url.Action("UpdateRentDurationRequest", "Home")',
+                type: 'POST',
+                data: JSON.stringify({ movieId : movieId, isAdd : true }),
+                datatype: 'json',
+                contentType: "application/json; charset=utf-8",
+                success: function (response)
+                {
+
+                    if (response.data) {
+                        console.log(response.data)
+                        $(input_rentDuration).val(response.data.rentDuration);
+                        ShowCartCount(response.data.cartCount);
+                        GetTotalCost();
+                    }
+                    else {
+                        swal('', 'Error', 'warning')
+                    }
+                },
+            });
+        });
+
+        //REMOVE RENT DURATION
+        $(document).on('click', '.btn-remove', function ()
+        {
+            var div_container = $(this).parent('div.d-flex');
+            var input_rentDuration = $(div_container).find('input.input-rentDuration');
+
+            var btn = $(this);
+            console.log($(input_rentDuration).data("data"))
+            var movieId = $(input_rentDuration).data('data').MovieId;
+
+            jQuery.ajax({
+                url: '@Url.Action("UpdateRentDurationRequest", "Home")',
+                type: 'POST',
+                data: JSON.stringify({ movieId : movieId, isAdd : false }),
+                datatype: 'json',
+                contentType: "application/json; charset=utf-8",
+                success: function (response)
+                {
+
+                    if (response) {
+                        console.log(response.data)
+                        $(input_rentDuration).val(response.data.rentDuration);
+                        ShowCartCount(response.data.cartCount);
+                        GetTotalCost();
+                    }
+                    else {
+                        swal('', '', 'warning');
+                    }
+                },
+            });
+        });
+
+        //DELETE RENT MOVIE
+        $(document).on('click', '.btn-delete', function ()
+        {
+            var movieId = $('.btn-delete').data('data');
+            console.log(movieId);
+            var card_rentMovie = $(this).parents('div.card-rentMovie');
+
+            jQuery.ajax({
+                url: '@Url.Action("DeleteRentMovieRequest", "Home")',
+                type: 'POST',
+                data: JSON.stringify({ movieId : movieId }),
+                datatype: 'json',
+                contentType: "application/json; charset=utf-8",
+                success: function (response)
+                {
+
+                    if (response) {
+                        card_rentMovie.remove();
+                        console.log(response.data)
+
+                        ShowCartCount(response.data.cartCount);
+                        GetTotalCost();
+                    }
+                    else {
+                        swal('', '', 'warning');
+                    }
+                },
+            });
+        });
+
+        //CONTINUE TO PAYMENT
+        function ContinueToPayment()
+        {
+            var rent = {
+                name: $('#inputName').val(),
+                address: $('#inputAddress').val(),
+                cardNumber: $('#inputCardNumber').val()
+            };
+
+            if (rent.name == null || rent.name == '') {
+                swal('', 'You must enter a name', 'warning');
+                return;
+            }
+            else if (rent.address == null || rent.address == '') {
+                swal('', 'You must enter an address', 'warning');
+                return;
+            }
+            else if (rent.cardNumber == null || rent.cardNumber == '') {
+                swal('', 'You must enter your card number', 'warning');
+                return;
+            }
+            else if (rent.cardNumber.length != 16) {
+                swal('', 'Invalid card number', 'warning');
+                return;
             }
 
-        </table>
-    </div>
-</section>
+            jQuery.ajax({
+                url: '@Url.Action("ContinueToPaymentRequest", "Home")',
+                type: 'POST',
+                data: JSON.stringify({ name: rent.name, address: rent.address, cardNumber: rent.cardNumber }),
+                datatype: 'json',
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    console.log(response);
+                    if (response.Success) {
+                        window.location.href = response.Data.Url;
+                    }
+                    else {
+                        swal('', 'Error', 'warning');
+                    }
+                },
+            });
+        }
+
+        function GoToRentConfirmation()
+        {
+            var rent = {
+                name: $('#name').val()
+            };
+
+            jQuery.ajax({
+                url: '@Url.Action("ContinueToPaymentRequest", "Home")',
+                type: 'POST',
+                data: JSON.stringify({ name: rent.name }),
+                datatype: 'json',
+                contentType: "application/json; charset=utf-8",
+                success: function (response)
+                {
+                    
+                },
+            });
+        }
+
+    </script>
+}

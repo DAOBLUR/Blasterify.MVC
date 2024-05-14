@@ -253,6 +253,7 @@
     <Content Include="Views\Home\Cart.cshtml" />
     <Content Include="Views\Shop\RentConfirmation.cshtml" />
     <Content Include="Views\Shop\CompletedRentDetail.cshtml" />
+    <Content Include="Views\Shop\Movie.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,4 @@
-CREATE TABLE dbo.Subscription (
+REATE TABLE dbo.Subscription (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     Name NVARCHAR(20) NOT NULL,
     Price DECIMAL(5,2) NOT NULL,

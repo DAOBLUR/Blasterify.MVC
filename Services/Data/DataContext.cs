@@ -18,6 +18,7 @@ namespace Services.Data
         public DbSet<PreRent>? PreRents { get; set; }
         public DbSet<PreRentItem>? PreRentItems { get; set; }
         public DbSet<Genre>? Genres { get; set; }
+        public DbSet<RentStatus>? RentStatuses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

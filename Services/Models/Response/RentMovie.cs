@@ -22,10 +22,10 @@ namespace Blasterify.Client.Models
         {
             MovieId = movie.Id;
             RentDuration = rentDuration;
-            Title = movie.Title;
+            Title = movie.Title!;
             Duration = movie.Duration;
-            Description = movie.Description;
-            FirebasePosterId = movie.FirebasePosterId;
+            Description = movie.Description!;
+            FirebasePosterId = movie.FirebasePosterId!;
             Price = movie.Price;
         }
     }

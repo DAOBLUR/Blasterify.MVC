@@ -36,5 +36,9 @@ namespace Services.Models
 
         [Required]
         public bool IsFree { get; set; }
+
+        [Required]
+        [ForeignKey("Genre")]
+        public int GenreId { get; set; }
     }
 }

@@ -24,12 +24,12 @@ namespace Services.Controllers
             await _context!.Rents!.AddAsync(rent);
             await _context.SaveChangesAsync();
 
-            //Thread RentThread = new Thread(async () => await DeletePreRent(_context, rent));
-            //RentThread.Start();
+            /*
+            Thread RentThread = new Thread(async () => await DeletePreRent(_context, rent));
+            RentThread.Start();
+            */
 
             await DeletePreRent(_context, rent);
-
-
 
             return Ok();
         }
@@ -103,7 +103,7 @@ namespace Services.Controllers
             var rentDetail = new RentDetail()
             { 
                 Id = rentId,
-                RentDate = rent!.RentDate,
+                RentDate = rent!.Date,
                 ClientUserId = rent.ClientUserId,
                 RentMovies = new List<Blasterify.Client.Models.RentMovie>(rentItems.Count)
             };
@@ -122,7 +122,7 @@ namespace Services.Controllers
         public async Task<IActionResult> Update(Guid id, Rent rent)
         {
             var getRent = await _context!.Rents!.FindAsync(id);
-            getRent!.RentDate = rent.RentDate;
+            getRent!.Date = rent.Date;
             getRent!.ClientUserId = rent.ClientUserId;
 
             await _context.SaveChangesAsync();

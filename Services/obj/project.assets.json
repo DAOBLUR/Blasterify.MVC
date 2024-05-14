@@ -1040,6 +1040,16 @@
             "rid": "win"
           }
         }
+      },
+      "Blasterify.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Blasterify.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Blasterify.Models.dll": {}
+        }
       }
     }
   },
@@ -2829,10 +2839,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Blasterify.Models/1.0.0": {
+      "type": "project",
+      "path": "../Blasterify.Models/Blasterify.Models.csproj",
+      "msbuildProject": "../Blasterify.Models/Blasterify.Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Blasterify.Models >= 1.0.0",
       "Hangfire >= 1.8.0",
       "Microsoft.EntityFrameworkCore >= 6.0.29",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.29",
@@ -2873,7 +2889,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj": {
+              "projectPath": "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

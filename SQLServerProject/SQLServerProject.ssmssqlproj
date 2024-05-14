@@ -25,29 +25,11 @@
           <AssociatedConnUserName />
           <FullPath>Procedures.sql</FullPath>
         </FileNode>
-        <FileNode Name="Procedures1.sql">
+        <FileNode Name="Testing.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESK-0UR080R05\SQLEXPRESS:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>DESK-0UR080R05\SQLEXPRESS</AssociatedConnSrvName>
           <AssociatedConnUserName />
-          <FullPath>Procedures1.sql</FullPath>
-        </FileNode>
-        <FileNode Name="SQLQuery2.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESK-0UR080R05\SQLEXPRESS:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>DESK-0UR080R05\SQLEXPRESS</AssociatedConnSrvName>
-          <AssociatedConnUserName />
-          <FullPath>SQLQuery2.sql</FullPath>
-        </FileNode>
-        <FileNode Name="Tables.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESK-0UR080R05\SQLEXPRESS:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>DESK-0UR080R05\SQLEXPRESS</AssociatedConnSrvName>
-          <AssociatedConnUserName />
-          <FullPath>Tables.sql</FullPath>
-        </FileNode>
-        <FileNode Name="Tables1.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESK-0UR080R05\SQLEXPRESS:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>DESK-0UR080R05\SQLEXPRESS</AssociatedConnSrvName>
-          <AssociatedConnUserName />
-          <FullPath>Tables1.sql</FullPath>
+          <FullPath>Testing.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>

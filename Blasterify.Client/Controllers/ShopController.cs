@@ -16,6 +16,22 @@ namespace Blasterify.Client.Controllers
 
         #region SERVICES
 
+        public async Task<Movie> GetMovieAsync(int id)
+        {
+            HttpResponseMessage response = await client.GetAsync($"{MvcApplication.ServicesPath}/Movie/Get?id={id}");
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var gatMovie = JsonConvert.DeserializeObject<Movie>(jsonString);
+
+                return gatMovie;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public async Task<bool> CreateRent(Rent preRent)
         {
             var json = JsonConvert.SerializeObject(preRent);
@@ -70,6 +86,12 @@ namespace Blasterify.Client.Controllers
         #endregion
 
         #region VIEWS
+
+        public async Task<ActionResult> Movie(int id)
+        {
+            var movie = await GetMovieAsync(id);
+            return View(movie ?? new Movie());
+        }
 
         public ActionResult RentConfirmation()
         {

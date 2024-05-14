@@ -91,7 +91,7 @@ namespace Services.Controllers
                 {
                     using (SHA256 sha256Hash = SHA256.Create())
                     {
-                        byte[] bytes = logIn.PasswordHash;
+                        byte[] bytes = logIn.PasswordHash!;
                         for (int i = 0; i < bytes.Length; i++)
                         {
                             if (bytes[i] != clientUser.PasswordHash[i])
@@ -99,9 +99,6 @@ namespace Services.Controllers
                                 return Unauthorized();
                             }
                         }
-
-                        //Thread EmailThread = new Thread(() => Services.Email.SentEmail(clientUser.Email, clientUser.Username));
-                        //EmailThread.Start();
                     }
 
                     return Ok(new ClientUser

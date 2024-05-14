@@ -12,6 +12,6 @@ namespace Services.Models.Response
 
         public int ClientUserId { get; set; }
 
-        public List<RentMovie> RentMovies { get; set; }
+        public List<RentMovie>? RentMovies { get; set; }
     }
 }

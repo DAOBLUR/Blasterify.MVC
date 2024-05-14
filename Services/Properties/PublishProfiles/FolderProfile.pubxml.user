@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>E:\programing\csharp\uni\Blasterify.MVC\Services\bin\Release\net6.0\publish\</_PublishTargetUrl>
-    <History>True|2024-04-20T13:38:26.6392721Z;False|2024-04-20T08:37:59.7926859-05:00;True|2024-04-20T08:33:16.9957932-05:00;True|2024-04-20T08:31:58.5378843-05:00;True|2024-04-20T08:29:52.2177720-05:00;True|2024-04-20T08:29:15.8781594-05:00;True|2024-04-20T07:00:19.8920416-05:00;</History>
+    <History>True|2024-04-27T10:49:18.8969559Z;False|2024-04-27T05:48:45.3265764-05:00;True|2024-04-20T08:38:26.6392721-05:00;False|2024-04-20T08:37:59.7926859-05:00;True|2024-04-20T08:33:16.9957932-05:00;True|2024-04-20T08:31:58.5378843-05:00;True|2024-04-20T08:29:52.2177720-05:00;True|2024-04-20T08:29:15.8781594-05:00;True|2024-04-20T07:00:19.8920416-05:00;</History>
     <LastFailureDetails />
     <TimeStampOfAssociatedLegacyPublishXmlFile />
   </PropertyGroup>

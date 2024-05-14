@@ -33,6 +33,16 @@ namespace Blasterify.Client.Controllers
             }
         }
 
+        public async Task GetLastCart()
+        {
+            HttpResponseMessage response = await client.GetAsync($"{MvcApplication.ServicesPath}/PreRent/GetAllPreRentsClientUser");
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var gatAllPreRents = JsonConvert.DeserializeObject<List<PreRent>>(jsonString);
+            }
+        }
+
         public async Task<bool> CreatePreRent(PreRent preRent)
         {
             var json = JsonConvert.SerializeObject(preRent);
@@ -143,13 +153,17 @@ namespace Blasterify.Client.Controllers
             }
             else
             {
-                return RedirectToAction("LogIn", "Access");
+                //return RedirectToAction("LogIn", "Access");
+
+                await GetAllMoviesAsync();
+                var movies = HttpContext.Cache["Movies"] as List<Movie>;
+                return View(movies);
             }
         }
 
         public ActionResult MyAccount()
         {
-            var clientUser = (ClientUser)Session["ClientUser"];
+            var clientUser = (ClientUser)Session["ClientUser"] ?? new ClientUser();
 
             return View(clientUser);
         }
@@ -176,7 +190,16 @@ namespace Blasterify.Client.Controllers
             }
             else
             {
-                return RedirectToAction("LogIn", "Access");
+                //return RedirectToAction("LogIn", "Access");
+
+                var cart = GetCart();
+
+                if (cart == null || cart.Count == 0)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                return View(cart.Values.ToList());
             }
         }
 
@@ -231,7 +254,6 @@ namespace Blasterify.Client.Controllers
                 JsonRequestBehavior.AllowGet
             );
         }
-
 
         //RENT
         [HttpPost]
@@ -368,7 +390,8 @@ namespace Blasterify.Client.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                //return RedirectToAction("Index", "Home");
+                return RedirectToAction("RentConfirmation", "Shop");
             }
         }
 

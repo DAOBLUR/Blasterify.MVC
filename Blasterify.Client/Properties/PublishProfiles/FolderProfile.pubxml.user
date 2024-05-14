@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Client\bin\app.publish\</_PublishTargetUrl>
-    <History>True|2024-04-26T17:40:01.2730872Z;True|2024-04-26T12:38:48.6886548-05:00;True|2024-04-26T12:12:51.7239558-05:00;True|2024-04-26T11:43:56.6751605-05:00;</History>
+    <History>True|2024-05-10T22:22:09.7818481Z;True|2024-05-10T17:20:36.3713129-05:00;True|2024-04-27T05:49:50.9840194-05:00;True|2024-04-26T12:40:01.2730872-05:00;True|2024-04-26T12:38:48.6886548-05:00;True|2024-04-26T12:12:51.7239558-05:00;True|2024-04-26T11:43:56.6751605-05:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -16,10 +16,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/Blasterify.Client.dll">
-      <publishTime>04/26/2024 12:39:59</publishTime>
+      <publishTime>05/10/2024 17:22:06</publishTime>
     </File>
     <File Include="bin/Blasterify.Client.pdb">
-      <publishTime>04/26/2024 12:39:59</publishTime>
+      <publishTime>05/10/2024 17:22:06</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>09/05/2018 16:10:50</publishTime>
@@ -481,25 +481,28 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/13/2024 03:59:21</publishTime>
     </File>
     <File Include="Views/Home/Cart.cshtml">
-      <publishTime>04/26/2024 06:39:34</publishTime>
+      <publishTime>04/27/2024 05:24:08</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
       <publishTime>03/23/2024 03:50:44</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>04/13/2024 03:28:24</publishTime>
+      <publishTime>04/27/2024 05:24:52</publishTime>
     </File>
     <File Include="Views/Home/MyAccount.cshtml">
-      <publishTime>04/13/2024 03:00:07</publishTime>
+      <publishTime>04/27/2024 05:27:16</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>03/23/2024 03:50:44</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>04/13/2024 03:57:11</publishTime>
+      <publishTime>04/27/2024 05:21:23</publishTime>
+    </File>
+    <File Include="Views/Shop/CompletedRentDetail.cshtml">
+      <publishTime>04/27/2024 05:11:20</publishTime>
     </File>
     <File Include="Views/Shop/RentConfirmation.cshtml">
-      <publishTime>04/26/2024 11:26:26</publishTime>
+      <publishTime>04/27/2024 05:26:00</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>03/23/2024 03:50:44</publishTime>

@@ -18,26 +18,26 @@ namespace Services.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateCountry(Country country)
+        public async Task<IActionResult> Create(Country country)
         {
-            await _context.Countries.AddAsync(country);
+            await _context.Countries!.AddAsync(country);
             await _context.SaveChangesAsync();
             return Ok();
         }
 
         [HttpGet]
-        [Route("ReadAllCountries")]
-        public async Task<ActionResult<IEnumerable<Country>>> ReadAllCountries()
+        [Route("GetAll")]
+        public async Task<ActionResult<IEnumerable<Country>>> GetAll()
         {
-            var countries = await _context.Countries.ToListAsync();
+            var countries = await _context.Countries!.ToListAsync();
             return Ok(countries);
         }
 
         [HttpGet]
-        [Route("ReadCountry")]
-        public async Task<IActionResult> ReadCountry(int id)
+        [Route("Get")]
+        public async Task<IActionResult> Get(int id)
         {
-            var country = await _context.Countries.FindAsync(id);
+            var country = await _context.Countries!.FindAsync(id);
 
             if (country == null)
             {
@@ -49,9 +49,9 @@ namespace Services.Controllers
 
         [HttpPut]
         [Route("Update")]
-        public async Task<IActionResult> UpdateCountry(int id, Country country)
+        public async Task<IActionResult> Update(int id, Country country)
         {
-            var getCountry = await _context.Countries.FindAsync(id);
+            var getCountry = await _context.Countries!.FindAsync(id);
             getCountry!.Name = country.Name;
 
             await _context.SaveChangesAsync();
@@ -60,10 +60,10 @@ namespace Services.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteCountry")]
-        public async Task<IActionResult> DeleteCountry(int id)
+        [Route("Delete")]
+        public async Task<IActionResult> Delete(int id)
         {
-            var country = await _context.Countries.FindAsync(id);
+            var country = await _context.Countries!.FindAsync(id);
             _context.Countries.Remove(country!);
 
             await _context.SaveChangesAsync();

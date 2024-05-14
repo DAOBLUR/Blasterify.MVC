@@ -1,9 +1,10 @@
+using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using Services.Data;
 
 namespace ProductosCRUD.Server
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
@@ -20,6 +21,15 @@ namespace ProductosCRUD.Server
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            //Hangfire
+            builder.Services.AddHangfire((sp, config) =>
+            {
+                var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString("DefaultConnection");
+                config.UseSqlServerStorage(connectionString);
+            });
+
+            builder.Services.AddHangfireServer();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -30,15 +40,16 @@ namespace ProductosCRUD.Server
             }
 
             //FOR PUBLISH
+            //Swagger
             app.UseSwagger();
             app.UseSwaggerUI();
 
+            //Hangfire
+            app.MapHangfireDashboard();
+
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
             app.MapControllers();
-
             app.Run();
         }
     }

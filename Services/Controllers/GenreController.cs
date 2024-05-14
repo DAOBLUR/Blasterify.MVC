@@ -11,7 +11,7 @@ namespace Services.Controllers
     {
         private readonly DataContext _context;
 
-        public GenreController(DataContext context, ILogger<GenreController> logger)
+        public GenreController(DataContext context)
         {
             _context = context;
         }
@@ -38,11 +38,11 @@ namespace Services.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var genre = await _context!.Genres!.FindAsync(id);
-            /*
+            
             if (genre == null)
             {
                 return NotFound();
-            }*/
+            }
 
             return Ok(genre);
         }

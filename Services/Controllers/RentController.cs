@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Services.Data;
 using Services.Models;
 using Services.Models.Response;
+using System.Data;
 
 namespace Services.Controllers
 {
@@ -24,29 +26,7 @@ namespace Services.Controllers
             await _context!.Rents!.AddAsync(rent);
             await _context.SaveChangesAsync();
 
-            /*
-            Thread RentThread = new Thread(async () => await DeletePreRent(_context, rent));
-            RentThread.Start();
-            */
-
-            await DeletePreRent(_context, rent);
-
             return Ok();
-        }
-
-        private async Task DeletePreRent(DataContext context, Rent rent)
-        {
-            var preRent = await context!.PreRents!.FindAsync(rent.Id);
-            context.PreRents.Remove(preRent!);
-
-            var preRentItems = await context!.PreRentItems!.Where(pri => pri.RentId == rent.Id).ToListAsync();
-
-            foreach(var item in preRentItems)
-            {
-                _ = context.PreRentItems!.Remove(item!);
-            }
-
-            await context.SaveChangesAsync();
         }
 
         [HttpPost]
@@ -96,9 +76,9 @@ namespace Services.Controllers
         [Route("GetRentDetail")]
         public async Task<IActionResult> GetRentDetail(Guid rentId)
         {
-            var rent = await _context!.Rents!.FindAsync(rentId);
+            var rent = await _context.Rents!.FindAsync(rentId);
 
-            var rentItems = await _context!.RentItems!.Where(ri => ri.RentId == rentId).ToListAsync();
+            var rentItems = await _context.RentItems!.Where(ri => ri.RentId == rentId).ToListAsync();
 
             var rentDetail = new RentDetail()
             { 
@@ -117,6 +97,70 @@ namespace Services.Controllers
             return Ok(rentDetail);
         }
 
+        [HttpGet]
+        [Route("GetLastPreRent")]
+        public async Task<IActionResult> GetLastPreRent(int clientUserId)
+        {
+            var getPreRent = new Blasterify.Models.Response.PreRent();
+            getPreRent.PreRentItems = new List<Blasterify.Models.Response.PreRentItem>();
+
+            SqlParameter parameter = new("@ClientUserId", clientUserId);
+            using (var command = _context.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = "GetLastPreRent";
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add(parameter);
+
+                _context.Database.OpenConnection();
+
+                using var result = await command.ExecuteReaderAsync();
+                while (await result.ReadAsync())
+                {
+                    getPreRent.Id = result.GetGuid(0);
+                    getPreRent.Date = result.GetDateTime(1);
+                    getPreRent.ClientUserId = result.GetInt32(2);
+                }
+            }
+
+            if (getPreRent.Id == Guid.Empty && getPreRent.Date == default && getPreRent.ClientUserId == default)
+            {
+                return NotFound();
+            }
+
+            parameter = new("@PreRentId", getPreRent.Id);
+            using (var command = _context.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = "GetLastPreRentItems";
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add(parameter);
+
+                _context.Database.OpenConnection();
+
+                using var result = await command.ExecuteReaderAsync();
+                while (await result.ReadAsync())
+                {
+                    var preRentItem = new Blasterify.Models.Response.PreRentItem
+                    {
+                        Id = result.GetInt32(0),
+                        MovieId = result.GetInt32(1),
+                        RentDuration = result.GetInt32(2),
+                        Title = result.GetString(3),
+                        FirebasePosterId = result.GetString(4),
+                        Price = (double)result.GetDecimal(5),
+                    };
+
+                    getPreRent.PreRentItems!.Add(preRentItem);
+                }
+            }
+
+            if (getPreRent.PreRentItems!.Count <= 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(getPreRent);
+        }
+
         [HttpPut]
         [Route("Update")]
         public async Task<IActionResult> Update(Guid id, Rent rent)
@@ -124,6 +168,19 @@ namespace Services.Controllers
             var getRent = await _context!.Rents!.FindAsync(id);
             getRent!.Date = rent.Date;
             getRent!.ClientUserId = rent.ClientUserId;
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("UpdateStatus")]
+        public async Task<IActionResult> Update(Guid id, int rentStatusId, bool isEnabled)
+        {
+            var getRent = await _context!.Rents!.FindAsync(id);
+            getRent!.Status = rentStatusId;
+            getRent!.IsEnabled = isEnabled;
 
             await _context.SaveChangesAsync();
 

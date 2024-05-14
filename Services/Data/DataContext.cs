@@ -19,6 +19,7 @@ namespace Services.Data
         public DbSet<PreRentItem>? PreRentItems { get; set; }
         public DbSet<Genre>? Genres { get; set; }
         public DbSet<RentStatus>? RentStatuses { get; set; }
+        public DbSet<AdminUser>? AdminUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +29,7 @@ namespace Services.Data
             modelBuilder.Entity<ClientUser>().HasIndex(cu => cu.Email).IsUnique();
             modelBuilder.Entity<Movie>().HasIndex(m => m.FirebasePosterId).IsUnique();
             modelBuilder.Entity<Genre>().HasIndex(g => g.Name).IsUnique();
+            modelBuilder.Entity<AdminUser>().HasIndex(g => g.Email).IsUnique();
         }
     }
 }

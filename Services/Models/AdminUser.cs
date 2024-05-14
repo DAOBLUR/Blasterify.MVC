@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Services.Models
 {
-    public class ClientUser
+    public class AdminUser
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -12,11 +12,7 @@ namespace Services.Models
         [Required]
         [MinLength(1)]
         [MaxLength(40)]
-        public string? Username { get; set; }
-
-        [Required]
-        [StringLength(16)]
-        public string? CardNumber { get; set; }
+        public string? Name { get; set; }
 
         [Required]
         public bool IsConnected { get; set; }
@@ -30,15 +26,8 @@ namespace Services.Models
         public byte[]? PasswordHash { get; set; }
 
         [Required]
-        public DateTime SuscriptionDate { get; set; }
-
-        [Required]
         public DateTime LastConnectionDate { get; set; }
 
-        [Required]
-        [ForeignKey("Subscription")]
-        public int SubscriptionId { get; set; }
-        
         [Required]
         [ForeignKey("Country")]
         public int CountryId { get; set; }

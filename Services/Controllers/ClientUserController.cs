@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Services.Data;
 using Services.Models;
-using System.Data;
 using System.Security.Cryptography;
 
 namespace Services.Controllers
@@ -51,30 +48,6 @@ namespace Services.Controllers
             return Ok(clientUser);
         }
 
-        
-        [HttpGet]
-        [Route("GetEmail")]
-        public async Task<ActionResult> GetEmail(int id)
-        {
-            var idParam = new SqlParameter("@ClientUserId", SqlDbType.Int);
-            var emailParam = new SqlParameter("@ClientUserEmail", SqlDbType.NVarChar);
-            await _context.Database.ExecuteSqlInterpolatedAsync(
-                $"EXEC GetEmail @ClientUserId={id}, @ClientUserEmail={""} OUTPUT");
-            
-            return Ok(emailParam.Value);
-        }
-
-        [HttpGet]
-        [Route("GetEmail2")]
-        public async Task<ActionResult> GetEmail2(int id)
-        {
-            var idParam = new SqlParameter("@ClientUserId", SqlDbType.Int);
-            var emailParam = new SqlParameter("@ClientUserEmail", SqlDbType.NVarChar);
-            var result = await _context.Database.ExecuteSqlRawAsync($"GetEmail {id}, {"123"}");
-
-            return Ok(emailParam.Value);
-        }
-
         [HttpPost]
         [Route("LogIn")]
         public async Task<ActionResult<ClientUser>> LogIn(LogIn logIn)
@@ -94,7 +67,7 @@ namespace Services.Controllers
                         byte[] bytes = logIn.PasswordHash!;
                         for (int i = 0; i < bytes.Length; i++)
                         {
-                            if (bytes[i] != clientUser.PasswordHash[i])
+                            if (bytes[i] != clientUser.PasswordHash![i])
                             {
                                 return Unauthorized();
                             }
@@ -131,11 +104,29 @@ namespace Services.Controllers
 
             getClientUser!.Username = clientUser.Username;
             getClientUser!.CardNumber = clientUser.CardNumber;
-            getClientUser!.Status = clientUser.Status;
+            getClientUser!.IsConnected = clientUser.IsConnected;
             getClientUser!.Email = clientUser.Email;
             getClientUser!.PasswordHash = clientUser.PasswordHash;
             getClientUser!.SuscriptionDate = clientUser.SuscriptionDate;
             getClientUser!.SubscriptionId = clientUser.SubscriptionId;
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("UpdateLastConnection")]
+        public async Task<IActionResult> UpdateLastConnectionDate(Blasterify.Models.Request.LastUserConnection lastUserConnection)
+        {
+            var getClientUser = await _context!.ClientUsers!.FindAsync(lastUserConnection.Id);
+            if (getClientUser == null)
+            {
+                return NotFound();
+            }
+
+            getClientUser!.LastConnectionDate = lastUserConnection.Date;
+            getClientUser!.IsConnected = lastUserConnection.IsConnected;
 
             await _context.SaveChangesAsync();
 

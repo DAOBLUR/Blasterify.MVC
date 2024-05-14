@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static Blasterify.Models.RentStatus;
 
 namespace Services.Models
 {
@@ -15,15 +14,18 @@ namespace Services.Models
 
         [Required]
         [MaxLength(40)]
-        public string Name { get; set; } = string.Empty;
+        public string? Name { get; set; }
 
         [Required]
         [MaxLength(60)]
-        public string Address { get; set; } = string.Empty;
+        public string? Address { get; set; }
 
         [Required]
         [StringLength(16)]
-        public string CardNumber { get; set; } = string.Empty;
+        public string? CardNumber { get; set; }
+
+        [Required]
+        public bool IsEnabled { get; set; }
 
         [Required]
         [ForeignKey("ClientUser")]

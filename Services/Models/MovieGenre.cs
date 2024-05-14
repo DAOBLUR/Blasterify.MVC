@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace Services.Models
+namespace Blasterify.Services.Models
 {
     public class MovieGenre
     {

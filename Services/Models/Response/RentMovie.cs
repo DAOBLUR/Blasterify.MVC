@@ -1,6 +1,4 @@
-﻿using Services.Models;
-using System;
-namespace Blasterify.Client.Models
+﻿namespace Blasterify.Services.Models
 {
     public class RentMovie
     {

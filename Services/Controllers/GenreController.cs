@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Services.Data;
-using Services.Models;
+using Blasterify.Services.Data;
+using Blasterify.Services.Models;
 
-namespace Services.Controllers
+namespace Blasterify.Services.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

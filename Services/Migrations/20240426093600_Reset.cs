@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Services.Migrations
+namespace Blasterify.Services.Migrations
 {
     public partial class Reset : Migration
     {

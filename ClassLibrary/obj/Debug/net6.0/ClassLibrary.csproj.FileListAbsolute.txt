@@ -1,0 +1,12 @@
+E:\programing\csharp\uni\Blasterify.MVC\ClassLibrary\bin\Debug\net6.0\ClassLibrary.deps.json
+E:\programing\csharp\uni\Blasterify.MVC\ClassLibrary\bin\Debug\net6.0\ClassLibrary.dll
+E:\programing\csharp\uni\Blasterify.MVC\ClassLibrary\bin\Debug\net6.0\ClassLibrary.pdb
+E:\programing\csharp\uni\Blasterify.MVC\ClassLibrary\obj\Debug\net6.0\ClassLibrary.csproj.AssemblyReference.cache
+E:\programing\csharp\uni\Blasterify.MVC\ClassLibrary\obj\Debug\net6.0\ClassLibrary.GeneratedMSBuildEditorConfig.editorconfig
+E:\programing\csharp\uni\Blasterify.MVC\ClassLibrary\obj\Debug\net6.0\ClassLibrary.AssemblyInfoInputs.cache
+E:\programing\csharp\uni\Blasterify.MVC\ClassLibrary\obj\Debug\net6.0\ClassLibrary.AssemblyInfo.cs
+E:\programing\csharp\uni\Blasterify.MVC\ClassLibrary\obj\Debug\net6.0\ClassLibrary.csproj.CoreCompileInputs.cache
+E:\programing\csharp\uni\Blasterify.MVC\ClassLibrary\obj\Debug\net6.0\ClassLibrary.dll
+E:\programing\csharp\uni\Blasterify.MVC\ClassLibrary\obj\Debug\net6.0\refint\ClassLibrary.dll
+E:\programing\csharp\uni\Blasterify.MVC\ClassLibrary\obj\Debug\net6.0\ClassLibrary.pdb
+E:\programing\csharp\uni\Blasterify.MVC\ClassLibrary\obj\Debug\net6.0\ref\ClassLibrary.dll

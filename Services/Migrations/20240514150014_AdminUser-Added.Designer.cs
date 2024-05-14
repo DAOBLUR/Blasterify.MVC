@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Services.Data;
+using Blasterify.Services.Data;
 
 #nullable disable
 
-namespace Services.Migrations
+namespace Blasterify.Services.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20240514150014_AdminUser-Added")]

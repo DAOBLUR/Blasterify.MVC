@@ -35,11 +35,11 @@ namespace Blasterify.Client.Controllers
 
         public async Task GetLastCart()
         {
-            HttpResponseMessage response = await client.GetAsync($"{MvcApplication.ServicesPath}/PreRent/GetAllPreRentsClientUser");
+            HttpResponseMessage response = await client.GetAsync($"{MvcApplication.ServicesPath}/Rent/GetLastPreRent");
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
-                var gatAllPreRents = JsonConvert.DeserializeObject<List<PreRent>>(jsonString);
+                //var gatAllPreRents = JsonConvert.DeserializeObject<List<Blasterify.Models.Response.PreRentResponse>>(jsonString);
             }
         }
 

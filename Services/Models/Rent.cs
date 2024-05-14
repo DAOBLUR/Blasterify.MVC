@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Services.Models
+namespace Blasterify.Services.Models
 {
     public class Rent
     {
@@ -33,6 +33,6 @@ namespace Services.Models
 
         [Required]
         [ForeignKey("RentStatus")]
-        public int Status { get; set; }
+        public int StatusId { get; set; }
     }
 }

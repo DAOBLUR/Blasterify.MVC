@@ -6,9 +6,8 @@ namespace Blasterify.Client
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        public static readonly string ServicesPath = "http://www.blasterify.services.com:9000/api";
-        //public static readonly string ServicesPath = "http://localhost:9000/api";
-        //public static readonly string ServicesPath = "https://localhost:7276/api";
+        //public static readonly string ServicesPath = "http://www.blasterify.services.com:9000/api";
+        public static readonly string ServicesPath = "https://localhost:7276/api";
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

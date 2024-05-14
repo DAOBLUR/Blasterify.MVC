@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Services.Migrations
+namespace Blasterify.Services.Migrations
 {
     public partial class EditClientUser : Migration
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Services.Models
+namespace Blasterify.Services.Models
 {
     public class RentItem
     {
@@ -15,13 +15,13 @@ namespace Services.Models
         
         [Required]
         public int RentDuration { get; set; }
+        
+        [Required]
+        [ForeignKey("Rent")]
+        public Guid RentId { get; set; }
 
         [Required]
         [ForeignKey("Movie")]
         public int MovieId { get; set; }
-
-        [Required]
-        [ForeignKey("Rent")]
-        public Guid RentId { get; set; }
     }
 }

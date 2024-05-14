@@ -1,4 +1,4 @@
-﻿namespace Services.Models
+﻿namespace Blasterify.Services.Models
 {
     public class LogIn
     {

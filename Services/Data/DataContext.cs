@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Services.Models;
+using Blasterify.Services.Models;
 
-namespace Services.Data
+namespace Blasterify.Services.Data
 {
     public class DataContext : DbContext
     {

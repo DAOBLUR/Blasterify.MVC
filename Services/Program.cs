@@ -1,8 +1,8 @@
 using Hangfire;
 using Microsoft.EntityFrameworkCore;
-using Services.Data;
+using Blasterify.Services.Data;
 
-namespace ProductosCRUD.Server
+namespace Blasterify.Services
 {
     public static class Program
     {

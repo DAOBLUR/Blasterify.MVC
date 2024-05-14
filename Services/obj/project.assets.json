@@ -2863,9 +2863,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Services\\Services.csproj",
-      "projectName": "Services",
-      "projectPath": "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Services\\Services.csproj",
+      "projectUniqueName": "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Services\\Blasterify.Services.csproj",
+      "projectName": "Blasterify.Services",
+      "projectPath": "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Services\\Blasterify.Services.csproj",
       "packagesPath": "C:\\Users\\Death Knight\\.nuget\\packages\\",
       "outputPath": "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Services\\obj\\",
       "projectStyle": "PackageReference",

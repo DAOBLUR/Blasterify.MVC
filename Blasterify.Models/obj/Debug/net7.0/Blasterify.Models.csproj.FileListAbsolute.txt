@@ -1,0 +1,12 @@
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Models\bin\Debug\net7.0\Blasterify.Models.deps.json
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Models\bin\Debug\net7.0\Blasterify.Models.dll
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Models\bin\Debug\net7.0\Blasterify.Models.pdb
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Models\obj\Debug\net7.0\Blasterify.Models.csproj.AssemblyReference.cache
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Models\obj\Debug\net7.0\Blasterify.Models.GeneratedMSBuildEditorConfig.editorconfig
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Models\obj\Debug\net7.0\Blasterify.Models.AssemblyInfoInputs.cache
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Models\obj\Debug\net7.0\Blasterify.Models.AssemblyInfo.cs
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Models\obj\Debug\net7.0\Blasterify.Models.csproj.CoreCompileInputs.cache
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Models\obj\Debug\net7.0\Blasterify.Models.dll
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Models\obj\Debug\net7.0\refint\Blasterify.Models.dll
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Models\obj\Debug\net7.0\Blasterify.Models.pdb
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Models\obj\Debug\net7.0\ref\Blasterify.Models.dll

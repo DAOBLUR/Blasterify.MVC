@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Services.Data;
-using Services.Models;
-using Services.Models.Response;
+using Blasterify.Services.Data;
+using Blasterify.Services.Models;
+using Blasterify.Services.Models.Response;
 using System.Data;
 
-namespace Services.Controllers
+namespace Blasterify.Services.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -21,9 +21,33 @@ namespace Services.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> Create(Rent rent)
+        public async Task<IActionResult> Create(Blasterify.Models.Response.PreRentResponse preRent)
         {
-            await _context!.Rents!.AddAsync(rent);
+            var rent = new Rent() 
+            {
+                Id = preRent.Id,
+                Date = preRent.Date ?? DateTime.UtcNow,
+                Name = preRent.Name,
+                Address = preRent.Address,
+                CardNumber = preRent.CardNumber,
+                IsEnabled = true, //For Cart
+                ClientUserId = preRent.ClientUserId,
+                StatusId = 2, //Pending
+            };
+            await _context.Rents!.AddAsync(rent);
+
+            foreach(var item in preRent.PreRentItems!)
+            {
+                await _context.RentItems!.AddAsync(new RentItem()
+                {
+                    Id = 0,
+                    Price = item.Price,
+                    RentDuration = item.RentDuration,
+                    RentId = preRent.Id,
+                    MovieId = item.MovieId
+                });
+            }
+
             await _context.SaveChangesAsync();
 
             return Ok();
@@ -85,13 +109,13 @@ namespace Services.Controllers
                 Id = rentId,
                 RentDate = rent!.Date,
                 ClientUserId = rent.ClientUserId,
-                RentMovies = new List<Blasterify.Client.Models.RentMovie>(rentItems.Count)
+                RentMovies = new List<RentMovie>(rentItems.Count)
             };
 
             foreach (var item in rentItems)
             {
                 var movie = await _context!.Movies!.FindAsync(item.MovieId);
-                rentDetail.RentMovies.Add(new Blasterify.Client.Models.RentMovie(movie!, item.RentDuration));
+                rentDetail.RentMovies.Add(new RentMovie(movie!, item.RentDuration));
             }
 
             return Ok(rentDetail);
@@ -101,8 +125,8 @@ namespace Services.Controllers
         [Route("GetLastPreRent")]
         public async Task<IActionResult> GetLastPreRent(int clientUserId)
         {
-            var getPreRent = new Blasterify.Models.Response.PreRent();
-            getPreRent.PreRentItems = new List<Blasterify.Models.Response.PreRentItem>();
+            var getPreRent = new Blasterify.Models.Response.PreRentResponse();
+            getPreRent.PreRentItems = new List<Blasterify.Models.Response.PreRentItemResponse>();
 
             SqlParameter parameter = new("@ClientUserId", clientUserId);
             using (var command = _context.Database.GetDbConnection().CreateCommand())
@@ -139,7 +163,7 @@ namespace Services.Controllers
                 using var result = await command.ExecuteReaderAsync();
                 while (await result.ReadAsync())
                 {
-                    var preRentItem = new Blasterify.Models.Response.PreRentItem
+                    var preRentItem = new Blasterify.Models.Response.PreRentItemResponse
                     {
                         Id = result.GetInt32(0),
                         MovieId = result.GetInt32(1),
@@ -179,7 +203,7 @@ namespace Services.Controllers
         public async Task<IActionResult> Update(Guid id, int rentStatusId, bool isEnabled)
         {
             var getRent = await _context!.Rents!.FindAsync(id);
-            getRent!.Status = rentStatusId;
+            getRent!.StatusId = rentStatusId;
             getRent!.IsEnabled = isEnabled;
 
             await _context.SaveChangesAsync();

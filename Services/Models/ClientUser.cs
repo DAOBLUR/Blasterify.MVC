@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Services.Models
+namespace Blasterify.Services.Models
 {
     public class ClientUser
     {

@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "Services": {
+    "Blasterify.Services": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

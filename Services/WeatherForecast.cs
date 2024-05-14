@@ -1,4 +1,4 @@
-namespace Services
+namespace Blasterify.Services
 {
     public class WeatherForecast
     {

@@ -1,8 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using Blasterify.Client.Models;
-
-namespace Services.Models.Response
+﻿namespace Blasterify.Services.Models.Response
 {
     public class RentDetail
     {

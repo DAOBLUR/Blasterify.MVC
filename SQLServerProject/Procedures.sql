@@ -2,15 +2,15 @@ create procedure [dbo].[GetLastPreRent]
 	@ClientUserId int
 as
 begin
-	select top 1 * from PreRents pr where pr.ClientUserId = @ClientUserId order by pr.Date desc
+	select top 1 * from Rents r where r.ClientUserId = @ClientUserId order by r.Date desc
 end
 
 create procedure [dbo].[GetLastPreRentItems]
 	@PreRentId uniqueidentifier
 as
 begin
-	select pRI.Id, m.Id as MovieId, pRI.RentDuration, m.Title, m.FirebasePosterId, m.Price
-	from PreRentItems pRI 
-	join Movies m on pRI.MovieId = m.Id
-	where pRI.RentId = @PreRentId;
+	select rI.Id, m.Id as MovieId, rI.RentDuration, m.Title, m.FirebasePosterId, m.Price
+	from RentItems rI 
+	join Movies m on rI.MovieId = m.Id
+	where rI.RentId = @PreRentId;
 end

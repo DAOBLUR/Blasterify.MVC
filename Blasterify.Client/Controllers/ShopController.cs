@@ -16,13 +16,13 @@ namespace Blasterify.Client.Controllers
 
         #region SERVICES
 
-        public async Task<Movie> GetMovieAsync(int id)
+        public async Task<Blasterify.Models.Model.MovieModel> GetMovieAsync(int id)
         {
             HttpResponseMessage response = await client.GetAsync($"{MvcApplication.ServicesPath}/Movie/Get?id={id}");
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
-                var gatMovie = JsonConvert.DeserializeObject<Movie>(jsonString);
+                var gatMovie = JsonConvert.DeserializeObject< Blasterify.Models.Model.MovieModel> (jsonString);
 
                 return gatMovie;
             }
@@ -90,7 +90,7 @@ namespace Blasterify.Client.Controllers
         public async Task<ActionResult> Movie(int id)
         {
             var movie = await GetMovieAsync(id);
-            return View(movie ?? new Movie());
+            return View(movie ?? new Blasterify.Models.Model.MovieModel());
         }
 
         public ActionResult RentConfirmation()
@@ -125,7 +125,7 @@ namespace Blasterify.Client.Controllers
         [HttpGet]
         public JsonResult GetCartCount()
         {
-            var cart = (Dictionary<int, RentMovie>)Session["Cart"];
+            var cart = (Blasterify.Models.Model.PreRentModel) Session["Cart"];
 
             if (cart == null)
             {
@@ -149,7 +149,7 @@ namespace Blasterify.Client.Controllers
                         true,
                         new
                         {
-                            Count = cart.Count
+                            Count = cart.PreRentItems.Count
                         },
                         "Success"
                     ),
@@ -177,15 +177,15 @@ namespace Blasterify.Client.Controllers
                 if (await CreateRent(rent))
                 {
                     var rentItems = new List<RentItem>();
-
-                    foreach (var item in (Dictionary<int, RentMovie>) Session["Cart"])
+                    var cart = (Blasterify.Models.Model.PreRentModel) Session["Cart"];
+                    foreach (var item in cart.PreRentItems.Values)
                     {
                         rentItems.Add(new RentItem()
                         {
                             Id = 0,
-                            MovieId = item.Value.MovieId,
+                            MovieId = item.MovieId,
                             RentId = rent.Id,
-                            RentDuration = item.Value.RentDuration,
+                            RentDuration = item.RentDuration,
                         });
                     };
 

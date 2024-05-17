@@ -1,8 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "jrUtVSUfGtnRzf+Msx7O8Cl0gKXgMLv913EAFK9scC7229X8n0Ks7MgDG1rLLrqtGbjp4aUTybu59JY2O1yn2g==",
+  "dgSpecHash": "jTAlcEnlrXoQ2zW+oY1yiaV19fbk/6kNanXC81B9LHW31qJ5le5PijuQ4nxKg0brv/v2AOTbAPQ5G7SnrsEodg==",
   "success": true,
-  "projectFilePath": "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Death Knight\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Death Knight\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\Death Knight\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\Death Knight\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
+    "C:\\Users\\Death Knight\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512"
+  ],
   "logs": []
 }

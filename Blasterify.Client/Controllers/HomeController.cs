@@ -23,7 +23,7 @@ namespace Blasterify.Client.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
-                var gatAllMovies = JsonConvert.DeserializeObject<List<Movie>>(jsonString);
+                var gatAllMovies = JsonConvert.DeserializeObject<List<Blasterify.Models.Model.MovieModel>> (jsonString);
 
                 HttpContext.Cache.Insert("Movies", gatAllMovies, null, DateTime.Now.AddMinutes(10), Cache.NoSlidingExpiration);
             }
@@ -35,25 +35,31 @@ namespace Blasterify.Client.Controllers
 
         public async Task GetLastCart()
         {
-            HttpResponseMessage response = await client.GetAsync($"{MvcApplication.ServicesPath}/Rent/GetLastPreRent");
+            HttpResponseMessage response = await client.GetAsync($"{MvcApplication.ServicesPath}/Rent/GetLastPreRent?clientUserId={GetClientUser().Id}");
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
-                //var gatAllPreRents = JsonConvert.DeserializeObject<List<Blasterify.Models.Response.PreRentResponse>>(jsonString);
+                var gatAllPreRents = JsonConvert.DeserializeObject<Blasterify.Models.Response.PreRentResponse>(jsonString);
+
+                Session["Cart"] = new Blasterify.Models.Model.PreRentModel(gatAllPreRents);
+            }
+            else
+            {
+                Session["Cart"] = new Blasterify.Models.Model.PreRentModel();
             }
         }
 
-        public async Task<bool> CreatePreRent(PreRent preRent)
+        public async Task<bool> CreatePreRent(Blasterify.Models.Request.PreRentRequest preRentRequest)
         {
-            var json = JsonConvert.SerializeObject(preRent);
+            var json = JsonConvert.SerializeObject(preRentRequest);
 
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await client.PostAsync($"{MvcApplication.ServicesPath}/PreRent/Create", content);
+            HttpResponseMessage response = await client.PostAsync($"{MvcApplication.ServicesPath}/Rent/Create", content);
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<object>(jsonString);
+                var data = JsonConvert.DeserializeObject<Guid>(jsonString);
                 return true;
             }
             else
@@ -87,7 +93,7 @@ namespace Blasterify.Client.Controllers
 
         public ClientUser GetClientUser()
         {
-            return (ClientUser)Session["ClientUser"];
+            return (ClientUser) Session["ClientUser"];
         }
 
         public bool VerifySession()
@@ -104,7 +110,7 @@ namespace Blasterify.Client.Controllers
 
         public int GetCartCount()
         {
-            var cart = (Dictionary<int, RentMovie>)Session["Cart"];
+            var cart = (Blasterify.Models.Model.PreRentModel) Session["Cart"];
 
             if (cart == null)
             {
@@ -112,30 +118,28 @@ namespace Blasterify.Client.Controllers
             }
             else
             {
-                return cart.Count;
+                return cart.PreRentItems.Count;
             }
         }
 
-        public void AddMovieToCart(Movie movie)
+        public void AddMovieToCart(Blasterify.Models.Model.MovieModel movie)
         {
-            var cart = (Dictionary<int, RentMovie>)Session["Cart"];
+            var cart = (Blasterify.Models.Model.PreRentModel) Session["Cart"];
 
             if (cart != null)
             {
-                var rentMovie = new RentMovie(movie);
-
-                cart.Add(movie.Id, rentMovie);
+                cart.PreRentItems.Add(movie.Id, new Blasterify.Models.Model.PreRentItemModel(movie));
                 Session["Cart"] = cart;
             }
         }
 
-        public Dictionary<int, RentMovie> GetCart()
+        public Blasterify.Models.Model.PreRentModel GetCart()
         {
             if (Session["Cart"] == null)
             {
-                Session["Cart"] = new Dictionary<int, RentMovie>();
+                Session["Cart"] = new Blasterify.Models.Model.PreRentModel();
             }
-            var cart = (Dictionary<int, RentMovie>)Session["Cart"];
+            var cart = (Blasterify.Models.Model.PreRentModel) Session["Cart"];
             return cart;
 
         }
@@ -148,7 +152,8 @@ namespace Blasterify.Client.Controllers
             if (VerifySession())
             {
                 await GetAllMoviesAsync();
-                var movies = HttpContext.Cache["Movies"] as List<Movie>;
+                await GetLastCart();
+                var movies = HttpContext.Cache["Movies"] as List<Blasterify.Models.Model.MovieModel>;
                 return View(movies);
             }
             else
@@ -156,14 +161,14 @@ namespace Blasterify.Client.Controllers
                 //return RedirectToAction("LogIn", "Access");
 
                 await GetAllMoviesAsync();
-                var movies = HttpContext.Cache["Movies"] as List<Movie>;
+                var movies = HttpContext.Cache["Movies"] as List<Blasterify.Models.Model.MovieModel>;
                 return View(movies);
             }
         }
 
         public ActionResult MyAccount()
         {
-            var clientUser = (ClientUser)Session["ClientUser"] ?? new ClientUser();
+            var clientUser = (ClientUser) Session["ClientUser"] ?? new ClientUser();
 
             return View(clientUser);
         }
@@ -180,26 +185,26 @@ namespace Blasterify.Client.Controllers
             {
                 var cart = GetCart();
 
-                if (cart == null || cart.Count == 0)
+                if (cart == null || cart.PreRentItems.Count == 0)
                 {
                     return RedirectToAction("Index", "Home");
                 }
 
-                return View(cart.Values.ToList());
+                return View(cart.PreRentItems.Values.ToList());
 
             }
             else
             {
-                //return RedirectToAction("LogIn", "Access");
-
                 var cart = GetCart();
 
-                if (cart == null || cart.Count == 0)
+                if (cart == null || cart.PreRentItems.Count == 0)
                 {
                     return RedirectToAction("Index", "Home");
                 }
 
-                return View(cart.Values.ToList());
+                return View(cart.PreRentItems.Values.ToList());
+                
+                //return RedirectToAction("LogIn", "Access");
             }
         }
 
@@ -225,7 +230,7 @@ namespace Blasterify.Client.Controllers
         [HttpPost]
         public async Task<JsonResult> AddToCart(int id)
         {
-            var movies = HttpContext.Cache["Movies"] as List<Movie>;
+            var movies = HttpContext.Cache["Movies"] as List<Blasterify.Models.Model.MovieModel>;
 
             if (movies == null)
             {
@@ -236,7 +241,7 @@ namespace Blasterify.Client.Controllers
 
             if (GetCart() == null)
             {
-                Session["Cart"] = new Dictionary<int, RentMovie>();
+                Session["Cart"] = new Blasterify.Models.Response.PreRentResponse();
                 AddMovieToCart(getMovie);
             }
             else
@@ -264,7 +269,7 @@ namespace Blasterify.Client.Controllers
             return Json(
                 new
                 {
-                    data = cart.Values.ToList()
+                    data = cart.PreRentItems.Values.ToList()
                 },
                 JsonRequestBehavior.AllowGet
             );
@@ -277,11 +282,11 @@ namespace Blasterify.Client.Controllers
 
             if (isAdd)
             {
-                if (cart[movieId].RentDuration < 12) cart[movieId].RentDuration++;
+                if (cart.PreRentItems[movieId].RentDuration < 12) cart.PreRentItems[movieId].RentDuration++;
             }
             else
             {
-                if (cart[movieId].RentDuration > 1) cart[movieId].RentDuration--;
+                if (cart.PreRentItems[movieId].RentDuration > 1) cart.PreRentItems[movieId].RentDuration--;
             }
 
             Session["Cart"] = cart;
@@ -292,7 +297,7 @@ namespace Blasterify.Client.Controllers
                     data = new
                     {
                         cartCount = GetCartCount(),
-                        rentDuration = cart[movieId].RentDuration
+                        rentDuration = cart.PreRentItems[movieId].RentDuration
                     }
                 },
                 JsonRequestBehavior.AllowGet
@@ -303,7 +308,7 @@ namespace Blasterify.Client.Controllers
         public JsonResult DeleteRentMovieRequest(int movieId)
         {
             var cart = GetCart();
-            cart.Remove(movieId);
+            cart.PreRentItems.Remove(movieId);
             Session["Cart"] = cart;
 
             return Json(
@@ -324,37 +329,12 @@ namespace Blasterify.Client.Controllers
             if (GetCartCount() > 0)
             {
                 var cart = GetCart();
-                var preRent = new PreRent()
-                {
-                    Id = Guid.NewGuid(),
-                    Date = DateTime.UtcNow,
-                    ClientUserId = GetClientUser().Id
-                };
+                cart.Name = name;
+                cart.Address = address;
+                cart.CardNumber = cardNumber;
+                cart.ClientUserId = GetClientUser().Id;
 
-                var result = false;
-
-                if(await CreatePreRent(preRent))
-                {
-                    var preRentItems = new List<PreRentItem>();
-
-                    foreach (var item in cart)
-                    {
-                        preRentItems.Add(new PreRentItem()
-                        {
-                            Id = 0,
-                            MovieId = item.Value.MovieId,
-                            RentId = preRent.Id,
-                            RentDuration = item.Value.RentDuration,
-                        });
-                    };
-
-                    result = await CreatePreRentItems(preRentItems);
-
-                    if(result)
-                    {
-                        Session["PreRent"] = preRent;
-                    }
-                }
+                var result = await CreatePreRent(new Blasterify.Models.Request.PreRentRequest(cart));
 
                 return Json(
                     new Result(
@@ -396,5 +376,6 @@ namespace Blasterify.Client.Controllers
         }
 
         #endregion
+
     }
 }

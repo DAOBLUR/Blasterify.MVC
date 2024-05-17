@@ -1,4 +1,6 @@
-﻿namespace Blasterify.Models.Request
+﻿using System;
+
+namespace Blasterify.Models.Request
 {
     public class LastUserConnection
     {

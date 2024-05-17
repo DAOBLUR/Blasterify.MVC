@@ -134,12 +134,10 @@
     </Compile>
     <Compile Include="Models\ClientUser.cs" />
     <Compile Include="Models\LogIn.cs" />
-    <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\PreRent.cs" />
     <Compile Include="Models\PreRentItem.cs" />
     <Compile Include="Models\Rent.cs" />
     <Compile Include="Models\RentDetail.cs" />
-    <Compile Include="Models\RentMovie.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\RentItem.cs" />
@@ -288,7 +286,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Blasterify.Models\Blasterify.Models.csproj">
-      <Project>{a563b629-ebbc-4c82-8d07-e366e6389272}</Project>
+      <Project>{ad547cf0-62a1-4d35-86e2-4c6a412076d2}</Project>
       <Name>Blasterify.Models</Name>
     </ProjectReference>
   </ItemGroup>

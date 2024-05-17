@@ -12,6 +12,6 @@ namespace Blasterify.Client.Models
 
         public int ClientUserId { get; set; }
 
-        public List<RentMovie> RentMovies { get; set; }
+        public List<Blasterify.Models.Model.PreRentModel> RentMovies { get; set; }
     }
 }

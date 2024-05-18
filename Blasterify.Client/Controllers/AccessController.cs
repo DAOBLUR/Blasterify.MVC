@@ -9,12 +9,12 @@ using System.Web.Mvc;
 
 namespace Blasterify.Client.Controllers
 {
-    public class AccessController : Controller
+    public class AccessController : BaseController
     {
         private static readonly HttpClient client = new HttpClient();
 
         #region Services
-        public async Task<ActionResult> GetClientUser()
+        public async Task<ActionResult> GetAllSubscriptionAsync()
         {
             HttpResponseMessage response = await client.GetAsync($"{MvcApplication.ServicesPath}/Subscription/GetAll");
             if (response.IsSuccessStatusCode)
@@ -79,6 +79,7 @@ namespace Blasterify.Client.Controllers
         #endregion
 
         #region Helpers
+
         public byte[] HashPassword(string password)
         {
             using (SHA256 sha256Hash = SHA256.Create())
@@ -89,9 +90,10 @@ namespace Blasterify.Client.Controllers
                 return bytes;
             }
         }
+
         #endregion
 
-        #region Views
+        #region VIEWA
         public ActionResult LogIn()
         {
             Console.WriteLine(MvcApplication.ServicesPath);
@@ -131,7 +133,8 @@ namespace Blasterify.Client.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> SignUp(string username, string email, string password, string passwordConfirm, string cardNumber)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> SignUpRequest(string username, string email, string password, string passwordConfirm, string cardNumber)
         {
             if (password == passwordConfirm)
             {
@@ -156,7 +159,8 @@ namespace Blasterify.Client.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> LogIn(string email, string password)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> LogInRequest(string email, string password)
         {
             var logIn = new LogIn()
             {
@@ -174,8 +178,8 @@ namespace Blasterify.Client.Controllers
             {
                 return View();
             }
-
         }
+
         #endregion
     }
 }

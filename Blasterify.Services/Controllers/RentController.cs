@@ -3,8 +3,8 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Blasterify.Services.Data;
 using Blasterify.Services.Models;
-using Blasterify.Services.Models.Response;
 using System.Data;
+using Hangfire.Dashboard;
 
 
 namespace Blasterify.Services.Controllers
@@ -55,6 +55,7 @@ namespace Blasterify.Services.Controllers
             }
             else
             {
+                id = preRent.Id;
                 var rent = await _context!.Rents!.FindAsync(id);
                 rent = new Rent()
                 {
@@ -65,32 +66,38 @@ namespace Blasterify.Services.Controllers
                     IsEnabled = true, //For Cart
                     StatusId = 2, //Pending
                 };
+                
+                var rentItems = await _context!.RentItems!.Where(pr => pr.RentId == preRent.Id).ToListAsync();
 
                 foreach (var item in preRent.PreRentItems!)
                 {
-                    var rentItem = await _context!.RentItems!.FindAsync(item.Id);
+                    var rentItem = rentItems.Find(ri => ri.Id == item.Id);
 
-                    if(rentItem == null)
+                    if (rentItem == null)
                     {
                         await _context.RentItems!.AddAsync(new RentItem()
                         {
                             Id = 0,
                             Price = item.Price,
                             RentDuration = item.RentDuration,
-                            RentId = id,
+                            RentId = preRent.Id,
                             MovieId = item.MovieId
                         });
                     }
                     else
                     {
-                        rentItem = new RentItem()
-                        {
-                            Price = item.Price,
-                            RentDuration = item.RentDuration,
-                        };
+                        rentItem.Price = item.Price;
+                        rentItem.RentDuration = item.RentDuration;
+
+                        rentItems.Remove(rentItem);
 
                         await _context.SaveChangesAsync();
                     }
+                }
+
+                foreach(var item in rentItems)
+                {
+                    _context.RentItems!.Remove(item);
                 }
             }
 
@@ -150,18 +157,29 @@ namespace Blasterify.Services.Controllers
 
             var rentItems = await _context.RentItems!.Where(ri => ri.RentId == rentId).ToListAsync();
 
-            var rentDetail = new RentDetail()
+            var rentDetail = new Blasterify.Models.Model.RentDetailModel()
             { 
                 Id = rentId,
-                RentDate = rent!.Date,
-                ClientUserId = rent.ClientUserId,
-                RentMovies = new List<RentMovie>(rentItems.Count)
+                Date = rent!.Date,
+                Name = rent.Name,
+                Address = rent.Address,
+                CardNumber = rent.CardNumber,
+                RentItemDetailModels = new List<Blasterify.Models.Model.RentItemDetailModel>(rentItems.Count)
             };
 
             foreach (var item in rentItems)
             {
-                var movie = await _context!.Movies!.FindAsync(item.MovieId);
-                rentDetail.RentMovies.Add(new RentMovie(movie!, item.RentDuration));
+                var movie = await _context.Movies!.FindAsync(item.MovieId);
+                rentDetail.RentItemDetailModels.Add(new Blasterify.Models.Model.RentItemDetailModel()
+                {
+                    MovieId = item.MovieId,
+                    RentDuration = item.RentDuration,
+                    Title = movie!.Title,
+                    Duration = movie.Duration,
+                    Description = movie.Description,
+                    FirebasePosterId = movie.FirebasePosterId,
+                    Price = item.Price
+                });
             }
 
             return Ok(rentDetail);
@@ -171,8 +189,10 @@ namespace Blasterify.Services.Controllers
         [Route("GetLastPreRent")]
         public async Task<IActionResult> GetLastPreRent(int clientUserId)
         {
-            var getPreRent = new Blasterify.Models.Response.PreRentResponse();
-            getPreRent.PreRentItems = new List<Blasterify.Models.Response.PreRentItemResponse>();
+            var getPreRent = new Blasterify.Models.Response.PreRentResponse
+            {
+                PreRentItems = new List<Blasterify.Models.Response.PreRentItemResponse>()
+            };
 
             SqlParameter parameter = new("@ClientUserId", clientUserId);
             using (var command = _context.Database.GetDbConnection().CreateCommand())
@@ -245,15 +265,21 @@ namespace Blasterify.Services.Controllers
         }
 
         [HttpPut]
-        [Route("UpdateStatus")]
-        public async Task<IActionResult> UpdateStatus(Guid id, int rentStatusId, bool isEnabled)
+        [Route("CompleteRent")]
+        public async Task<IActionResult> CompleteRent([FromBody] Guid rentId)
         {
-            var getRent = await _context!.Rents!.FindAsync(id);
-            getRent!.StatusId = rentStatusId;
-            getRent!.IsEnabled = isEnabled;
+            var getRent = await _context!.Rents!.FindAsync(rentId);
+
+            if (getRent == null)
+            {
+                return NotFound();
+            }
+
+            getRent!.StatusId = 1;
+            getRent!.IsEnabled = false;
 
             await _context.SaveChangesAsync();
-
+                
             return Ok();
         }
 

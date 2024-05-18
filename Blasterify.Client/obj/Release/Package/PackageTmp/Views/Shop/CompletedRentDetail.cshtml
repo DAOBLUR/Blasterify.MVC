@@ -1,67 +1,86 @@
-﻿@model Blasterify.Client.Models.RentDetail
-
-@{
+﻿@{
     ViewBag.Title = "CompletedRentDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.AntiForgeryToken()
+
 <h2>CompletedRentDetail</h2>
 
 <div>
-    <h4>RentDetail</h4>
+    <h4>Rent Detail</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.RentDate)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.RentDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ClientUserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ClientUserId)
-        </dd>
-
-    </dl>
-
-    <div class="m-5">
+    <div class="m-5" id="container">
         <div class="row border-2 border p-0 m-0">
-            <p class="col">Title</p>
-            <p class="col">Price</p>
-            <p class="col">RentDuration</p>
-            <p class="col">Total</p>
+            <p class="col my-auto fw-bold">Id</p>
+            <p class="col my-auto fw-bold">Date</p>
+            <p class="col my-auto fw-bold">Name</p>
+            <p class="col my-auto fw-bold">Address</p>
+            <p class="col my-auto fw-bold">Card Number</p>
         </div>
 
-        @foreach (var movie in Model.RentMovies)
-        {
-            var totalPrice = movie.Price * movie.RentDuration;
-            <div class="row border-2 border p-0 m-0">
-                <p class="col">@movie.Title</p>
-                <p class="col">@movie.Price</p>
-                <p class="col">@movie.RentDuration</p>
-                <p class="col">@totalPrice</p>
-            </div>
-        }
+        <div class="row border-2 border p-0 m-0">
+            <p class="col my-auto" id="id"></p>
+            <p class="col my-auto" id="date"></p>
+            <p class="col my-auto" id="name"></p>
+            <p class="col my-auto" id="address"></p>
+            <p class="col my-auto" id="cardNumber"></p>
+        </div>
 
-    <dd>
-        @if (true)
-        {
-            double totalPrice = 0;
-            foreach (var movie in Model.RentMovies)
-            {
-                totalPrice += movie.Price * movie.RentDuration;
-            }
-        
-            <div class="col align-content-end">
-                <p class="col">TOTAL COST: $@totalPrice</p>
-            </div>
-        }
+        <hr />
 
-    </dd>
+        <div class="row border-2 border p-0 m-0">
+            <p class="col my-auto fw-bold">Title</p>
+            <p class="col my-auto fw-bold">Price</p>
+            <p class="col my-auto fw-bold">Rent Duration</p>
+            <p class="col my-auto fw-bold">Total Price</p>
+        </div>
     </div>
 </div>
+
+
+@section scripts{
+    <script>
+        GetRentDetail();
+
+        function GetRentDetail() {
+            jQuery.ajax({
+                url: "@Url.Action("GetRentDetailRequest", "Shop")",
+                type: "GET",
+                dataType: "json",
+                contentTyoe: "application/json; charset=utf-8",
+                success: function (result) {
+                    console.log(result);
+                    document.getElementById('id').innerHTML = `#${result.Data.rentDetail.Id}`
+                    document.getElementById('date').innerHTML = `${result.Data.rentDetail.Date}`
+                    document.getElementById('name').innerHTML = `${result.Data.rentDetail.Name}`
+                    document.getElementById('address').innerHTML = `${result.Data.rentDetail.Address}`
+                    document.getElementById('cardNumber').innerHTML = `Visa-${result.Data.rentDetail.CardNumber}`
+
+                    let totalCost = 0;
+                    for (let index in result.Data.rentDetail.RentItemDetailModels) {
+                        let item = result.Data.rentDetail.RentItemDetailModels[index]
+                        document.getElementById('container').innerHTML +=
+                            '<div class="row border-2 border p-0 m-0">' +
+                                `<p class="col my-auto" >${item.Title}</p>` +
+                                `<p class="col my-auto">$${item.Price}</p>` +
+                                `<p class="col my-auto">${item.RentDuration} months</p>` +
+                        `<div class="col row my-auto">` +
+                        `<p class="col my-auto">$${(item.RentDuration * item.Price).toFixed(2)}</p>` +
+                                    `<img class="col-5" src="${item.FirebasePosterId}" alt="${item.Title}"/>` +
+                                `</div>` +
+                            '</div>';
+                        totalCost += item.RentDuration * item.Price;
+                    }
+
+                    document.getElementById('container').innerHTML +=
+                        `<div class="row">` +
+                    `<div class="col"></div>` +
+                    `<p class="col-1 me-5 align-content-end fw-bold fs-3">$${totalCost.toFixed(2)}</p>` +
+                        `</div>`;
+                },
+            });
+        }
+    </script>
+}

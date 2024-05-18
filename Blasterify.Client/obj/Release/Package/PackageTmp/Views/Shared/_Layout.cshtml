@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@Html.AntiForgeryToken()
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -65,22 +67,25 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-<script>
+    <script>
         function ShowCartCount(count) {
             jQuery.ajax({
-                url: '@Url.Action("GetCartCount", "Shop")',
+                url: '@Url.Action("GetCartCountRequest", "Base")',
                 type: 'GET',
                 datatype: 'json',
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
-                    console.log(response);
+                    console.log('ShowCartCount', response);
                     if (response.Success) {
                         $("#cartCount").text(response.Data.Count)
+                    }
+                    else {
+                        console.log('ShowCartCount', 'Error');
                     }
                 },
             });
         }
-</script>
+    </script>
 </body>
 </html>
 

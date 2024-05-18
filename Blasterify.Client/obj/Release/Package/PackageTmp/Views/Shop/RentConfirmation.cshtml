@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+@Html.AntiForgeryToken()
 
 <div class="container my-5">
     <div id="layoutAuthentication_content">
@@ -18,6 +18,7 @@
 
                             <div class="card-body">
                                 <form action="@Url.Action("LogIn","Access")" method="post">
+                                    @Html.AntiForgeryToken()
                                     <div class="form-floating mb-3">
                                         <p>Card Number</p>
                                         <p class="ms-3">**** **** **** 3456</p>
@@ -32,7 +33,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input type="password" placeholder="***" class="form-control" id="inputCVV" onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="3" />
+                                                <input type="password" placeholder="***" class="form-control" id="inputCVV" onkeypress="return Event.charCode >= 48 && Event.charCode <= 57" maxlength="3" />
                                                 <label for="inputCCV">CVV</label>
                                             </div>
                                         </div>

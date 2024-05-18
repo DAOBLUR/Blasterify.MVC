@@ -11,11 +11,11 @@ using System.Web.Mvc;
 
 namespace Blasterify.Client.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private static readonly HttpClient client = new HttpClient();
 
-        #region Services
+        #region SERVICES
 
         public async Task GetAllMoviesAsync()
         {
@@ -56,10 +56,15 @@ namespace Blasterify.Client.Controllers
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await client.PostAsync($"{MvcApplication.ServicesPath}/Rent/Create", content);
-            if (response.IsSuccessStatusCode)
+            if(response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
                 var data = JsonConvert.DeserializeObject<Guid>(jsonString);
+
+                var cart = GetCart();
+                cart.Id = data;
+                SetCart(cart);
+
                 return true;
             }
             else
@@ -68,59 +73,10 @@ namespace Blasterify.Client.Controllers
             }
         }
 
-        public async Task<bool> CreatePreRentItems(List<PreRentItem> preRentItems)
-        {
-            var json = JsonConvert.SerializeObject(preRentItems);
-
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            HttpResponseMessage response = await client.PostAsync($"{MvcApplication.ServicesPath}/PreRent/CreatePreRentItems", content);
-            if (response.IsSuccessStatusCode)
-            {
-                var jsonString = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<object>(jsonString);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
 
         #endregion
 
         #region Functions
-
-        public ClientUser GetClientUser()
-        {
-            return (ClientUser) Session["ClientUser"];
-        }
-
-        public bool VerifySession()
-        {
-            if (Session["ClientUser"] == null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        public int GetCartCount()
-        {
-            var cart = (Blasterify.Models.Model.PreRentModel) Session["Cart"];
-
-            if (cart == null)
-            {
-                return 0;
-            }
-            else
-            {
-                return cart.PreRentItems.Count;
-            }
-        }
 
         public void AddMovieToCart(Blasterify.Models.Model.MovieModel movie)
         {
@@ -132,21 +88,12 @@ namespace Blasterify.Client.Controllers
                 Session["Cart"] = cart;
             }
         }
-
-        public Blasterify.Models.Model.PreRentModel GetCart()
-        {
-            if (Session["Cart"] == null)
-            {
-                Session["Cart"] = new Blasterify.Models.Model.PreRentModel();
-            }
-            var cart = (Blasterify.Models.Model.PreRentModel) Session["Cart"];
-            return cart;
-
-        }
+        
 
         #endregion
 
-        #region Views
+        #region VIEWS
+
         public async Task<ActionResult> Index()
         {
             if (VerifySession())
@@ -158,8 +105,6 @@ namespace Blasterify.Client.Controllers
             }
             else
             {
-                //return RedirectToAction("LogIn", "Access");
-
                 await GetAllMoviesAsync();
                 var movies = HttpContext.Cache["Movies"] as List<Blasterify.Models.Model.MovieModel>;
                 return View(movies);
@@ -195,16 +140,7 @@ namespace Blasterify.Client.Controllers
             }
             else
             {
-                var cart = GetCart();
-
-                if (cart == null || cart.PreRentItems.Count == 0)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-
-                return View(cart.PreRentItems.Values.ToList());
-                
-                //return RedirectToAction("LogIn", "Access");
+                return RedirectToAction("LogIn", "Access");
             }
         }
 
@@ -213,6 +149,7 @@ namespace Blasterify.Client.Controllers
         #region Request
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult LogOut()
         {
             if (VerifySession())
@@ -228,7 +165,8 @@ namespace Blasterify.Client.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> AddToCart(int id)
+        [ValidateAntiForgeryToken]
+        public async Task<JsonResult> AddToCartRquest(int id)
         {
             var movies = HttpContext.Cache["Movies"] as List<Blasterify.Models.Model.MovieModel>;
 
@@ -237,7 +175,7 @@ namespace Blasterify.Client.Controllers
                 await GetAllMoviesAsync();
             }
 
-            var getMovie = movies.Where(m => m.Id == id).FirstOrDefault();
+            var getMovie = movies?.Find(m => m.Id == id);
 
             if (GetCart() == null)
             {
@@ -260,22 +198,8 @@ namespace Blasterify.Client.Controllers
             );
         }
 
-        //RENT
         [HttpPost]
-        public JsonResult GetCartRequest()
-        {
-            var cart = GetCart();
-
-            return Json(
-                new
-                {
-                    data = cart.PreRentItems.Values.ToList()
-                },
-                JsonRequestBehavior.AllowGet
-            );
-        }
-
-        [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateRentDurationRequest(int movieId, bool isAdd)
         {
             var cart = GetCart();
@@ -305,6 +229,7 @@ namespace Blasterify.Client.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult DeleteRentMovieRequest(int movieId)
         {
             var cart = GetCart();
@@ -324,6 +249,7 @@ namespace Blasterify.Client.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<JsonResult> ContinueToPaymentRequest(string name, string address, string cardNumber)
         {
             if (GetCartCount() > 0)
@@ -338,7 +264,7 @@ namespace Blasterify.Client.Controllers
 
                 return Json(
                     new Result(
-                        true,
+                        result,
                         new
                         {
                             Url = "/Shop/RentConfirmation"
@@ -361,17 +287,16 @@ namespace Blasterify.Client.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult GoToRentConfirmationRequest()
         {
             if (GetCartCount() > 0)
             {
-                var cart = GetCart();
                 return RedirectToAction("RentConfirmation", "Shop");
             }
             else
             {
-                //return RedirectToAction("Index", "Home");
-                return RedirectToAction("RentConfirmation", "Shop");
+                return RedirectToAction("Index", "Home");
             }
         }
 

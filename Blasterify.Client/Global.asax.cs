@@ -6,8 +6,13 @@ namespace Blasterify.Client
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        //public static readonly string ServicesPath = "http://www.blasterify.services.com:9000/api";
-        public static readonly string ServicesPath = "https://localhost:7276/api";
+
+    #if DEBUG
+        public static readonly string ServicesPath = System.Configuration.ConfigurationManager.ConnectionStrings["Blasterify.Services.Debug"].ConnectionString;
+    #else
+        public static readonly string ServicesPath = System.Configuration.ConfigurationManager.ConnectionStrings["Blasterify.Services.Release"].ConnectionString;
+    #endif
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

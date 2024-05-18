@@ -3075,11 +3075,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Blasterify.Services.csproj",
+      "projectUniqueName": "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Blasterify.Services.csproj",
       "projectName": "Blasterify.Services",
-      "projectPath": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Blasterify.Services.csproj",
+      "projectPath": "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Blasterify.Services.csproj",
       "packagesPath": "C:\\Users\\Death Knight\\.nuget\\packages\\",
-      "outputPath": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\obj\\",
+      "outputPath": "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3102,8 +3102,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj": {
-              "projectPath": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj"
+            "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj": {
+              "projectPath": "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj"
             }
           }
         }

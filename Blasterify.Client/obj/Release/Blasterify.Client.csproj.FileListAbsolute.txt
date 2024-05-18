@@ -77,3 +77,5 @@ E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Client\obj\Release\Blasterify
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Client\obj\Release\Blasterify.Client.csproj.CopyComplete
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Client\obj\Release\Blasterify.Client.dll
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Client\obj\Release\Blasterify.Client.pdb
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Client\bin\Blasterify.Models.dll
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Client\bin\Blasterify.Models.pdb

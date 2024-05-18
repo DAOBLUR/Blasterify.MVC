@@ -3,8 +3,9 @@
     Layout = null;
 }
 
-<!DOCTYPE html>
+@Html.AntiForgeryToken()
 
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -21,7 +22,8 @@
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3></div>
                                 <div class="card-body">
-                                    <form action="@Url.Action("SignUp","Access")" method="post">
+                                    <form action="@Url.Action("SignUpRequest","Access")" method="post">
+                                        @Html.AntiForgeryToken()
                                         <div class="form-floating mb-3">
                                             <input name="username" class="form-control" id="inputUsername" type="text" placeholder="Enter your username" />
                                             <label for="inputUsername"> Username</label>

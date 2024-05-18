@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj": {}
+    "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj": {}
   },
   "projects": {
-    "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj": {
+    "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj",
+        "projectUniqueName": "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj",
         "projectName": "Blasterify.Models",
-        "projectPath": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj",
+        "projectPath": "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj",
         "packagesPath": "C:\\Users\\Death Knight\\.nuget\\packages\\",
-        "outputPath": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\obj\\",
+        "outputPath": "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

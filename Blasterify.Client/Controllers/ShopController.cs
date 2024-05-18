@@ -7,10 +7,11 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
 using System.Web.Caching;
+using System.Linq;
 
 namespace Blasterify.Client.Controllers
 {
-    public class ShopController : Controller
+    public class ShopController : BaseController
     {
         private static readonly HttpClient client = new HttpClient();
 
@@ -32,36 +33,18 @@ namespace Blasterify.Client.Controllers
             }
         }
 
-        public async Task<bool> CreateRent(Rent preRent)
+        public async Task<bool> CompleteRentAsync()
         {
-            var json = JsonConvert.SerializeObject(preRent);
+            var cart = GetCart();
+            var json = JsonConvert.SerializeObject(cart.Id);
 
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await client.PostAsync($"{MvcApplication.ServicesPath}/Rent/Create", content);
+            HttpResponseMessage response = await client.PutAsync($"{MvcApplication.ServicesPath}/Rent/CompleteRent", content);
             if (response.IsSuccessStatusCode)
             {
-                var jsonString = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<object>(jsonString);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public async Task<bool> CreateRentItems(List<RentItem> preRentItems)
-        {
-            var json = JsonConvert.SerializeObject(preRentItems);
-
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            HttpResponseMessage response = await client.PostAsync($"{MvcApplication.ServicesPath}/Rent/CreateRentItems", content);
-            if (response.IsSuccessStatusCode)
-            {
-                var jsonString = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<object>(jsonString);
+                Session["RentId"] = cart.Id;
+                Session["Cart"] = null;
 
                 return true;
             }
@@ -71,15 +54,21 @@ namespace Blasterify.Client.Controllers
             }
         }
 
-        public async Task GetRentDetailAsync()
+        public async Task<Blasterify.Models.Model.RentDetailModel> GetRentDetailAsync()
         {
             HttpResponseMessage response = await client.GetAsync($"{MvcApplication.ServicesPath}/Rent/GetRentDetail?rentId={(Guid)Session["RentId"]}");
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
-                var gatAllMovies = JsonConvert.DeserializeObject<RentDetail>(jsonString);
+                var gatAllMovies = JsonConvert.DeserializeObject<Blasterify.Models.Model.RentDetailModel>(jsonString);
 
                 Session["RentDetail"] = gatAllMovies;
+
+                return gatAllMovies;
+            }
+            else 
+            {
+                return null; 
             }
         }
 
@@ -105,17 +94,14 @@ namespace Blasterify.Client.Controllers
             }
         }
 
-        public async Task<ActionResult> CompletedRentDetail()
+        public ActionResult CompletedRentDetail()
         {
             if (Session["ClientUser"] == null)
             {
                 return RedirectToAction("LogIn", "Access");
             }
-            else
-            {
-                await GetRentDetailAsync();
-                return View(Session["RentDetail"]);
-            }
+
+            return View();
         }
 
         #endregion
@@ -123,33 +109,35 @@ namespace Blasterify.Client.Controllers
         #region REQUEST
 
         [HttpGet]
-        public JsonResult GetCartCount()
+        [ValidateAntiForgeryToken]
+        public async Task<JsonResult> GetRentDetailRequest()
         {
-            var cart = (Blasterify.Models.Model.PreRentModel) Session["Cart"];
-
-            if (cart == null)
+            if (Session["RentDetail"] == null)
             {
-                
+                var rentDetail = await GetRentDetailAsync();
+
                 return Json(
                     new Result(
-                        false,
+                        true,
                         new
                         {
-                            Count = 0
+                            rentDetail = rentDetail ?? new Blasterify.Models.Model.RentDetailModel()
                         },
-                        "Error"
+                        "Success"
                     ),
                     JsonRequestBehavior.AllowGet
                 );
             }
             else
             {
+                var rentDetail = Session["RentDetail"] as Blasterify.Models.Model.RentDetailModel;
+
                 return Json(
                     new Result(
                         true,
                         new
                         {
-                            Count = cart.PreRentItems.Count
+                            rentDetail = rentDetail ?? new Blasterify.Models.Model.RentDetailModel()
                         },
                         "Success"
                     ),
@@ -159,46 +147,55 @@ namespace Blasterify.Client.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<JsonResult> PayNowRequest(DateTime expirationDate, int cvv, string cardholderName)
         {
-            if(Session["PreRent"] != null)
+            if(expirationDate.Year < DateTime.UtcNow.Year)
             {
-                var preRent = (PreRent) Session["PreRent"];
-
-                var rent = new Rent() 
-                {
-                    Id = preRent.Id,
-                    RentDate = DateTime.UtcNow,
-                    ClientUserId = preRent.ClientUserId
-                };
-
-                var result = false;
-
-                if (await CreateRent(rent))
-                {
-                    var rentItems = new List<RentItem>();
-                    var cart = (Blasterify.Models.Model.PreRentModel) Session["Cart"];
-                    foreach (var item in cart.PreRentItems.Values)
-                    {
-                        rentItems.Add(new RentItem()
+                return Json(
+                    new Result(
+                        false,
+                        new
                         {
-                            Id = 0,
-                            MovieId = item.MovieId,
-                            RentId = rent.Id,
-                            RentDuration = item.RentDuration,
-                        });
-                    };
+                            Url = "/Home/Index"
+                        },
+                        "Invalid Card Expiration Date"
+                    ),
+                    JsonRequestBehavior.AllowGet
+                );
+            }
 
-                    result = await CreateRentItems(rentItems);
+            if(cvv < 100 || cvv > 999) 
+            {
+                return Json(
+                    new Result(
+                        false,
+                        new
+                        {
+                            Url = "/Home/Index"
+                        },
+                        "Invalid CVV"
+                    ),
+                    JsonRequestBehavior.AllowGet
+                );
+            }
+            if(string.IsNullOrEmpty(cardholderName))
+            {
+                return Json(
+                   new Result(
+                       false,
+                       new
+                       {
+                           Url = "/Home/Index"
+                       },
+                       "Invalid Card Holder Name"
+                   ),
+                   JsonRequestBehavior.AllowGet
+               );
+            }
 
-                    if (result)
-                    {
-                        Session["PreRent"] = null;
-                        Session["Cart"] = null;
-                        Session["RentId"] = preRent.Id;
-                    }
-                }
-
+            if(GetCart() != null && await CompleteRentAsync())
+            {
                 return Json(
                     new Result(
                         true,
@@ -211,23 +208,22 @@ namespace Blasterify.Client.Controllers
                     JsonRequestBehavior.AllowGet
                 );
             }
-            else
-            {
-                return Json(
-                    new Result(
-                        false,
-                        new
-                        {
-                            Url = "/Home/Index"
-                        },
-                        "Error"
-                    ),
-                    JsonRequestBehavior.AllowGet
-                );
-            }
+
+            return Json(
+                new Result(
+                    false,
+                    new
+                    {
+                        Url = "/Home/Index"
+                    },
+                    "Error"
+                ),
+                JsonRequestBehavior.AllowGet
+            );
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult CancelRentConfirmationRequest()
         {
             return Json(

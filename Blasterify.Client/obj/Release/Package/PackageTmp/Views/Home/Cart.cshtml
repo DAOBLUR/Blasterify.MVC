@@ -75,6 +75,7 @@
                                     <h5 class="card-title">Payment Information</h5>
 
                                     <form>
+                                        @Html.AntiForgeryToken()
                                         <div class="mb-2">
                                             <label for="inputName" class="form-label">Name</label>
                                             <input type="text" class="form-control form-control-sm" id="inputName" />
@@ -87,7 +88,7 @@
 
                                         <div class="mb-2">
                                             <label for="inputCardNumber" class="form-label">Card Number</label>
-                                            <input type="text" class="form-control form-control-sm" id="inputCardNumber" onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="16"/>
+                                            <input type="text" class="form-control form-control-sm" id="inputCardNumber" onkeypress="return Event.charCode >= 48 && Event.charCode <= 57" maxlength="16" />
                                         </div>
 
                                         <div class="d-grid">

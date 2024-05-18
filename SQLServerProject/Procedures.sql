@@ -2,7 +2,9 @@ create procedure [dbo].[GetLastPreRent]
 	@ClientUserId int
 as
 begin
-	select top 1 * from Rents r where r.ClientUserId = @ClientUserId order by r.Date desc
+	select top 1 * from Rents r 
+	where r.ClientUserId = @ClientUserId and r.IsEnabled = 1 and r.StatusId = 2
+	order by r.Date desc
 end
 
 create procedure [dbo].[GetLastPreRentItems]

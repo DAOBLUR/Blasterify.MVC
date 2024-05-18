@@ -1,14 +1,15 @@
-﻿@model IEnumerable<Blasterify.Client.Models.Movie>
+﻿@model IEnumerable<Blasterify.Models.Model.MovieModel>
 @{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.AntiForgeryToken()
 
 <!-- Header-->
 <header class="bg-dark" style="position: relative; margin: 0px; padding: 0px;">
     <img src="https://firebasestorage.googleapis.com/v0/b/blasterify.appspot.com/o/multimedia%2Fwelcome%2FOppenheimer.jpg?alt=media&token=b03b41f9-1ced-4e96-b926-589f6896f206"
-            style="width: 100%; height: 100%; object-fit: cover;" />
+         style="width: 100%; height: 100%; object-fit: cover;" />
 </header>
 
 <!-- Section-->
@@ -25,7 +26,7 @@
                             <!-- Sale badge-->
                             <div class="badge bg-warning text-dark position-absolute" style="top: 0.5rem; right: 0.5rem">Free</div>
                             <!-- Product image-->
-                            <img class="card-img-top" src="@item.FirebasePosterId" alt="@item.Title"/>
+                            <img class="card-img-top" src="@item.FirebasePosterId" alt="@item.Title" />
                             <!-- Product details-->
                             <div class="card-body p-2">
                                 <div class="text-center">
@@ -35,7 +36,7 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Play</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/Shop/Movie?id=@item.Id">View</a></div>
                             </div>
                         </div>
                     </div>
@@ -55,6 +56,10 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center mb-2">
+                                    <a class="btn btn-outline-dark mt-auto" href="/Shop/Movie?id=@item.Id">View</a>
+                                </div>
+
                                 <div class="text-center">
                                     <button class="btn btn-outline-dark mt-auto add-cart" data-id="@item.Id">
                                         Rent for $@item.Price
@@ -91,7 +96,7 @@
             var id = $(this).data("id");
             console.log(id);
             jQuery.ajax({
-                url: '@Url.Action("AddToCart", "Home")',
+                url: '@Url.Action("AddToCartRquest", "Home")',
                 type: 'POST',
                 data: JSON.stringify({ id: id }),
                 datatype: 'json',
@@ -104,4 +109,4 @@
             });
         });
     </script>
-    }
+}

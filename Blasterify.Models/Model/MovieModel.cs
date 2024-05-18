@@ -14,6 +14,8 @@ namespace Blasterify.Models.Model
 
         public DateTime PremiereDate { get; set; }
 
+        public int PremiereYear { get { return PremiereDate.Year; } }
+
         public double Rate { get; set; }
 
         public string FirebasePosterId { get; set; }

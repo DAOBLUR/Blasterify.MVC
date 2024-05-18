@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jTAlcEnlrXoQ2zW+oY1yiaV19fbk/6kNanXC81B9LHW31qJ5le5PijuQ4nxKg0brv/v2AOTbAPQ5G7SnrsEodg==",
+  "dgSpecHash": "v1LEt4fV4UnUzFkDUCZLRmRUe/i4PpMe4aN7t78EJT8iquTsjPcsXt+EVypoSkq0Lw6elGHPzK/44rCXRjFBDA==",
   "success": true,
-  "projectFilePath": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj",
+  "projectFilePath": "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Blasterify.Models.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Death Knight\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\Death Knight\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",

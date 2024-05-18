@@ -253,18 +253,18 @@
         $(document).on('click', '.btn-delete', function ()
         {
             var movieId = $('.btn-delete').data('data');
-            console.log(movieId);
             var card_rentMovie = $(this).parents('div.card-rentMovie');
+
+            var token = $('input[name="__RequestVerificationToken"]').val();
 
             jQuery.ajax({
                 url: '@Url.Action("DeleteRentMovieRequest", "Home")',
                 type: 'POST',
-                data: JSON.stringify({ movieId : movieId }),
+                data: JSON.stringify({ movieId : movieId, __RequestVerificationToken: token }),
                 datatype: 'json',
                 contentType: "application/json; charset=utf-8",
                 success: function (response)
                 {
-
                     if (response) {
                         card_rentMovie.remove();
                         console.log(response.data)
@@ -337,7 +337,7 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (response)
                 {
-                    
+
                 },
             });
         }

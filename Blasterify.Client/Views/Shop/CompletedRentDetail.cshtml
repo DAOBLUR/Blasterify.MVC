@@ -5,6 +5,16 @@
 
 @Html.AntiForgeryToken()
 
+<meta http-equiv="Content-Security-Policy"
+      content="base-uri 'self';
+               default-src 'self';
+               img-src data: https:;
+               object-src 'none';
+               script-src 'self'
+                          'wasm-unsafe-eval';
+               style-src 'self';
+               upgrade-insecure-requests;">
+
 <h2>CompletedRentDetail</h2>
 
 <div>
@@ -53,7 +63,7 @@
                 success: function (result) {
                     console.log(result);
                     document.getElementById('id').innerHTML = `#${result.Data.rentDetail.Id}`
-                    document.getElementById('date').innerHTML = `${result.Data.rentDetail.Date}`
+                    document.getElementById('date').innerHTML = `${result.Data.rentDetail.StringDate}`
                     document.getElementById('name').innerHTML = `${result.Data.rentDetail.Name}`
                     document.getElementById('address').innerHTML = `${result.Data.rentDetail.Address}`
                     document.getElementById('cardNumber').innerHTML = `Visa-${result.Data.rentDetail.CardNumber}`

@@ -1,6 +1,4 @@
-﻿@Html.AntiForgeryToken()
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -31,28 +29,12 @@
                 </ul>
 
                 <form class="d-flex">
+                    @Html.AntiForgeryToken()
                     <a class="btn btn-outline-warning" href="@Url.Action("Cart", "Home")">
                         <i class="bi-cart-fill me-1"></i>
                         Cart
                         <span class="badge bg-warning text-dark ms-1 rounded-pill" id="cartCount">0</span>
                     </a>
-
-                    <!--
-                        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-warning" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user text-warning fa-fw"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end bg-black" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item text-warning" href="#!">Settings</a></li>
-                                <li><a class="dropdown-item text-warning" href="#!">Activity Log</a></li>
-                                <li><hr class="dropdown-divider bg-dark" /></li>
-                                <li><a class="dropdown-item text-warning" href="@Url.Action("LogOut","Home")">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    -->
-
                 </form>
             </div>
         </div>

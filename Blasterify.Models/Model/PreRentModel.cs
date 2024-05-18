@@ -16,10 +16,7 @@ namespace Blasterify.Models.Model
         public int StatusId { get; set; }
         public Dictionary<int, PreRentItemModel> PreRentItems { get; set; } = new Dictionary<int, PreRentItemModel>();
 
-        public PreRentModel()
-        {
-
-        }
+        public PreRentModel() { }
 
         public PreRentModel(PreRentResponse preRentResponse) 
         {

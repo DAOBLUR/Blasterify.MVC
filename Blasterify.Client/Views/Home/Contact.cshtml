@@ -4,6 +4,16 @@
 
 @Html.AntiForgeryToken()
 
+<meta http-equiv="Content-Security-Policy"
+      content="base-uri 'self';
+               default-src 'self';
+               img-src data: https:;
+               object-src 'none';
+               script-src 'self'
+                          'wasm-unsafe-eval';
+               style-src 'self';
+               upgrade-insecure-requests;">
+
 <main aria-labelledby="title">
     <h2 id="title">@ViewBag.Title.</h2>
     <h3>@ViewBag.Message</h3>

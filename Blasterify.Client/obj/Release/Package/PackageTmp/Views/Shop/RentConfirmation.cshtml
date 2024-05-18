@@ -5,6 +5,16 @@
 
 @Html.AntiForgeryToken()
 
+<meta http-equiv="Content-Security-Policy"
+      content="base-uri 'self';
+               default-src 'self';
+               img-src data: https:;
+               object-src 'none';
+               script-src 'self'
+                          'wasm-unsafe-eval';
+               style-src 'self';
+               upgrade-insecure-requests;">
+
 <div class="container my-5">
     <div id="layoutAuthentication_content">
         <main>
@@ -17,7 +27,7 @@
                             </div>
 
                             <div class="card-body">
-                                <form action="@Url.Action("LogIn","Access")" method="post">
+                                <form method="post">
                                     @Html.AntiForgeryToken()
                                     <div class="form-floating mb-3">
                                         <p>Card Number</p>
@@ -33,7 +43,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input type="password" placeholder="***" class="form-control" id="inputCVV" onkeypress="return Event.charCode >= 48 && Event.charCode <= 57" maxlength="3" />
+                                                <input type="password" placeholder="***" class="form-control" id="inputCVV" onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="3" />
                                                 <label for="inputCCV">CVV</label>
                                             </div>
                                         </div>

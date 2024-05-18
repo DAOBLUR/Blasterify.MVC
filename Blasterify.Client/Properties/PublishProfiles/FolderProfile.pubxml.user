@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Client\bin\app.publish\</_PublishTargetUrl>
-    <History>True|2024-05-18T06:48:19.9483013Z;True|2024-05-18T01:34:53.8274964-05:00;True|2024-05-18T01:08:04.0587347-05:00;True|2024-05-10T17:22:09.7818481-05:00;True|2024-05-10T17:20:36.3713129-05:00;True|2024-04-27T05:49:50.9840194-05:00;True|2024-04-26T12:40:01.2730872-05:00;True|2024-04-26T12:38:48.6886548-05:00;True|2024-04-26T12:12:51.7239558-05:00;True|2024-04-26T11:43:56.6751605-05:00;</History>
+    <History>True|2024-05-18T10:25:58.3949688Z;True|2024-05-18T05:18:20.0712563-05:00;True|2024-05-18T05:08:57.3034890-05:00;True|2024-05-18T05:08:45.4101034-05:00;True|2024-05-18T05:03:59.1201043-05:00;True|2024-05-18T04:41:08.3887374-05:00;True|2024-05-18T04:31:26.1092894-05:00;True|2024-05-18T04:31:06.9240782-05:00;True|2024-05-18T04:23:12.1916801-05:00;True|2024-05-18T03:58:17.4460517-05:00;True|2024-05-18T03:39:15.8808520-05:00;True|2024-05-18T02:52:02.5001730-05:00;True|2024-05-18T02:25:13.9505467-05:00;True|2024-05-18T01:58:54.8480760-05:00;True|2024-05-18T01:48:19.9483013-05:00;True|2024-05-18T01:34:53.8274964-05:00;True|2024-05-18T01:08:04.0587347-05:00;True|2024-05-10T17:22:09.7818481-05:00;True|2024-05-10T17:20:36.3713129-05:00;True|2024-04-27T05:49:50.9840194-05:00;True|2024-04-26T12:40:01.2730872-05:00;True|2024-04-26T12:38:48.6886548-05:00;True|2024-04-26T12:12:51.7239558-05:00;True|2024-04-26T11:43:56.6751605-05:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -16,16 +16,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/Blasterify.Client.dll">
-      <publishTime>05/18/2024 01:48:15</publishTime>
+      <publishTime>05/18/2024 05:25:53</publishTime>
     </File>
     <File Include="bin/Blasterify.Client.pdb">
-      <publishTime>05/18/2024 01:48:15</publishTime>
+      <publishTime>05/18/2024 05:25:53</publishTime>
     </File>
     <File Include="bin/Blasterify.Models.dll">
-      <publishTime>05/18/2024 01:06:44</publishTime>
+      <publishTime>05/18/2024 03:58:11</publishTime>
     </File>
     <File Include="bin/Blasterify.Models.pdb">
-      <publishTime>05/18/2024 01:06:44</publishTime>
+      <publishTime>05/18/2024 03:58:11</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>09/05/2018 16:10:50</publishTime>
@@ -481,46 +481,46 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/12/2024 21:57:28</publishTime>
     </File>
     <File Include="Views/Access/LogIn.cshtml">
-      <publishTime>05/18/2024 01:47:13</publishTime>
+      <publishTime>05/18/2024 03:34:50</publishTime>
     </File>
     <File Include="Views/Access/SignUp.cshtml">
-      <publishTime>05/18/2024 01:44:49</publishTime>
+      <publishTime>05/18/2024 03:34:49</publishTime>
     </File>
     <File Include="Views/Home/Cart.cshtml">
-      <publishTime>05/18/2024 01:47:13</publishTime>
+      <publishTime>05/18/2024 05:21:53</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
-      <publishTime>05/18/2024 01:47:13</publishTime>
+      <publishTime>05/18/2024 03:34:49</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>05/18/2024 01:47:13</publishTime>
+      <publishTime>05/18/2024 05:17:47</publishTime>
     </File>
     <File Include="Views/Home/MyAccount.cshtml">
-      <publishTime>05/18/2024 00:27:12</publishTime>
+      <publishTime>05/18/2024 03:34:49</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>03/23/2024 03:50:44</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>05/18/2024 01:47:12</publishTime>
+      <publishTime>05/18/2024 05:22:22</publishTime>
     </File>
     <File Include="Views/Shop/CompletedRentDetail.cshtml">
-      <publishTime>05/18/2024 01:47:12</publishTime>
+      <publishTime>05/18/2024 03:34:49</publishTime>
     </File>
     <File Include="Views/Shop/Movie.cshtml">
-      <publishTime>05/18/2024 01:47:12</publishTime>
+      <publishTime>05/18/2024 04:40:25</publishTime>
     </File>
     <File Include="Views/Shop/RentConfirmation.cshtml">
-      <publishTime>05/18/2024 01:47:28</publishTime>
+      <publishTime>05/18/2024 03:34:48</publishTime>
     </File>
     <File Include="Views/Web.config">
-      <publishTime>03/23/2024 03:50:44</publishTime>
+      <publishTime>05/18/2024 05:02:20</publishTime>
     </File>
     <File Include="Views/_ViewStart.cshtml">
       <publishTime>03/23/2024 03:50:44</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/18/2024 01:08:00</publishTime>
+      <publishTime>05/18/2024 05:25:54</publishTime>
     </File>
     <File Include="webfonts/fa-brands-400.eot">
       <publishTime>04/12/2024 21:53:23</publishTime>

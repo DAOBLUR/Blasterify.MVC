@@ -39,7 +39,7 @@ namespace Blasterify.Client.Controllers
         {
             if (Session["Cart"] == null)
             {
-                Session["Cart"] = new Blasterify.Models.Model.PreRentModel();
+                return null;
             }
 
             return Session["Cart"] as Blasterify.Models.Model.PreRentModel;
@@ -64,7 +64,6 @@ namespace Blasterify.Client.Controllers
         #region REQUEST
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public JsonResult GetCartRequest()
         {
             var cart = GetCart();
@@ -79,7 +78,6 @@ namespace Blasterify.Client.Controllers
         }
 
         [HttpGet]
-        [ValidateAntiForgeryToken]
         public JsonResult GetCartCountRequest()
         {
             var cart = GetCart();

@@ -7,6 +7,7 @@ namespace Blasterify.Models.Model
     {
         public Guid Id { get; set; }
         public DateTime Date { get; set; }
+        public string StringDate { get { return Date.ToLocalTime().ToShortDateString(); } }
         public string Name { get; set; }
         public string Address { get; set; }
         public string CardNumber { get; set; }

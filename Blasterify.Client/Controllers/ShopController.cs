@@ -109,7 +109,6 @@ namespace Blasterify.Client.Controllers
         #region REQUEST
 
         [HttpGet]
-        [ValidateAntiForgeryToken]
         public async Task<JsonResult> GetRentDetailRequest()
         {
             if (Session["RentDetail"] == null)
@@ -147,7 +146,6 @@ namespace Blasterify.Client.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<JsonResult> PayNowRequest(DateTime expirationDate, int cvv, string cardholderName)
         {
             if(expirationDate.Year < DateTime.UtcNow.Year)
@@ -223,7 +221,6 @@ namespace Blasterify.Client.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public JsonResult CancelRentConfirmationRequest()
         {
             return Json(

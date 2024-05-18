@@ -6,6 +6,16 @@
 
 @Html.AntiForgeryToken()
 
+<meta http-equiv="Content-Security-Policy"
+      content="base-uri 'self';
+               default-src 'self';
+               img-src data: https:;
+               object-src 'none';
+               script-src 'self'
+                          'wasm-unsafe-eval';
+               style-src 'self';
+               upgrade-insecure-requests;">
+
 <body>
     <!-- Product section-->
     <section class="py-2">
@@ -34,6 +44,7 @@
 
                     @if (!Model.IsFree)
                     {
+                        @Html.AntiForgeryToken()
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" min="1" max="12" style="max-width: 4rem" />
                             <div class="text-center">
@@ -45,6 +56,7 @@
                     }
                     else
                     {
+                        @Html.AntiForgeryToken()
                         <div class="d-flex">
                             <button class="btn btn-outline-dark flex-shrink-0" type="button">
                                 <i class="bi-cart-fill me-1"></i>

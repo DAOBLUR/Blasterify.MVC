@@ -87,7 +87,6 @@ E:\programing\csharp\uni\Blasterify.MVC\Services\obj\Debug\net6.0\Blasterify.Ser
 E:\programing\csharp\uni\Blasterify.MVC\Services\obj\Debug\net6.0\Blasterify.Services.genruntimeconfig.cache
 E:\programing\csharp\uni\Blasterify.MVC\Services\obj\Debug\net6.0\ref\Blasterify.Services.dll
 E:\programing\csharp\uni\Blasterify.MVC\Services\obj\Debug\net6.0\Blasterify.Services.MvcApplicationPartsAssemblyInfo.cs
-E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\bin\Debug\net6.0\appsettings.Development.json
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\bin\Debug\net6.0\appsettings.json
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\bin\Debug\net6.0\Blasterify.Services.exe
@@ -123,6 +122,7 @@ E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\bin\Debug\net6.0\Swa
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\bin\Debug\net6.0\System.Drawing.Common.dll
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\bin\Debug\net6.0\System.Runtime.Caching.dll
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\bin\Debug\net6.0\System.Security.Permissions.dll
@@ -162,15 +162,15 @@ E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\Bla
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\Blasterify.Services.csproj.CoreCompileInputs.cache
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\Blasterify.Services.MvcApplicationPartsAssemblyInfo.cs
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\Blasterify.Services.MvcApplicationPartsAssemblyInfo.cache
-E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\staticwebassets.build.json
-E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\staticwebassets.development.json
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\staticwebassets\msbuild.Blasterify.Services.Microsoft.AspNetCore.StaticWebAssets.props
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\staticwebassets\msbuild.build.Blasterify.Services.props
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Blasterify.Services.props
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Blasterify.Services.props
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\staticwebassets.pack.json
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\staticwebassets.build.json
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\staticwebassets.development.json
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\scopedcss\bundle\Blasterify.Services.styles.css
-E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\Blasteri.6745CF48.Up2Date
+E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\Blasterify.Services.csproj.CopyComplete
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\Blasterify.Services.dll
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\refint\Blasterify.Services.dll
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\Blasterify.Services.pdb

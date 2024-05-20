@@ -3,7 +3,7 @@ using System.Net;
 
 namespace Blasterify.Services.Services
 {
-    public class Email
+    public static class Email
     {
         public static void SentEmail(string toEmail, string displayName)
         {
@@ -24,14 +24,12 @@ namespace Blasterify.Services.Services
                 Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
             };
 
-            using (var message = new MailMessage(fromAddress, toAddress)
+            using var message = new MailMessage(fromAddress, toAddress)
             {
                 Subject = subject,
                 Body = body
-            })
-            {
-                smtp.Send(message);
-            }
+            };
+            smtp.Send(message);
         }
     }
 }

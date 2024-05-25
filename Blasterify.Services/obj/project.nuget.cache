@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Y5S+G0DIylkEmJ8g2efMU5zAKfUkgCppiWfbbTyoQVuxD3Xt2FEO0zM31Zwxfbx61vij0mwmUaYaGFGyV77mkg==",
+  "dgSpecHash": "V2/IdYGsgDj1uH5vb8g/45YLEsiKyqH/NXooPUOHKRtmOVG59vUGVLMV9TvHpeYIkDgOlr0FFQgwBq5lfS0Ygg==",
   "success": true,
-  "projectFilePath": "E:\\programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Blasterify.Services.csproj",
+  "projectFilePath": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Blasterify.Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Death Knight\\.nuget\\packages\\hangfire\\1.8.0\\hangfire.1.8.0.nupkg.sha512",
     "C:\\Users\\Death Knight\\.nuget\\packages\\hangfire.aspnetcore\\1.8.0\\hangfire.aspnetcore.1.8.0.nupkg.sha512",

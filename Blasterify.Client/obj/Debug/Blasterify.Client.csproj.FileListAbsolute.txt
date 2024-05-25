@@ -76,6 +76,6 @@ E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Client\bin\Antlr3.Runtime.pdb
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Client\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Client\obj\Debug\Blasterify.Client.csproj.AssemblyReference.cache
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Client\obj\Debug\Blasterify.Client.csproj.CoreCompileInputs.cache
-E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Client\obj\Debug\Blasterify.Client.csproj.CopyComplete
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Client\obj\Debug\Blasterify.Client.dll
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Client\obj\Debug\Blasterify.Client.pdb
+E:\Programing\csharp\uni\Blasterify.MVC\Blasterify.Client\obj\Debug\Blasteri.159BCFD2.Up2Date

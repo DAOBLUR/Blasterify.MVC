@@ -278,6 +278,64 @@ namespace Blasterify.Services.Controllers
             getRent!.StatusId = 1;
             getRent!.IsEnabled = false;
 
+            await Services.YunoServices.CreateCustomer(new Blasterify.Models.Yuno.CustomerRequest()
+            {
+                merchant_customer_id = "4321",
+                merchant_customer_created_at = DateTime.UtcNow.ToString(),
+                first_name = "Harry",
+                last_name = "Potter",
+                gender = "H",
+                date_of_birth = "1980-07-31",
+                email = "karlonaix@gmail.com",
+                nationality = "US",
+                country = "US",
+                document = new Blasterify.Models.Yuno.Document()
+                {
+                    document_type = "CPF",
+                    document_number = "12345678909"
+                },
+                phone = new Blasterify.Models.Yuno.Phone()
+                {
+                    number = "973215894",
+                    country_code = "51"
+                },
+                billing_address = new Blasterify.Models.Yuno.Address()
+                {
+                    address_line_1 = "Av. Parra",
+                    address_line_2 = "Nª 105",
+                    city = "Lima",
+                    state = "Lima",
+                    country = "US",
+                    zip_code= "12345",
+                    neighborhood = "Comuna 57"
+                },
+                shipping_address = new Blasterify.Models.Yuno.Address()
+                {
+                    address_line_1 = "Av. Parra",
+                    address_line_2 = "Nª 105",
+                    city = "Lima",
+                    state = "Lima",
+                    country = "US",
+                    zip_code= "12345",
+                    neighborhood = "Comuna 57"
+                },
+                metadata = new Blasterify.Models.Yuno.Metadata[]
+                {
+                    new Blasterify.Models.Yuno.Metadata()
+                    {
+                        key = "key1",
+                        value = "value1"
+                    },
+                    new Blasterify.Models.Yuno.Metadata()
+                    {
+                        key = "key2",
+                        value = "value2"
+                    }
+                },
+                created_at = DateTime.UtcNow.ToString(),
+                updated_at = DateTime.UtcNow.ToString()
+            });
+
             await _context.SaveChangesAsync();
                 
             return Ok();

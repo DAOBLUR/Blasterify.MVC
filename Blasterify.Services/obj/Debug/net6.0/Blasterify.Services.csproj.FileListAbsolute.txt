@@ -170,9 +170,9 @@ E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\sta
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\staticwebassets.build.json
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\staticwebassets.development.json
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\scopedcss\bundle\Blasterify.Services.styles.css
-E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\Blasterify.Services.csproj.CopyComplete
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\Blasterify.Services.dll
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\refint\Blasterify.Services.dll
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\Blasterify.Services.pdb
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\Blasterify.Services.genruntimeconfig.cache
 E:\programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\ref\Blasterify.Services.dll
+E:\Programing\csharp\uni\Blasterify.MVC\Blasterify.Services\obj\Debug\net6.0\Blasteri.6745CF48.Up2Date

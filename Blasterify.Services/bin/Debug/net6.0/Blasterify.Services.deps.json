@@ -13,6 +13,7 @@
           "Microsoft.EntityFrameworkCore": "6.0.29",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.29",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.29",
+          "Newtonsoft.Json": "11.0.1",
           "Swashbuckle.AspNetCore": "6.5.0"
         },
         "runtime": {

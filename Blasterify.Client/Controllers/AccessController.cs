@@ -13,7 +13,7 @@ namespace Blasterify.Client.Controllers
     {
         private static readonly HttpClient client = new HttpClient();
 
-        #region Services
+        #region SERVICES
         public async Task<ActionResult> GetAllSubscriptionAsync()
         {
             HttpResponseMessage response = await client.GetAsync($"{MvcApplication.ServicesPath}/Subscription/GetAll");
@@ -93,7 +93,7 @@ namespace Blasterify.Client.Controllers
 
         #endregion
 
-        #region VIEWA
+        #region VIEWS
         public ActionResult LogIn()
         {
             Console.WriteLine(MvcApplication.ServicesPath);

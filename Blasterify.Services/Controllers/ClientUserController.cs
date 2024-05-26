@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Blasterify.Services.Data;
+﻿using Blasterify.Services.Data;
 using Blasterify.Services.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
 namespace Blasterify.Services.Controllers
@@ -19,10 +19,41 @@ namespace Blasterify.Services.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> Create(ClientUser clientUser)
+        public async Task<IActionResult> Create(Blasterify.Models.Model.ClientUserModel clientUserModel)
         {
-            await _context!.ClientUsers!.AddAsync(clientUser);
+            var createClientUser = await _context!.ClientUsers!.AddAsync(new ClientUser()
+            {
+                FirstName = clientUserModel.FirstName,
+                LastName = clientUserModel.LastName,
+                CardNumber = clientUserModel.CardNumber,
+                Email = clientUserModel.Email,
+                PasswordHash = clientUserModel.PasswordHash,
+                SubscriptionDate = clientUserModel.SubscriptionDate,
+                SubscriptionId = clientUserModel.SubscriptionId
+            });
+
             await _context.SaveChangesAsync();
+
+            var yunoId = await Services.YunoServices.CreateCustomer(new Blasterify.Models.Yuno.CustomerRequest()
+            {
+                merchant_customer_id = $"{createClientUser.Entity.Id}",
+                merchant_customer_created_at = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.ffffffZ"),
+                first_name = clientUserModel.FirstName,
+                last_name = clientUserModel.LastName,
+                email = clientUserModel.Email,
+                created_at = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.ffffffZ"),
+                updated_at = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.ffffffZ")
+            });
+
+            if(Services.YunoServices.ErrorCodes.Contains(yunoId))
+            {
+                return BadRequest();
+            }
+            
+            createClientUser.Entity.YunoId = yunoId;
+
+            await _context.SaveChangesAsync();
+
             return Ok();
         }
 
@@ -77,10 +108,11 @@ namespace Blasterify.Services.Controllers
                     return Ok(new ClientUser
                     {
                         Id = clientUser.Id,
-                        Username = clientUser.Username,
+                        FirstName = clientUser.FirstName,
+                        LastName = clientUser.LastName,
                         CardNumber = clientUser.CardNumber,
                         Email = clientUser.Email,
-                        SuscriptionDate = clientUser.SuscriptionDate,
+                        SubscriptionDate = clientUser.SubscriptionDate,
                         SubscriptionId = clientUser.SubscriptionId,
                     });
                 }
@@ -102,12 +134,13 @@ namespace Blasterify.Services.Controllers
                 return NotFound();
             }
 
-            getClientUser!.Username = clientUser.Username;
+            getClientUser!.FirstName = clientUser.FirstName;
+            getClientUser!.LastName = clientUser.LastName;
             getClientUser!.CardNumber = clientUser.CardNumber;
             getClientUser!.IsConnected = clientUser.IsConnected;
             getClientUser!.Email = clientUser.Email;
             getClientUser!.PasswordHash = clientUser.PasswordHash;
-            getClientUser!.SuscriptionDate = clientUser.SuscriptionDate;
+            getClientUser!.SubscriptionDate = clientUser.SubscriptionDate;
             getClientUser!.SubscriptionId = clientUser.SubscriptionId;
 
             await _context.SaveChangesAsync();

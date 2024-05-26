@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Blasterify.Services.Models;
+﻿using Blasterify.Services.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blasterify.Services.Data
 {

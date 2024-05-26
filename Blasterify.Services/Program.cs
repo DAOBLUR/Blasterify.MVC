@@ -1,6 +1,7 @@
+using Blasterify.Services.Data;
+using Blasterify.Services.Services;
 using Hangfire;
 using Microsoft.EntityFrameworkCore;
-using Blasterify.Services.Data;
 
 namespace Blasterify.Services
 {
@@ -14,7 +15,7 @@ namespace Blasterify.Services
             builder.Services.AddControllers();
             builder.Services.AddDbContext<DataContext>(opt =>
             {
-                opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                opt.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"));
             });
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -24,11 +25,17 @@ namespace Blasterify.Services
             //Hangfire
             builder.Services.AddHangfire((sp, config) =>
             {
-                var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString("DefaultConnection");
+                var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString("DatabaseConnection");
                 config.UseSqlServerStorage(connectionString);
             });
 
             builder.Services.AddHangfireServer();
+
+            // Yuno
+            YunoServices.SetKeys(
+                builder.Configuration.GetConnectionString("YunoPublicAPIKey"), 
+                builder.Configuration.GetConnectionString("YunoPrivateSecretKey")
+            );
 
             var app = builder.Build();
 

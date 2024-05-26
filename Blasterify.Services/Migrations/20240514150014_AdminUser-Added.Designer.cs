@@ -97,7 +97,7 @@ namespace Blasterify.Services.Migrations
                     b.Property<int>("SubscriptionId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("SuscriptionDate")
+                    b.Property<DateTime>("SubscriptionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Username")

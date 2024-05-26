@@ -18,7 +18,7 @@ namespace Blasterify.Models.Model
 
         public PreRentModel() { }
 
-        public PreRentModel(PreRentResponse preRentResponse) 
+        public PreRentModel(PreRentResponse preRentResponse)
         {
             Id = preRentResponse.Id;
             Date = preRentResponse.Date;
@@ -29,7 +29,7 @@ namespace Blasterify.Models.Model
             ClientUserId = preRentResponse.ClientUserId;
             StatusId = preRentResponse.StatusId;
 
-            foreach(var item in preRentResponse.PreRentItems)
+            foreach (var item in preRentResponse.PreRentItems)
             {
                 PreRentItems.Add(item.MovieId, new PreRentItemModel(item));
             }

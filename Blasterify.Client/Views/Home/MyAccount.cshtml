@@ -25,9 +25,10 @@
     <div aria-labelledby="title">
         <form action="@Url.Action("LogOut","Home")" method="post">
             @Html.AntiForgeryToken()
-            <h2>Username: @Model.Username</h2>
+            <h2>First name: @Model.FirstName</h2>
+            <h2>Last name: @Model.LastName</h2>
             <h2>Email: @Model.Email</h2>
-            <h3>Date join: @Model.SuscriptionDate</h3>
+            <h3>Date join: @Model.SubscriptionDate</h3>
 
             @if (Model.Status == true)
             {

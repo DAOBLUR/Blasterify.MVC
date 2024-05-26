@@ -7,11 +7,11 @@ namespace Blasterify.Client
     public class MvcApplication : System.Web.HttpApplication
     {
 
-    #if DEBUG
+#if DEBUG
         public static readonly string ServicesPath = System.Configuration.ConfigurationManager.ConnectionStrings["Blasterify.Services.Debug"].ConnectionString;
-    #else
+#else
         public static readonly string ServicesPath = System.Configuration.ConfigurationManager.ConnectionStrings["Blasterify.Services.Release"].ConnectionString;
-    #endif
+#endif
 
         protected void Application_Start()
         {

@@ -1,7 +1,6 @@
 ﻿using Blasterify.Models.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Blasterify.Models.Request
 {
@@ -26,7 +25,7 @@ namespace Blasterify.Models.Request
             CardNumber = preRent.CardNumber;
             ClientUserId = preRent.ClientUserId;
 
-            foreach( var item in preRent.PreRentItems.Values)
+            foreach (var item in preRent.PreRentItems.Values)
             {
                 PreRentItems.Add(new PreRentItemRequest(item));
             }

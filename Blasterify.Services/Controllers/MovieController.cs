@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Blasterify.Services.Data;
+﻿using Blasterify.Services.Data;
 using Blasterify.Services.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blasterify.Services.Controllers
 {
@@ -29,7 +29,7 @@ namespace Blasterify.Services.Controllers
         [Route("CreateWithList")]
         public async Task<IActionResult> CreateWithList(List<Movie> movies)
         {
-            foreach(var movie in movies)
+            foreach (var movie in movies)
             {
                 await _context!.Movies!.AddAsync(movie);
             }

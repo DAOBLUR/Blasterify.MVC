@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Blasterify.Services.Data;
+using Blasterify.Services.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Blasterify.Services.Data;
-using Blasterify.Services.Models;
+using System;
 using System.Data;
-using Hangfire.Dashboard;
 
 
 namespace Blasterify.Services.Controllers
@@ -66,7 +66,7 @@ namespace Blasterify.Services.Controllers
                     IsEnabled = true, //For Cart
                     StatusId = 2, //Pending
                 };
-                
+
                 var rentItems = await _context!.RentItems!.Where(pr => pr.RentId == preRent.Id).ToListAsync();
 
                 foreach (var item in preRent.PreRentItems!)
@@ -95,7 +95,7 @@ namespace Blasterify.Services.Controllers
                     }
                 }
 
-                foreach(var item in rentItems)
+                foreach (var item in rentItems)
                 {
                     _context.RentItems!.Remove(item);
                 }
@@ -158,7 +158,7 @@ namespace Blasterify.Services.Controllers
             var rentItems = await _context.RentItems!.Where(ri => ri.RentId == rentId).ToListAsync();
 
             var rentDetail = new Blasterify.Models.Model.RentDetailModel()
-            { 
+            {
                 Id = rentId,
                 Date = rent!.Date,
                 Name = rent.Name,
@@ -278,66 +278,8 @@ namespace Blasterify.Services.Controllers
             getRent!.StatusId = 1;
             getRent!.IsEnabled = false;
 
-            await Services.YunoServices.CreateCustomer(new Blasterify.Models.Yuno.CustomerRequest()
-            {
-                merchant_customer_id = "4321",
-                merchant_customer_created_at = DateTime.UtcNow.ToString(),
-                first_name = "Harry",
-                last_name = "Potter",
-                gender = "H",
-                date_of_birth = "1980-07-31",
-                email = "karlonaix@gmail.com",
-                nationality = "US",
-                country = "US",
-                document = new Blasterify.Models.Yuno.Document()
-                {
-                    document_type = "CPF",
-                    document_number = "12345678909"
-                },
-                phone = new Blasterify.Models.Yuno.Phone()
-                {
-                    number = "973215894",
-                    country_code = "51"
-                },
-                billing_address = new Blasterify.Models.Yuno.Address()
-                {
-                    address_line_1 = "Av. Parra",
-                    address_line_2 = "Nª 105",
-                    city = "Lima",
-                    state = "Lima",
-                    country = "US",
-                    zip_code= "12345",
-                    neighborhood = "Comuna 57"
-                },
-                shipping_address = new Blasterify.Models.Yuno.Address()
-                {
-                    address_line_1 = "Av. Parra",
-                    address_line_2 = "Nª 105",
-                    city = "Lima",
-                    state = "Lima",
-                    country = "US",
-                    zip_code= "12345",
-                    neighborhood = "Comuna 57"
-                },
-                metadata = new Blasterify.Models.Yuno.Metadata[]
-                {
-                    new Blasterify.Models.Yuno.Metadata()
-                    {
-                        key = "key1",
-                        value = "value1"
-                    },
-                    new Blasterify.Models.Yuno.Metadata()
-                    {
-                        key = "key2",
-                        value = "value2"
-                    }
-                },
-                created_at = DateTime.UtcNow.ToString(),
-                updated_at = DateTime.UtcNow.ToString()
-            });
-
             await _context.SaveChangesAsync();
-                
+
             return Ok();
         }
 

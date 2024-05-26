@@ -44,6 +44,8 @@ namespace Blasterify.Client.Controllers
             }
             else
             {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<object>(jsonString);
                 return View("Error");
             }
         }
@@ -64,7 +66,8 @@ namespace Blasterify.Client.Controllers
                 {
                     Id = data.Id,
                     Email = data.Email,
-                    Username = data.Username,
+                    FirstName = data.FirstName,
+                    LastName = data.LastName,
                     CardNumber = data.CardNumber,
                 };
 
@@ -134,19 +137,20 @@ namespace Blasterify.Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SignUpRequest(string username, string email, string password, string passwordConfirm, string cardNumber)
+        public async Task<ActionResult> SignUpRequest(string firstName, string lastName, string email, string password, string passwordConfirm, string cardNumber)
         {
             if (password == passwordConfirm)
             {
                 var clientUser = new ClientUser()
                 {
                     Id = 0,
-                    Username = username,
+                    FirstName = firstName,
+                    LastName = lastName,
                     CardNumber = cardNumber,
                     Status = true,
                     Email = email,
                     PasswordHash = HashPassword(password),
-                    SuscriptionDate = DateTime.UtcNow,
+                    SubscriptionDate = DateTime.UtcNow,
                     SubscriptionId = 1,
                 };
 

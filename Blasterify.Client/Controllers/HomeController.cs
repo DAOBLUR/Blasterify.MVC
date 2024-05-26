@@ -25,7 +25,7 @@ namespace Blasterify.Client.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
-                var gatAllMovies = JsonConvert.DeserializeObject<List<Blasterify.Models.Model.MovieModel>> (jsonString);
+                var gatAllMovies = JsonConvert.DeserializeObject<List<Blasterify.Models.Model.MovieModel>>(jsonString);
 
                 HttpContext.Cache.Insert("Movies", gatAllMovies, null, DateTime.Now.AddMinutes(10), Cache.NoSlidingExpiration);
             }
@@ -37,7 +37,7 @@ namespace Blasterify.Client.Controllers
 
         public async Task GetLastCart()
         {
-            if(GetCart() != null || GetCart() == new Blasterify.Models.Model.PreRentModel())
+            if (GetCart() != null || GetCart() == new Blasterify.Models.Model.PreRentModel())
             {
                 return;
             }
@@ -63,7 +63,7 @@ namespace Blasterify.Client.Controllers
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await client.PostAsync($"{MvcApplication.ServicesPath}/Rent/Create", content);
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
                 var data = JsonConvert.DeserializeObject<Guid>(jsonString);
@@ -87,7 +87,7 @@ namespace Blasterify.Client.Controllers
 
         public void AddMovieToCart(Blasterify.Models.Model.MovieModel movie)
         {
-            var cart = (Blasterify.Models.Model.PreRentModel) Session["Cart"];
+            var cart = (Blasterify.Models.Model.PreRentModel)Session["Cart"];
 
             if (cart != null)
             {
@@ -95,7 +95,7 @@ namespace Blasterify.Client.Controllers
                 Session["Cart"] = cart;
             }
         }
-        
+
 
         #endregion
 
@@ -104,7 +104,7 @@ namespace Blasterify.Client.Controllers
         public async Task<ActionResult> Index()
         {
             await GetAllMoviesAsync();
-            
+
             if (VerifySession())
             {
                 await GetLastCart();
@@ -120,7 +120,7 @@ namespace Blasterify.Client.Controllers
 
         public ActionResult MyAccount()
         {
-            var clientUser = (ClientUser) Session["ClientUser"] ?? new ClientUser();
+            var clientUser = (ClientUser)Session["ClientUser"] ?? new ClientUser();
 
             return View(clientUser);
         }

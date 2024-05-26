@@ -1,13 +1,10 @@
 ﻿using Blasterify.Client.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System;
-using System.Web.Mvc;
 using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Text;
-using System.Web.Caching;
-using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Blasterify.Client.Controllers
 {
@@ -23,7 +20,7 @@ namespace Blasterify.Client.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
-                var gatMovie = JsonConvert.DeserializeObject< Blasterify.Models.Model.MovieModel> (jsonString);
+                var gatMovie = JsonConvert.DeserializeObject<Blasterify.Models.Model.MovieModel>(jsonString);
 
                 return gatMovie;
             }
@@ -66,9 +63,9 @@ namespace Blasterify.Client.Controllers
 
                 return gatAllMovies;
             }
-            else 
+            else
             {
-                return null; 
+                return null;
             }
         }
 
@@ -148,7 +145,7 @@ namespace Blasterify.Client.Controllers
         [HttpPost]
         public async Task<JsonResult> PayNowRequest(DateTime expirationDate, int cvv, string cardholderName)
         {
-            if(expirationDate.Year < DateTime.UtcNow.Year)
+            if (expirationDate.Year < DateTime.UtcNow.Year)
             {
                 return Json(
                     new Result(
@@ -163,7 +160,7 @@ namespace Blasterify.Client.Controllers
                 );
             }
 
-            if(cvv < 100 || cvv > 999) 
+            if (cvv < 100 || cvv > 999)
             {
                 return Json(
                     new Result(
@@ -177,7 +174,7 @@ namespace Blasterify.Client.Controllers
                     JsonRequestBehavior.AllowGet
                 );
             }
-            if(string.IsNullOrEmpty(cardholderName))
+            if (string.IsNullOrEmpty(cardholderName))
             {
                 return Json(
                    new Result(
@@ -192,7 +189,7 @@ namespace Blasterify.Client.Controllers
                );
             }
 
-            if(GetCart() != null && await CompleteRentAsync())
+            if (GetCart() != null && await CompleteRentAsync())
             {
                 return Json(
                     new Result(

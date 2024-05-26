@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Blasterify.Services.Data;
+﻿using Blasterify.Services.Data;
 using Blasterify.Services.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blasterify.Services.Controllers
 {

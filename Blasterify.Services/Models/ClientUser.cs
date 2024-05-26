@@ -7,12 +7,22 @@ namespace Blasterify.Services.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Range(1001, int.MaxValue, ErrorMessage = "Error in Id Client User.")]
         public int Id { get; set; }
+
+        [MinLength(36)]
+        [MaxLength(64)]
+        public string? YunoId { get; set; }
 
         [Required]
         [MinLength(1)]
         [MaxLength(40)]
-        public string? Username { get; set; }
+        public string? FirstName { get; set; }
+
+        [Required]
+        [MinLength(1)]
+        [MaxLength(40)]
+        public string? LastName { get; set; }
 
         [Required]
         [StringLength(16)]
@@ -30,7 +40,7 @@ namespace Blasterify.Services.Models
         public byte[]? PasswordHash { get; set; }
 
         [Required]
-        public DateTime SuscriptionDate { get; set; }
+        public DateTime SubscriptionDate { get; set; }
 
         [Required]
         public DateTime LastConnectionDate { get; set; }
@@ -38,7 +48,7 @@ namespace Blasterify.Services.Models
         [Required]
         [ForeignKey("Subscription")]
         public int SubscriptionId { get; set; }
-        
+
         [Required]
         [ForeignKey("Country")]
         public int CountryId { get; set; }

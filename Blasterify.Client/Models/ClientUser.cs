@@ -6,7 +6,8 @@ namespace Blasterify.Client.Models
     {
         public int Id { get; set; }
 
-        public string Username { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         public string CardNumber { get; set; }
 
@@ -16,7 +17,7 @@ namespace Blasterify.Client.Models
 
         public byte[] PasswordHash { get; set; }
 
-        public DateTime SuscriptionDate { get; set; }
+        public DateTime SubscriptionDate { get; set; }
 
         public int SubscriptionId { get; set; }
     }

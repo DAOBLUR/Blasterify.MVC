@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Blasterify.Services.Data;
+﻿using Blasterify.Services.Data;
 using Blasterify.Services.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blasterify.Services.Controllers
 {
@@ -38,7 +38,7 @@ namespace Blasterify.Services.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var genre = await _context!.Genres!.FindAsync(id);
-            
+
             if (genre == null)
             {
                 return NotFound();

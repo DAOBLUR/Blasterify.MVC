@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "V2/IdYGsgDj1uH5vb8g/45YLEsiKyqH/NXooPUOHKRtmOVG59vUGVLMV9TvHpeYIkDgOlr0FFQgwBq5lfS0Ygg==",
+  "dgSpecHash": "wHFiTv5k9xNav7SaAYfeogaXJvEwkWYixFFxbcfccy4lfuXh/PT7zqZ62wSnN+MnHUVisL2zIXNeLCxWygL4Nw==",
   "success": true,
   "projectFilePath": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Blasterify.Services.csproj",
   "expectedPackageFiles": [
@@ -43,7 +43,7 @@
     "C:\\Users\\Death Knight\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\Death Knight\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Death Knight\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
-    "C:\\Users\\Death Knight\\.nuget\\packages\\newtonsoft.json\\11.0.1\\newtonsoft.json.11.0.1.nupkg.sha512",
+    "C:\\Users\\Death Knight\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Death Knight\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "C:\\Users\\Death Knight\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "C:\\Users\\Death Knight\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",

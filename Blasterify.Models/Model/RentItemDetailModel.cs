@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Blasterify.Models.Model
+﻿namespace Blasterify.Models.Model
 {
     public class RentItemDetailModel
     {

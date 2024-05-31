@@ -51,7 +51,7 @@ namespace Blasterify.Services
             app.UseSwagger();
             app.UseSwaggerUI();
 
-            //Hangfire
+            //Hangfire https://localhost:7276/hangfire
             app.MapHangfireDashboard();
 
             app.UseHttpsRedirection();

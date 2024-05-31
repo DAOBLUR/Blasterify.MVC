@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc.Formatters;
+using Newtonsoft.Json;
 using System.Text;
 
 namespace Blasterify.Services.Services
@@ -7,6 +8,9 @@ namespace Blasterify.Services.Services
     {
         static string? PublicAPIKey;
         static string? PrivateSecretKey;
+        static string UrkBase = "https://api-sandbox.y.uno/v1/";
+        public static readonly string AccountId = "0d8f44ff-15fc-4a8c-b65e-fa5dcdf84ccc";
+
         public static readonly List<string> ErrorCodes = new () {
             "CUSTOMER_ID_DUPLICATED"
         };
@@ -42,6 +46,34 @@ namespace Blasterify.Services.Services
                 var data = JsonConvert.DeserializeObject<Blasterify.Models.Yuno.ErrorResponse>(jsonString);
                 return data!.Code;
             }
+        }
+
+        public static async Task<string> SendPostMethod<T>(T entity, String method)
+        {
+            String UrlMetodo = UrkBase + method;
+            String jsonText = String.Empty;
+            HttpResponseMessage response;
+            HttpClient client = new ();
+            client.BaseAddress = new Uri(UrlMetodo);
+
+            HttpRequestMessage request = new (HttpMethod.Post, UrlMetodo);
+
+            jsonText = JsonConvert.SerializeObject(entity);
+
+            request.Content = new StringContent(jsonText, Encoding.UTF8, "application/json");
+
+            Random rnd = new Random();
+            int num = rnd.Next();
+
+            request.Headers.Add("accept", "application/json");
+            request.Headers.Add("charset", "utf-8");
+            request.Headers.Add("public-api-key", PublicAPIKey);
+            request.Headers.Add("private-secret-key", PrivateSecretKey);
+            request.Headers.Add("X-idempotency-key", num.ToString());
+
+            response = await client.SendAsync(request);
+
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }

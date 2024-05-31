@@ -3,48 +3,32 @@
   "WorkspaceRootPath": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B3CDE8C5-2C2F-4888-8191-673C1244DAF0}|Blasterify.Services\\Blasterify.Services.csproj|e:\\programing\\csharp\\uni\\blasterify.mvc\\blasterify.services\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B3CDE8C5-2C2F-4888-8191-673C1244DAF0}|Blasterify.Services\\Blasterify.Services.csproj|solutionrelative:blasterify.services\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AD547CF0-62A1-4D35-86E2-4C6A412076D2}|Blasterify.Models\\Blasterify.Models.csproj|e:\\programing\\csharp\\uni\\blasterify.mvc\\blasterify.models\\yuno\\payment\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD547CF0-62A1-4D35-86E2-4C6A412076D2}|Blasterify.Models\\Blasterify.Models.csproj|solutionrelative:blasterify.models\\yuno\\payment\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E4A7F103-96F4-41B4-887D-04FD2CA1F971}|Blasterify.Client\\Blasterify.Client.csproj|e:\\programing\\csharp\\uni\\blasterify.mvc\\blasterify.client\\views\\home\\myaccount.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E4A7F103-96F4-41B4-887D-04FD2CA1F971}|Blasterify.Client\\Blasterify.Client.csproj|solutionrelative:blasterify.client\\views\\home\\myaccount.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{AD547CF0-62A1-4D35-86E2-4C6A412076D2}|Blasterify.Models\\Blasterify.Models.csproj|e:\\programing\\csharp\\uni\\blasterify.mvc\\blasterify.models\\yuno\\paymentrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD547CF0-62A1-4D35-86E2-4C6A412076D2}|Blasterify.Models\\Blasterify.Models.csproj|solutionrelative:blasterify.models\\yuno\\paymentrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B3CDE8C5-2C2F-4888-8191-673C1244DAF0}|Blasterify.Services\\Blasterify.Services.csproj|e:\\programing\\csharp\\uni\\blasterify.mvc\\blasterify.services\\controllers\\clientusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B3CDE8C5-2C2F-4888-8191-673C1244DAF0}|Blasterify.Services\\Blasterify.Services.csproj|solutionrelative:blasterify.services\\controllers\\clientusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B3CDE8C5-2C2F-4888-8191-673C1244DAF0}|Blasterify.Services\\Blasterify.Services.csproj|e:\\programing\\csharp\\uni\\blasterify.mvc\\blasterify.services\\controllers\\testcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B3CDE8C5-2C2F-4888-8191-673C1244DAF0}|Blasterify.Services\\Blasterify.Services.csproj|solutionrelative:blasterify.services\\controllers\\testcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B3CDE8C5-2C2F-4888-8191-673C1244DAF0}|Blasterify.Services\\Blasterify.Services.csproj|e:\\programing\\csharp\\uni\\blasterify.mvc\\blasterify.services\\services\\yunoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B3CDE8C5-2C2F-4888-8191-673C1244DAF0}|Blasterify.Services\\Blasterify.Services.csproj|solutionrelative:blasterify.services\\services\\yunoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B3CDE8C5-2C2F-4888-8191-673C1244DAF0}|Blasterify.Services\\Blasterify.Services.csproj|e:\\programing\\csharp\\uni\\blasterify.mvc\\blasterify.services\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{B3CDE8C5-2C2F-4888-8191-673C1244DAF0}|Blasterify.Services\\Blasterify.Services.csproj|solutionrelative:blasterify.services\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{AD547CF0-62A1-4D35-86E2-4C6A412076D2}|Blasterify.Models\\Blasterify.Models.csproj|e:\\programing\\csharp\\uni\\blasterify.mvc\\blasterify.models\\yuno\\customerpayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD547CF0-62A1-4D35-86E2-4C6A412076D2}|Blasterify.Models\\Blasterify.Models.csproj|solutionrelative:blasterify.models\\yuno\\customerpayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AD547CF0-62A1-4D35-86E2-4C6A412076D2}|Blasterify.Models\\Blasterify.Models.csproj|e:\\programing\\csharp\\uni\\blasterify.mvc\\blasterify.models\\yuno\\errorresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AD547CF0-62A1-4D35-86E2-4C6A412076D2}|Blasterify.Models\\Blasterify.Models.csproj|solutionrelative:blasterify.models\\yuno\\errorresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B3CDE8C5-2C2F-4888-8191-673C1244DAF0}|Blasterify.Services\\Blasterify.Services.csproj|e:\\programing\\csharp\\uni\\blasterify.mvc\\blasterify.services\\controllers\\rentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B3CDE8C5-2C2F-4888-8191-673C1244DAF0}|Blasterify.Services\\Blasterify.Services.csproj|solutionrelative:blasterify.services\\controllers\\rentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AD547CF0-62A1-4D35-86E2-4C6A412076D2}|Blasterify.Models\\Blasterify.Models.csproj|e:\\programing\\csharp\\uni\\blasterify.mvc\\blasterify.models\\model\\clientusermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AD547CF0-62A1-4D35-86E2-4C6A412076D2}|Blasterify.Models\\Blasterify.Models.csproj|solutionrelative:blasterify.models\\model\\clientusermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AD547CF0-62A1-4D35-86E2-4C6A412076D2}|Blasterify.Models\\Blasterify.Models.csproj|e:\\programing\\csharp\\uni\\blasterify.mvc\\blasterify.models\\yuno\\customerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AD547CF0-62A1-4D35-86E2-4C6A412076D2}|Blasterify.Models\\Blasterify.Models.csproj|solutionrelative:blasterify.models\\yuno\\customerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B3CDE8C5-2C2F-4888-8191-673C1244DAF0}|Blasterify.Services\\Blasterify.Services.csproj|e:\\programing\\csharp\\uni\\blasterify.mvc\\blasterify.services\\data\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B3CDE8C5-2C2F-4888-8191-673C1244DAF0}|Blasterify.Services\\Blasterify.Services.csproj|solutionrelative:blasterify.services\\data\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B3CDE8C5-2C2F-4888-8191-673C1244DAF0}|Blasterify.Services\\Blasterify.Services.csproj|e:\\programing\\csharp\\uni\\blasterify.mvc\\blasterify.services\\models\\clientuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B3CDE8C5-2C2F-4888-8191-673C1244DAF0}|Blasterify.Services\\Blasterify.Services.csproj|solutionrelative:blasterify.services\\models\\clientuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E4A7F103-96F4-41B4-887D-04FD2CA1F971}|Blasterify.Client\\Blasterify.Client.csproj|e:\\programing\\csharp\\uni\\blasterify.mvc\\blasterify.client\\controllers\\accesscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E4A7F103-96F4-41B4-887D-04FD2CA1F971}|Blasterify.Client\\Blasterify.Client.csproj|solutionrelative:blasterify.client\\controllers\\accesscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AD547CF0-62A1-4D35-86E2-4C6A412076D2}|Blasterify.Models\\Blasterify.Models.csproj|e:\\programing\\csharp\\uni\\blasterify.mvc\\blasterify.models\\yuno\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD547CF0-62A1-4D35-86E2-4C6A412076D2}|Blasterify.Models\\Blasterify.Models.csproj|solutionrelative:blasterify.models\\yuno\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -54,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -62,67 +46,54 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MyAccount.cshtml",
-              "DocumentMoniker": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Client\\Views\\Home\\MyAccount.cshtml",
-              "RelativeDocumentMoniker": "Blasterify.Client\\Views\\Home\\MyAccount.cshtml",
-              "ToolTip": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Client\\Views\\Home\\MyAccount.cshtml",
-              "RelativeToolTip": "Blasterify.Client\\Views\\Home\\MyAccount.cshtml",
-              "ViewState": "AQIAAC0AAAAAAAAAAAAAAB4AAAAlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-26T13:29:33.871Z",
+              "DocumentIndex": 0,
+              "Title": "Payment.cs",
+              "DocumentMoniker": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Yuno\\Payment\\Payment.cs",
+              "RelativeDocumentMoniker": "Blasterify.Models\\Yuno\\Payment\\Payment.cs",
+              "ToolTip": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Yuno\\Payment\\Payment.cs",
+              "RelativeToolTip": "Blasterify.Models\\Yuno\\Payment\\Payment.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-31T20:15:27.069Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Program.cs",
-              "RelativeDocumentMoniker": "Blasterify.Services\\Program.cs",
-              "ToolTip": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Program.cs",
-              "RelativeToolTip": "Blasterify.Services\\Program.cs",
-              "ViewState": "AQIAADQAAAAAAAAAAAAgwD4AAAABAAAA",
+              "DocumentIndex": 1,
+              "Title": "PaymentRequest.cs",
+              "DocumentMoniker": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Yuno\\PaymentRequest.cs",
+              "RelativeDocumentMoniker": "Blasterify.Models\\Yuno\\PaymentRequest.cs",
+              "ToolTip": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Yuno\\PaymentRequest.cs",
+              "RelativeToolTip": "Blasterify.Models\\Yuno\\PaymentRequest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-26T13:12:26.055Z",
+              "WhenOpened": "2024-05-31T20:14:43.149Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\appsettings.json",
-              "RelativeDocumentMoniker": "Blasterify.Services\\appsettings.json",
-              "ToolTip": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\appsettings.json",
-              "RelativeToolTip": "Blasterify.Services\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-05-26T13:11:07.366Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ErrorResponse.cs",
-              "DocumentMoniker": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Yuno\\ErrorResponse.cs",
-              "RelativeDocumentMoniker": "Blasterify.Models\\Yuno\\ErrorResponse.cs",
-              "ToolTip": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Yuno\\ErrorResponse.cs",
-              "RelativeToolTip": "Blasterify.Models\\Yuno\\ErrorResponse.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Title": "CustomerPayer.cs",
+              "DocumentMoniker": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Yuno\\CustomerPayer.cs",
+              "RelativeDocumentMoniker": "Blasterify.Models\\Yuno\\CustomerPayer.cs",
+              "ToolTip": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Yuno\\CustomerPayer.cs",
+              "RelativeToolTip": "Blasterify.Models\\Yuno\\CustomerPayer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-26T13:09:49.719Z",
+              "WhenOpened": "2024-05-31T19:10:11.086Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "ClientUserModel.cs",
-              "DocumentMoniker": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Model\\ClientUserModel.cs",
-              "RelativeDocumentMoniker": "Blasterify.Models\\Model\\ClientUserModel.cs",
-              "ToolTip": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Model\\ClientUserModel.cs",
-              "RelativeToolTip": "Blasterify.Models\\Model\\ClientUserModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAABAAAA",
+              "Title": "Card.cs",
+              "DocumentMoniker": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Yuno\\Card.cs",
+              "RelativeDocumentMoniker": "Blasterify.Models\\Yuno\\Card.cs",
+              "ToolTip": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Yuno\\Card.cs",
+              "RelativeToolTip": "Blasterify.Models\\Yuno\\Card.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-26T13:07:20.813Z",
+              "WhenOpened": "2024-05-31T17:15:30.948Z",
               "EditorCaption": ""
             },
             {
@@ -133,74 +104,35 @@
               "RelativeDocumentMoniker": "Blasterify.Services\\Services\\YunoServices.cs",
               "ToolTip": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Services\\YunoServices.cs",
               "RelativeToolTip": "Blasterify.Services\\Services\\YunoServices.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAASAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-26T12:17:57.305Z",
+              "WhenOpened": "2024-05-31T11:52:43.573Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "ClientUserController.cs",
-              "DocumentMoniker": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Controllers\\ClientUserController.cs",
-              "RelativeDocumentMoniker": "Blasterify.Services\\Controllers\\ClientUserController.cs",
-              "ToolTip": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Controllers\\ClientUserController.cs",
-              "RelativeToolTip": "Blasterify.Services\\Controllers\\ClientUserController.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAgwCYAAAA0AAAA",
+              "Title": "TestController.cs",
+              "DocumentMoniker": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Controllers\\TestController.cs",
+              "RelativeDocumentMoniker": "Blasterify.Services\\Controllers\\TestController.cs",
+              "ToolTip": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Controllers\\TestController.cs",
+              "RelativeToolTip": "Blasterify.Services\\Controllers\\TestController.cs",
+              "ViewState": "AQIAAGAAAAAAAAAAAAAowEMAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-26T11:05:18.577Z",
+              "WhenOpened": "2024-05-31T11:12:08.084Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "CustomerRequest.cs",
-              "DocumentMoniker": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Yuno\\CustomerRequest.cs",
-              "RelativeDocumentMoniker": "Blasterify.Models\\Yuno\\CustomerRequest.cs",
-              "ToolTip": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Models\\Yuno\\CustomerRequest.cs",
-              "RelativeToolTip": "Blasterify.Models\\Yuno\\CustomerRequest.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAABAAAA",
+              "DocumentIndex": 5,
+              "Title": "RentController.cs",
+              "DocumentMoniker": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Controllers\\RentController.cs",
+              "RelativeDocumentMoniker": "Blasterify.Services\\Controllers\\RentController.cs",
+              "ToolTip": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Controllers\\RentController.cs",
+              "RelativeToolTip": "Blasterify.Services\\Controllers\\RentController.cs",
+              "ViewState": "AQIAAFQAAAAAAAAAAAAowGIAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-26T13:05:09.842Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "DataContext.cs",
-              "DocumentMoniker": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Data\\DataContext.cs",
-              "RelativeDocumentMoniker": "Blasterify.Services\\Data\\DataContext.cs",
-              "ToolTip": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Data\\DataContext.cs",
-              "RelativeToolTip": "Blasterify.Services\\Data\\DataContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-26T12:55:02.814Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "ClientUser.cs",
-              "DocumentMoniker": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Models\\ClientUser.cs",
-              "RelativeDocumentMoniker": "Blasterify.Services\\Models\\ClientUser.cs",
-              "ToolTip": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Services\\Models\\ClientUser.cs",
-              "RelativeToolTip": "Blasterify.Services\\Models\\ClientUser.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-26T12:54:45.112Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "AccessController.cs",
-              "DocumentMoniker": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Client\\Controllers\\AccessController.cs",
-              "RelativeDocumentMoniker": "Blasterify.Client\\Controllers\\AccessController.cs",
-              "ToolTip": "E:\\Programing\\csharp\\uni\\Blasterify.MVC\\Blasterify.Client\\Controllers\\AccessController.cs",
-              "RelativeToolTip": "Blasterify.Client\\Controllers\\AccessController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACwAAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-26T10:56:26.047Z",
+              "WhenOpened": "2024-05-31T11:12:15.641Z",
               "EditorCaption": ""
             }
           ]

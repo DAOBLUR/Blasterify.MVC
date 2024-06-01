@@ -25,6 +25,11 @@ namespace Blasterify.Services.Models
         public string? CardNumber { get; set; }
 
         [Required]
+        [MinLength(36)]
+        [MaxLength(64)]
+        public string? CheckoutSession { get; set; }
+
+        [Required]
         public bool IsEnabled { get; set; }
 
         [Required]

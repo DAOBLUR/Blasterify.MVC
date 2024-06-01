@@ -22,10 +22,10 @@ namespace Blasterify.Services.Controllers
         [Route("Create")]
         public async Task<IActionResult> Create()
         {
-            string userClientcountry = "";
-            int totalPrice = 0;
-            string getCustomerId = "";
-            string getMerchantOrderId = "";
+            string userClientcountry = "US";
+            int totalPrice = 322;
+            string getCustomerId = "30fee24f-9e08-4d18-ac2c-80f94eb0565e";
+            string getMerchantOrderId = "1020";
 
             var checkoutSessionRequest = new Blasterify.Models.Yuno.CheckoutSessionRequest
             {
@@ -44,31 +44,19 @@ namespace Blasterify.Services.Controllers
             var response = await YunoServices.SendPostMethod(checkoutSessionRequest, new String("checkout/sessions"));
 
             var checkoutSession = JsonConvert.DeserializeObject<Blasterify.Models.Yuno.CheckoutSession>(response);
-            
-           
-            /*
-            {
-              "merchant_Order_Id": "Example Order ID",
-              "checkout_Session": "c99b67de-2981-490f-8e56-ed2055f181f1",
-              "country": "BR",
-              "payment_Description": "Test",
-              "customer_Id": "30fee24f-9e08-4d18-ac2c-80f94eb0565e",
-              "callback_Url": null,
-              "amount": {
-                "currency": "BRL",
-                "value": 100
-              },
-              "created_At": "2024-05-31T12:46:31.917017Z",
-              "metadata": null,
-              "workflow": "SDK_CHECKOUT",
-              "installments": {
-                "plan_Id": null,
-                "plan": null
-              }
-            }
-            ´*/
-            
-            //--------------------------------------------------------------------------------
+
+            return Ok(checkoutSession);
+        }
+
+        [HttpPost]
+        [Route("Create2")]
+        public async Task<IActionResult> Create2(string checkoutSession, string token)
+        {
+            string userClientcountry = "US";
+            int totalPrice = 322;
+            string getCustomerId = "";
+            string getMerchantOrderId = "";
+
 
             var paymentRequest = new Blasterify.Models.Yuno.PaymentRequest
             {
@@ -90,7 +78,7 @@ namespace Blasterify.Services.Controllers
                 },
                 Checkout = new Blasterify.Models.Yuno.Checkout.Checkout
                 {
-                    Session = checkoutSession.Checkout_Session,
+                    Session = checkoutSession,
                 },
                 Workflow = "SDK_CHECKOUT",
                 Payment_Method = new Blasterify.Models.Yuno.PaymentMethod
@@ -110,15 +98,16 @@ namespace Blasterify.Services.Controllers
                             Verify = false
                         }
                     },
+                    Token = token,
                     Type = "CARD"
                 },
 
-                Account_Id = "0d8f44ff-15fc-4a8c-b65e-fa5dcdf84ccc",
+                Account_Id = YunoServices.AccountId,
                 Description = "SUCCESSFUL",
                 Merchant_Order_Id = "1020"
             };
 
-            response = await Services.YunoServices.SendPostMethod(paymentRequest, new String("payments"));
+            var response = await YunoServices.SendPostMethod(paymentRequest, new String("payments"));
 
             var payment = JsonConvert.DeserializeObject<Blasterify.Models.Yuno.Payment.Payment>(response);
 

@@ -1,89 +1,127 @@
-﻿@{
+﻿@model Blasterify.Models.Yuno.YunoCredentials
+@{
     ViewBag.Title = "RentConfirmation";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @Html.AntiForgeryToken()
 
-<meta http-equiv="Content-Security-Policy"
-      content="base-uri 'self';
-               default-src 'self';
-               img-src data: https:;
-               object-src 'none';
-               script-src 'self'
-                          'wasm-unsafe-eval';
-               style-src 'self';
-               upgrade-insecure-requests;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDK Integration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Roboto&display=swap"
+          rel="stylesheet" />
+</head>
+<script src="https://sdk-web.y.uno/v1/static/js/main.min.js"></script>
+<body>
+    <div id="root"></div>
+    <div id="rootElement"></div>
+    <div id="paypal"></div>
+    <div id="paga-con-rappi"></div>
+    <div id="form-element"></div>
 
-<div class="container my-5">
-    <div id="layoutAuthentication_content">
-        <main>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-5">
-                        <div class="card shadow-lg border-0 rounded-lg mt-5">
-                            <div class="card-header">
-                                <h3 class="text-center font-weight-light my-4">Rent Confirmation</h3>
-                            </div>
+    <button id="button-pay"
+            style="width: 100%; background-color: #34547C; border: none; color: white; border-radius: 10px; padding: 15px; margin-top: 25px; font-weight: 600">
+        Pagar ahora
+    </button>
+    <script>
+        const yuno = Yuno.initialize('@Model.PublicAPIKey');
+        var checkoutSession = '@Model.CheckoutSession';
 
-                            <div class="card-body">
-                                <form method="post">
-                                    @Html.AntiForgeryToken()
-                                    <div class="form-floating mb-3">
-                                        <p>Card Number</p>
-                                        <p class="ms-3">**** **** **** 3456</p>
-                                    </div>
+        console.log('startCheckout');
+        yuno.startCheckout({
+            checkoutSession,
+            elementSelector: '#root',
+            countryCode: 'US',
+            language: 'es',
+            showLoading: true,
+            keepLoader: true,
+            issuersFormEnable: true,
+            onLoading: (args) => {
+                console.log('onLoading');
+                console.log(args);
+            },
+            renderMode: {
+                type: 'modal',
+                elementSelector: '#rootElement',
+            },
+            card: {
+                type: "extends",
+                styles: '',
+                cardSaveEnable: true,
+                texts: {}
+            },
+            texts: {},
+            externalPaymentButtons: {
+                paypal: {
+                    elementSelector: '#paypal',
+                },
+                pagaConRappi: {
+                    elementSelector: '#paga-con-rappi',
+                },
+            },
+            async yunoCreatePayment(oneTimeToken) {
+                console.log('yunoCreatePayment: ', oneTimeToken);
+                jQuery.ajax({
+                    url: '@Url.Action("PayNowRequest", "Shop")',
+                    type: 'POST',
+                    data: JSON.stringify({ token: oneTimeToken }),
+                    datatype: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        console.log(response);
+                        if (response.Success) {
+                            window.location.href = response.Data.Url;
+                        }
+                        else {
+                            swal('', 'Error', 'warning');
+                        }
+                    },
+                });
+            },
+            yunoPaymentMethodSelected(data) {
+                console.log('onPaymentMethodSelected', data);
+                //window?.parent?.modDb('onPaymentMethodSelected', data);
+            },
+            yunoPaymentResult(data) {
+                console.log('yunoPaymentResult', data);
+                //window?.parent?.modDb('yunoPaymentResult', data);
+                yuno.hideLoader();
+            },
+            yunoError: (error) => {
+                console.log('There was an error', error);
+                yuno.hideLoader();
+            },
+        });
 
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <div class="form-floating mb-3 mb-md-0">
-                                                <input name="expirationDate" class="form-control" id="inputExpirationDate" type="date" placeholder="12/2024" />
-                                                <label for="inputExpirationDate">Expiration date</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-floating mb-3 mb-md-0">
-                                                <input type="password" placeholder="***" class="form-control" id="inputCVV" onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="3" />
-                                                <label for="inputCCV">CVV</label>
-                                            </div>
-                                        </div>
-                                    </div>
+        console.log('mountCheckout');
+        yuno.mountCheckout();
 
-                                    <div class="form-floating mb-3">
-                                        <input name="cardholderName" class="form-control" id="inputCardholderName" type="text" placeholder="John Doe" />
-                                        <label for="inputCardholderName">Cardholder name</label>
-                                    </div>
-                                </form>
-                            </div>
+        const PayButton = document.querySelector('#button-pay');
 
-                            <div class="mt-2 mb-0 mx-3">
-                                <div class="d-grid">
-                                    <button class="btn btn-warning btn-block fw-bold" id="payNow" type="submit">Pay Now</button>
-                                </div>
-                            </div>
-
-                            <div class="mt-4 mb-5 mx-3">
-                                <div class="d-grid">
-                                    <button class="btn btn-danger btn-block fw-bold" id="cancel" type="submit">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-</div>
+        PayButton.addEventListener('click', () => {
+            console.log('start Payment');
+            yuno.startPayment();
+        })
+    </script>
+</body>
+</html>
 
 @section scripts{
     <script>
+        console.log('Scripts');
+
         $(document).ready(function () {
             ShowCartCount(0);
         });
 
         //PAY NOW
-        $(document).on('click', '#payNow', function ()
+        $(document).on('click', '#button-pay2222', function ()
         {
+            /*
             var pay = {
                 expirationDate: $('#inputExpirationDate').val(),
                 cvv: $('#inputCVV').val(),
@@ -106,11 +144,11 @@
                 swal('', 'You must enter your cardholder name', 'warning');
                 return;
             }
-
+            */
             jQuery.ajax({
                 url: '@Url.Action("PayNowRequest", "Shop")',
                 type: 'POST',
-                data: JSON.stringify({ expirationDate: pay.expirationDate, cvv: pay.cvv, cardholderName: pay.cardholderName }),
+                data: JSON.stringify({ token: '123sfgs' }),
                 datatype: 'json',
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {

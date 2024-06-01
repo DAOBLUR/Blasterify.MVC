@@ -98,6 +98,11 @@ namespace Blasterify.Services.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
+                    b.Property<string>("MerchantOrderId")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
@@ -209,23 +214,6 @@ namespace Blasterify.Services.Migrations
                     b.ToTable("Movies");
                 });
 
-            modelBuilder.Entity("Blasterify.Services.Models.PreRent", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ClientUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PreRents");
-                });
-
             modelBuilder.Entity("Blasterify.Services.Models.PreRentItem", b =>
                 {
                     b.Property<int>("Id")
@@ -266,6 +254,11 @@ namespace Blasterify.Services.Migrations
                         .IsRequired()
                         .HasMaxLength(16)
                         .HasColumnType("nvarchar(16)");
+
+                    b.Property<string>("CheckoutSession")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<int>("ClientUserId")
                         .HasColumnType("int");

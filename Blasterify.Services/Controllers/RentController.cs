@@ -1,8 +1,12 @@
 ﻿using Blasterify.Services.Data;
 using Blasterify.Services.Models;
+using Blasterify.Services.Services;
+using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Data;
 
@@ -22,12 +26,47 @@ namespace Blasterify.Services.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> Create(Blasterify.Models.Request.PreRentRequest preRent)
+        public async Task<ActionResult<Blasterify.Models.Yuno.YunoCredentials>> Create(Blasterify.Models.Request.PreRentRequest preRent)
         {
             var id = Guid.NewGuid();
 
+            var yunoCredentials = new Blasterify.Models.Yuno.YunoCredentials();
+
             if (preRent.Id == Guid.Empty || preRent.Date == DateTime.MinValue)
             {
+                // Yuno
+                var getMerchantCustomerId = (await _context!.ClientUsers!.FindAsync(preRent.ClientUserId))!.MerchantOrderId;
+
+                var getCustomerRequest = await YunoServices.GetCustomer(getMerchantCustomerId!);
+                var getCustomer = JsonConvert.DeserializeObject<Blasterify.Models.Yuno.CustomerPayer>(getCustomerRequest);
+
+                double totalPrice = 0;
+
+                foreach (var item in preRent.PreRentItems!)
+                {
+                    totalPrice += item.Price;
+                }
+
+                var checkoutSessionRequest = new Blasterify.Models.Yuno.CheckoutSessionRequest
+                {
+                    Country = "US",
+                    Amount = new Blasterify.Models.Yuno.Amount
+                    {
+                        Currency = "USD",
+                        Value = Convert.ToInt32(totalPrice)
+                    },
+                    Customer_Id = getCustomer!.Id,
+                    Merchant_Order_Id = getCustomer!.Merchant_Customer_Id,
+                    Payment_Description = "Rent movies.",
+                    Account_Id = YunoServices.AccountId
+                };
+
+                var response = await YunoServices.SendPostMethod(checkoutSessionRequest, new String("checkout/sessions"));
+
+                var checkoutSession = JsonConvert.DeserializeObject<Blasterify.Models.Yuno.CheckoutSession>(response);
+                
+                //--------------------------------------------
+                
                 var rent = new Rent()
                 {
                     Id = id,
@@ -38,6 +77,7 @@ namespace Blasterify.Services.Controllers
                     IsEnabled = true, //For Cart
                     ClientUserId = preRent.ClientUserId,
                     StatusId = 2, //Pending
+                    CheckoutSession = checkoutSession!.Checkout_Session
                 };
                 await _context.Rents!.AddAsync(rent);
 
@@ -52,20 +92,58 @@ namespace Blasterify.Services.Controllers
                         MovieId = item.MovieId
                     });
                 }
+
+                yunoCredentials.RentId = id;
+                yunoCredentials.PublicAPIKey = YunoServices.GetPublicAPIKey();
+                yunoCredentials.CheckoutSession = checkoutSession!.Checkout_Session;
             }
             else
             {
+                // Yuno
+                var getMerchantCustomerId = (await _context!.ClientUsers!.FindAsync(preRent.ClientUserId))!.MerchantOrderId;
+
+                var getCustomerRequest = await YunoServices.GetCustomer(getMerchantCustomerId!);
+                var getCustomer = JsonConvert.DeserializeObject<Blasterify.Models.Yuno.CustomerPayer>(getCustomerRequest);
+
+                double totalPrice = 0;
+
+                foreach (var item in preRent.PreRentItems!)
+                {
+                    totalPrice += item.Price;
+                }
+
+                var checkoutSessionRequest = new Blasterify.Models.Yuno.CheckoutSessionRequest
+                {
+                    Country = "US",
+                    Amount = new Blasterify.Models.Yuno.Amount
+                    {
+                        Currency = "USD",
+                        Value = Convert.ToInt32(totalPrice)
+                    },
+                    Customer_Id = getCustomer!.Id,
+                    Merchant_Order_Id = getCustomer!.Merchant_Customer_Id,
+                    Payment_Description = "Rent movies.",
+                    Account_Id = YunoServices.AccountId
+                };
+
+                var response = await YunoServices.SendPostMethod(checkoutSessionRequest, new String("checkout/sessions"));
+
+                var checkoutSession = JsonConvert.DeserializeObject<Blasterify.Models.Yuno.CheckoutSession>(response);
+
+                //--------------------------------------------
+
                 id = preRent.Id;
                 var rent = await _context!.Rents!.FindAsync(id);
-                rent = new Rent()
-                {
-                    Date = DateTime.UtcNow,
-                    Name = preRent.Name,
-                    Address = preRent.Address,
-                    CardNumber = preRent.CardNumber,
-                    IsEnabled = true, //For Cart
-                    StatusId = 2, //Pending
-                };
+
+                rent!.Date = DateTime.UtcNow;
+                rent!.Name = preRent.Name;
+                rent!.Address = preRent.Address;
+                rent!.CardNumber = preRent.CardNumber;
+                rent!.IsEnabled = true; //For Cart
+                rent!.StatusId = 2; //Pending
+                rent!.CheckoutSession = checkoutSession!.Checkout_Session;
+
+                //await _context.SaveChangesAsync();
 
                 var rentItems = await _context!.RentItems!.Where(pr => pr.RentId == preRent.Id).ToListAsync();
 
@@ -99,11 +177,15 @@ namespace Blasterify.Services.Controllers
                 {
                     _context.RentItems!.Remove(item);
                 }
+
+                yunoCredentials.RentId = id;
+                yunoCredentials.PublicAPIKey = YunoServices.GetPublicAPIKey();
+                yunoCredentials.CheckoutSession = checkoutSession!.Checkout_Session;
             }
 
             await _context.SaveChangesAsync();
 
-            return Ok(id);
+            return Ok(yunoCredentials);
         }
 
         [HttpPost]
@@ -266,14 +348,86 @@ namespace Blasterify.Services.Controllers
 
         [HttpPut]
         [Route("CompleteRent")]
-        public async Task<IActionResult> CompleteRent([FromBody] Guid rentId)
+        public async Task<IActionResult> CompleteRent(Blasterify.Models.Model.CompleteRentRequest completeRentRequest)
         {
-            var getRent = await _context!.Rents!.FindAsync(rentId);
+            var getRent = await _context!.Rents!.FindAsync(completeRentRequest.RentId);
 
             if (getRent == null)
             {
                 return NotFound();
             }
+
+            var getRentItems = await _context!.RentItems!.Where(ri => ri.RentId == completeRentRequest.RentId).ToListAsync();
+            double totalPrice = 0;
+            string message = "";
+
+            foreach (var item in getRentItems!)
+            {
+                totalPrice += item.Price * item.RentDuration;
+                var getMovie = await _context.Movies!.FindAsync(item.MovieId);
+                message += $"\n- {getMovie!.Title} - {item.Price}";
+            }
+
+            // YUNO
+            var getCustomerRequest = await YunoServices.GetCustomer($"{getRent.ClientUserId!}");
+            var getCustomer = JsonConvert.DeserializeObject<Blasterify.Models.Yuno.CustomerPayer>(getCustomerRequest);
+
+            var paymentRequest = new Blasterify.Models.Yuno.PaymentRequest
+            {
+                Country = "US",
+                Amount = new Blasterify.Models.Yuno.Amount
+                {
+                    Currency = "USD",
+                    Value = Convert.ToInt32(totalPrice)
+                },
+                Customer_Payer = new Blasterify.Models.Yuno.CustomerPayer
+                {
+                    Customer_Id = getCustomer!.Id,//"cfae0941-7234-427a-a739-ef4fce966c79",
+                    Id = getCustomer.Id,
+                    First_Name = getCustomer.First_Name,
+                    Last_Name = getCustomer.Last_Name,
+                    Nationality = "US",
+                    Email = getCustomer.Email,
+                    Merchant_Customer_Id = getCustomer.Merchant_Customer_Id,
+                },
+                Checkout = new Blasterify.Models.Yuno.Checkout.Checkout
+                {
+                    Session = getRent.CheckoutSession,
+                },
+                Workflow = "SDK_CHECKOUT",
+                Payment_Method = new Blasterify.Models.Yuno.PaymentMethod
+                {
+                    Detail = new Blasterify.Models.Yuno.Detail
+                    {
+                        Card = new Blasterify.Models.Yuno.Card
+                        {
+                            Card_Data = new Blasterify.Models.Yuno.CardData
+                            {
+                                Number = getRent.CardNumber,
+                                Expiration_Month = 12,
+                                Expiration_Year = 2024,
+                                Security_Code = "123",
+                                Holder_Name = getRent.Name
+                            },
+                            Verify = false
+                        }
+                    },
+                    Token = completeRentRequest.Token,
+                    Type = "CARD"
+                },
+
+                Account_Id = YunoServices.AccountId,
+                Description = "SUCCESSFUL",
+                Merchant_Order_Id = getCustomer.Merchant_Customer_Id,
+            };
+
+            var response = await YunoServices.SendPostMethod(paymentRequest, new String("payments"));
+
+            var payment = JsonConvert.DeserializeObject<Blasterify.Models.Yuno.Payment.Payment>(response);
+
+            //--------------------------------------------
+
+            BackgroundJob.Schedule(() => Email.FinishRent(getCustomer.Email, $"{getCustomer.First_Name} {getCustomer.Last_Name}", message), new DateTimeOffset(DateTime.UtcNow));
 
             getRent!.StatusId = 1;
             getRent!.IsEnabled = false;

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Blasterify.Services")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fedebc002546dc0448d43c9cd9b0d2c7b373a68b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ec4735ca7991e483dce3e2f97aa4a0e7a15cc21b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Blasterify.Services")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Blasterify.Services")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

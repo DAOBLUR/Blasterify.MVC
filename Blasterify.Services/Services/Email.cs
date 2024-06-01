@@ -31,5 +31,32 @@ namespace Blasterify.Services.Services
             };
             smtp.Send(message);
         }
+
+        public static void FinishRent(string toEmail, string displayName, string listMovies)
+        {
+            var fromAddress = new MailAddress("daoblur.business@gmail.com", "Blasterify.MVC");
+            var toAddress = new MailAddress(toEmail, displayName);
+
+            const string fromPassword = "tsckluvcqvnncwnl";
+            const string subject = "Rent";
+            string body = $"Rent Completed! \n {listMovies} \nThank you for using our services.";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+
+            using var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body
+            };
+            smtp.Send(message);
+        }
     }
 }

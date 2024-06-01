@@ -29,6 +29,11 @@ namespace Blasterify.Services.Models
         public string? CardNumber { get; set; }
 
         [Required]
+        [MinLength(3)]
+        [MaxLength(255)]
+        public string? MerchantOrderId { get; set; }
+
+        [Required]
         public bool IsConnected { get; set; }
 
         [Required]

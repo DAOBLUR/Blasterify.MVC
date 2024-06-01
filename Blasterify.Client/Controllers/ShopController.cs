@@ -30,10 +30,14 @@ namespace Blasterify.Client.Controllers
             }
         }
 
-        public async Task<bool> CompleteRentAsync()
+        public async Task<bool> CompleteRentAsync(string token)
         {
             var cart = GetCart();
-            var json = JsonConvert.SerializeObject(cart.Id);
+            var json = JsonConvert.SerializeObject(new Blasterify.Models.Model.CompleteRentRequest
+            {
+                RentId = cart.Id,
+                Token = token
+            });
 
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -87,7 +91,7 @@ namespace Blasterify.Client.Controllers
             }
             else
             {
-                return View();
+                return View(Session["YunoCredentials"]);
             }
         }
 
@@ -143,38 +147,9 @@ namespace Blasterify.Client.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> PayNowRequest(DateTime expirationDate, int cvv, string cardholderName)
+        public async Task<JsonResult> PayNowRequest(string token)
         {
-            if (expirationDate.Year < DateTime.UtcNow.Year)
-            {
-                return Json(
-                    new Result(
-                        false,
-                        new
-                        {
-                            Url = "/Home/Index"
-                        },
-                        "Invalid Card Expiration Date"
-                    ),
-                    JsonRequestBehavior.AllowGet
-                );
-            }
-
-            if (cvv < 100 || cvv > 999)
-            {
-                return Json(
-                    new Result(
-                        false,
-                        new
-                        {
-                            Url = "/Home/Index"
-                        },
-                        "Invalid CVV"
-                    ),
-                    JsonRequestBehavior.AllowGet
-                );
-            }
-            if (string.IsNullOrEmpty(cardholderName))
+            if (string.IsNullOrEmpty(token))
             {
                 return Json(
                    new Result(
@@ -189,7 +164,7 @@ namespace Blasterify.Client.Controllers
                );
             }
 
-            if (GetCart() != null && await CompleteRentAsync())
+            if (GetCart() != null && await CompleteRentAsync(token))
             {
                 return Json(
                     new Result(

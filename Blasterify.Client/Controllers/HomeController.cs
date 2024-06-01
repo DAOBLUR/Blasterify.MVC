@@ -66,10 +66,11 @@ namespace Blasterify.Client.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<Guid>(jsonString);
+                var data = JsonConvert.DeserializeObject<Blasterify.Models.Yuno.YunoCredentials>(jsonString);
 
                 var cart = GetCart();
-                cart.Id = data;
+                cart.Id = data.RentId;
+                Session["YunoCredentials"] = data;
                 SetCart(cart);
 
                 return true;
